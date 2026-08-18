@@ -47,7 +47,7 @@ mismo tiempo, pero un cliente típico solo habla con el servidor cuando necesita
 está esperando peticiones de nadie.
 
 *(Existe otra arquitectura, punto a punto/P2P, sin roles fijos — la vas a ver a detalle en
-la Introducción del curso. Cliente-servidor es, por mucho, la más común.)*
+la sesión de Redes que sigue. Cliente-servidor es, por mucho, la más común.)*
 
 ## Cómo funciona una petición, a alto nivel
 
@@ -87,7 +87,7 @@ encuentra y los manda de regreso, y tu navegador los convierte en lo que ves en 
 Este ejemplo, aquí, es intencionalmente el resumen de alto nivel. Todo lo que falta —
 cómo tu computadora encuentra la dirección exacta de ese servidor en la red, cómo viaja
 la información realmente, qué protocolo específico se usa — es exactamente el contenido
-de la [Introducción](../introduccion/01-redes.md) del curso, empezando por su Sesión 1.
+de la sesión de [Redes](05-redes.md) que sigue.
 
 ---
 
@@ -110,10 +110,11 @@ de la [Introducción](../introduccion/01-redes.md) del curso, empezando por su S
 
 ---
 
-Con esto completas el módulo de Fundamentos de Cómputo: hardware, software/sistema
-operativo, y ahora cómo dos computadoras se comunican bajo el patrón cliente-servidor.
+Con esto tienes resuelto hardware, software/sistema operativo, y cómo dos computadoras se
+comunican bajo el patrón cliente-servidor. Sigue la introducción de redes propiamente
+dicha, empezando por qué es una red y a fondo la diferencia switch vs. router.
 
-**Siguiente paso:** [Introducción — Sesión 1: Redes](../introduccion/01-redes.md).
+**Siguiente paso:** [Redes](05-redes.md).
 
 ## Referencias
 
