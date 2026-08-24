@@ -1,6 +1,6 @@
 # Administración de configuración
 
-> 50 min · [← Fundamentos de terminal](../fundamentos-computo/08-terminal.md) · Siguiente: [Administración de rendimiento](02-administracion-rendimiento.md)
+> 50 min · [← Fundamentos de terminal](../00-fundamentos-computo/08-terminal.md) · Siguiente: [Administración de rendimiento](02-administracion-rendimiento.md)
 
 ## El mapa de toda la Etapa 1: el modelo FCAPS
 
