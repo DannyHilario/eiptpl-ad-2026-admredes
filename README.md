@@ -38,8 +38,28 @@ Performance, Security):
 4. [Administración de contabilidad](contenido/etapa-1-funciones-administracion/04-administracion-contabilidad.md)
 5. [Administración de seguridad](contenido/etapa-1-funciones-administracion/05-administracion-seguridad.md)
 
-Más módulos (Etapas 2-4 del manual oficial) se van a ir agregando conforme avance el
-semestre.
+### 📙 [Etapa 2 — Servicios de Red y Servidores](contenido/etapa-2-servicios-red/)
+
+Los servicios que hacen funcionar una red, cada uno con su protocolo y puerto reales:
+
+1. [Servidores e infraestructura de TI](contenido/etapa-2-servicios-red/01-servidores.md)
+2. [DHCP](contenido/etapa-2-servicios-red/02-dhcp.md)
+3. [DNS](contenido/etapa-2-servicios-red/03-dns.md)
+4. [WWW y HTTP](contenido/etapa-2-servicios-red/04-www.md)
+5. [HTTPS](contenido/etapa-2-servicios-red/05-https.md)
+6. [FTP](contenido/etapa-2-servicios-red/06-ftp.md)
+7. [Correo electrónico: SMTP, POP3 e IMAP](contenido/etapa-2-servicios-red/07-correo.md)
+
+### 📕 [Etapa 3 — Instalación del Sistema Operativo de Red](contenido/etapa-3-sistema-operativo-red/)
+
+Guía paso a paso, con capturas de pantalla, para instalar el servidor que usaremos el
+resto del semestre:
+
+- [Instalación de Ubuntu Server 26.04 LTS](contenido/etapa-3-sistema-operativo-red/01-instalacion-ubuntu-server/README.md)
+  — 14 pasos, desde elegir el ISO correcto hasta el primer inicio de sesión
+
+La Etapa 4 del manual oficial (direccionamiento IP y subneteo) se agregará conforme
+avance el semestre.
 
 ## Cómo usar este material
 
