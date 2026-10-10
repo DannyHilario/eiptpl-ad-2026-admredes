@@ -43,7 +43,7 @@ propia — pero sigue estando físicamente dentro de la casa original.
 
 - **Rompes cosas sin miedo**: si algo sale mal dentro de la VM, la borras y creas otra; tu
   computadora real nunca se ve afectada.
-- **Practicas instalar un SO de servidor** (Windows Server) sin necesitar hardware extra.
+- **Practicas instalar un SO de servidor** (Ubuntu Server) sin necesitar hardware extra.
 - **Simulas varias "computadoras" a la vez** (varias VMs) aunque solo tengas una laptop —
   incluso puedes simular un fraccionamiento completo (switch + router + varias VMs) de la
   Sesión 5, todo dentro de tu laptop.
@@ -123,7 +123,7 @@ saberlo con tiempo:
 5. Espera a que termine y reinicia cuando lo pida.
 
 Al terminar tienes una computadora Linux completa corriendo dentro de la tuya. Es lo mismo
-que repetirás en Etapa 3 instalando Windows Server, para un propósito distinto (servidor de
+que repetirás en Etapa 3 instalando Ubuntu Server, para un propósito distinto (servidor de
 red).
 
 ---
