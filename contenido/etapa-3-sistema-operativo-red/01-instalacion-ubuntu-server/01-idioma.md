@@ -1,6 +1,6 @@
 # Paso 1: Idioma
 
-> Paso 1 de 14 · [← Antes de empezar](README.md) · Siguiente: [Teclado](02-teclado.md)
+> Paso 1 de 13 · [← Antes de empezar](README.md) · Siguiente: [Teclado](02-teclado.md)
 
 ![Pantalla de selección de idioma](../../../assets/instalacion-ubuntu-server/01-idioma.png)
 

@@ -1,6 +1,6 @@
 # Paso 4: Red
 
-> Paso 4 de 14 · [← Tipo de instalación](03-tipo-de-instalacion.md) · Siguiente: [Proxy](05-proxy.md)
+> Paso 4 de 13 · [← Tipo de instalación](03-tipo-de-instalacion.md) · Siguiente: [Proxy](05-proxy.md)
 
 ![Pantalla de configuración de red](../../../assets/instalacion-ubuntu-server/04-red.png)
 

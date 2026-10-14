@@ -108,7 +108,10 @@ traducido por completo. Es normal y no afecta el sistema instalado.
 11. [SSH](11-ssh.md)
 12. [Snaps destacados](12-snaps.md)
 13. [Instalación y reinicio](13-instalacion.md)
-14. [Primer inicio de sesión](14-primer-inicio.md)
+
+Cuando el servidor reinicie, continúa con los
+[primeros pasos](../02-primeros-pasos/01-primer-inicio.md), que empiezan con el primer
+inicio de sesión.
 
 ## Referencias
 

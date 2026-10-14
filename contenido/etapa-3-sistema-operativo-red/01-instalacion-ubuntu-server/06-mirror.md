@@ -1,6 +1,6 @@
 # Paso 6: Mirror (réplica de paquetes)
 
-> Paso 6 de 14 · [← Proxy](05-proxy.md) · Siguiente: [Almacenamiento](07-almacenamiento.md)
+> Paso 6 de 13 · [← Proxy](05-proxy.md) · Siguiente: [Almacenamiento](07-almacenamiento.md)
 
 ![Pantalla de configuración de la réplica de Ubuntu](../../../assets/instalacion-ubuntu-server/06-mirror.png)
 

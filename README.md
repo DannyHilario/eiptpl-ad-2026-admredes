@@ -56,7 +56,14 @@ Guía paso a paso, con capturas de pantalla, para instalar el servidor que usare
 resto del semestre:
 
 - [Instalación de Ubuntu Server 26.04 LTS](contenido/etapa-3-sistema-operativo-red/01-instalacion-ubuntu-server/README.md)
-  — 14 pasos, desde elegir el ISO correcto hasta el primer inicio de sesión
+  — 13 pasos, desde elegir el ISO correcto hasta el reinicio
+- Primeros pasos en el servidor:
+  1. [Primer inicio de sesión](contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/01-primer-inicio.md)
+  2. [Usuarios: una computadora, muchas personas](contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/02-usuarios.md)
+  3. [El administrador, sudo y los paquetes](contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/03-administrador-y-paquetes.md)
+  4. [Práctica: usuarios y sudo](contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/04-practica-usuarios.md)
+  5. [Archivos, carpetas y permisos](contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/05-archivos-y-permisos.md)
+  6. [Práctica: archivos y permisos](contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/06-practica-archivos.md)
 
 La Etapa 4 del manual oficial (direccionamiento IP y subneteo) se agregará conforme
 avance el semestre.

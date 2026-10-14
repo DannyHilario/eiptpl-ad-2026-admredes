@@ -1,6 +1,6 @@
 # Paso 8: Resumen de particiones y confirmación
 
-> Paso 8 de 14 · [← Almacenamiento](07-almacenamiento.md) · Siguiente: [Perfil](09-perfil.md)
+> Paso 8 de 13 · [← Almacenamiento](07-almacenamiento.md) · Siguiente: [Perfil](09-perfil.md)
 
 ![Resumen del sistema de archivos antes de instalar](../../../assets/instalacion-ubuntu-server/08-resumen-particiones.png)
 

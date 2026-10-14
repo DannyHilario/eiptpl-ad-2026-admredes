@@ -1,6 +1,6 @@
 # Paso 9: Perfil — usuario y nombre del servidor
 
-> Paso 9 de 14 · [← Resumen de particiones](08-resumen-particiones.md) · Siguiente: [Ubuntu Pro](10-ubuntu-pro.md)
+> Paso 9 de 13 · [← Resumen de particiones](08-resumen-particiones.md) · Siguiente: [Ubuntu Pro](10-ubuntu-pro.md)
 
 ![Pantalla de configuración del perfil, ya llena](../../../assets/instalacion-ubuntu-server/09-perfil.png)
 

@@ -1,6 +1,6 @@
 # Paso 11: SSH
 
-> Paso 11 de 14 · [← Ubuntu Pro](10-ubuntu-pro.md) · Siguiente: [Snaps destacados](12-snaps.md)
+> Paso 11 de 13 · [← Ubuntu Pro](10-ubuntu-pro.md) · Siguiente: [Snaps destacados](12-snaps.md)
 
 ![Pantalla de configuración de SSH](../../../assets/instalacion-ubuntu-server/11-ssh.png)
 

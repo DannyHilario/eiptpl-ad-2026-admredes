@@ -1,6 +1,6 @@
 # Paso 7: Almacenamiento
 
-> Paso 7 de 14 · [← Mirror](06-mirror.md) · Siguiente: [Resumen de particiones](08-resumen-particiones.md)
+> Paso 7 de 13 · [← Mirror](06-mirror.md) · Siguiente: [Resumen de particiones](08-resumen-particiones.md)
 
 ![Pantalla de configuración guiada del almacenamiento](../../../assets/instalacion-ubuntu-server/07-almacenamiento.png)
 
@@ -43,8 +43,7 @@ se lleve el disco físico. El costo es que pide esa contraseña **cada vez que e
 arranca**, lo que en un servidor de clase solo estorba.
 
 Es una decisión de **seguridad** (la S de FCAPS) típica de laptops y de servidores con
-datos sensibles. En el [Paso 14](14-primer-inicio.md) verás por qué importa: sin
-cifrado, quien tenga acceso a la consola puede restablecer la contraseña de un usuario.
+datos sensibles.
 
 ## Referencias
 

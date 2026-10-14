@@ -1,6 +1,6 @@
 # Paso 13: Instalación y reinicio
 
-> Paso 13 de 14 · [← Snaps destacados](12-snaps.md) · Siguiente: [Primer inicio de sesión](14-primer-inicio.md)
+> Paso 13 de 13 · [← Snaps destacados](12-snaps.md) · Siguiente: [Primer inicio de sesión](../02-primeros-pasos/01-primer-inicio.md)
 
 ![Instalación en curso](../../../assets/instalacion-ubuntu-server/13-instalando.png)
 
