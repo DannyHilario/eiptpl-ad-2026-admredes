@@ -1,6 +1,6 @@
 # Paso 3: Tipo de instalación
 
-> Paso 3 de 14 · [← Teclado](02-teclado.md) · Siguiente: [Red](04-red.md)
+> Paso 3 de 13 · [← Teclado](02-teclado.md) · Siguiente: [Red](04-red.md)
 
 ![Pantalla de elección del tipo de instalación](../../../assets/instalacion-ubuntu-server/03-tipo-instalacion.png)
 

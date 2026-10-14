@@ -1,6 +1,6 @@
 # Paso 12: Snaps destacados
 
-> Paso 12 de 14 · [← SSH](11-ssh.md) · Siguiente: [Instalación y reinicio](13-instalacion.md)
+> Paso 12 de 13 · [← SSH](11-ssh.md) · Siguiente: [Instalación y reinicio](13-instalacion.md)
 
 ![Lista de snaps destacados para servidores](../../../assets/instalacion-ubuntu-server/12-snaps.png)
 

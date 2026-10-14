@@ -1,6 +1,6 @@
 # Paso 10: Ubuntu Pro
 
-> Paso 10 de 14 · [← Perfil](09-perfil.md) · Siguiente: [SSH](11-ssh.md)
+> Paso 10 de 13 · [← Perfil](09-perfil.md) · Siguiente: [SSH](11-ssh.md)
 
 ![Pantalla de Ubuntu Pro](../../../assets/instalacion-ubuntu-server/10-ubuntu-pro.png)
 

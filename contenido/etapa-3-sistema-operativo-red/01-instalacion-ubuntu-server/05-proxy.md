@@ -1,6 +1,6 @@
 # Paso 5: Proxy
 
-> Paso 5 de 14 · [← Red](04-red.md) · Siguiente: [Mirror](06-mirror.md)
+> Paso 5 de 13 · [← Red](04-red.md) · Siguiente: [Mirror](06-mirror.md)
 
 El instalador pide la dirección de un **proxy**: un equipo intermediario por el que
 algunas empresas o escuelas obligan a pasar el tráfico web hacia Internet, para

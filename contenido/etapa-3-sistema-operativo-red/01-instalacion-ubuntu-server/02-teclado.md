@@ -1,6 +1,6 @@
 # Paso 2: Teclado
 
-> Paso 2 de 14 · [← Idioma](01-idioma.md) · Siguiente: [Tipo de instalación](03-tipo-de-instalacion.md)
+> Paso 2 de 13 · [← Idioma](01-idioma.md) · Siguiente: [Tipo de instalación](03-tipo-de-instalacion.md)
 
 ![Pantalla de configuración del teclado](../../../assets/instalacion-ubuntu-server/02-teclado.png)
 
