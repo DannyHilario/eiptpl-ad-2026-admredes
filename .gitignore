@@ -3,3 +3,4 @@ manual/
 .claude/credentials.local.json
 .claude/CLAUDE.md
 .DS_Store
+.claude/herramientas/
