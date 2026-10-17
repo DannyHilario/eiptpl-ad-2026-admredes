@@ -1,5 +1,6 @@
 manual/
 .claude/settings.local.json
+.claude/settings.json
 .claude/credentials.local.json
 .claude/CLAUDE.md
 .DS_Store
