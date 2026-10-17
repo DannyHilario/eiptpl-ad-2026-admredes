@@ -1,6 +1,7 @@
 # Práctica: archivos y permisos
 
-> Primeros pasos 6 · ≈50 min · [← Archivos, carpetas y permisos](05-archivos-y-permisos.md)
+> Primeros pasos 6 · ≈50 min · [← Archivos, carpetas y permisos](05-archivos-y-permisos.md) ·
+> Siguiente: [Instalar Git Bash](../03-acceso-remoto/01-git-bash.md)
 
 ## Qué vas a hacer
 
