@@ -64,6 +64,11 @@ resto del semestre:
   4. [Práctica: usuarios y sudo](contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/04-practica-usuarios.md)
   5. [Archivos, carpetas y permisos](contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/05-archivos-y-permisos.md)
   6. [Práctica: archivos y permisos](contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/06-practica-archivos.md)
+- Acceso remoto:
+  1. [Instalar Git Bash: una terminal en tu computadora](contenido/etapa-3-sistema-operativo-red/03-acceso-remoto/01-git-bash.md)
+  2. [NAT: muchos equipos, una sola dirección pública](contenido/etapa-3-sistema-operativo-red/03-acceso-remoto/02-que-es-nat.md)
+  3. [Conectarte a tu servidor por SSH](contenido/etapa-3-sistema-operativo-red/03-acceso-remoto/03-conectarte-por-ssh.md)
+  4. [Tu primer servicio: un servidor web con nginx](contenido/etapa-3-sistema-operativo-red/03-acceso-remoto/04-servidor-web.md)
 
 La Etapa 4 del manual oficial (direccionamiento IP y subneteo) se agregará conforme
 avance el semestre.

@@ -18,6 +18,11 @@ porque reúne en una sola pantalla casi todo lo que viste en Redes y Telecomunic
 | `Intel 82540EM...` | Modelo de tarjeta que VirtualBox simula |
 | `[ Create bond ]` | Unir varias tarjetas en una sola (redundancia). No lo necesitamos |
 
+> **Nota:** el nombre de la tarjeta puede variar según tu equipo (`enp0s3`, `enp0s8`...).
+> La captura se tomó en una Mac con procesador ARM; en una computadora con Intel o AMD es
+> común ver `enp0s3`. Lo importante es que empiece con `en` (Ethernet) y que tenga una
+> dirección IPv4 asignada por DHCP.
+
 ## Por qué la IP es 10.0.2.15
 
 Esa dirección es la que VirtualBox entrega en modo **NAT**: la VM queda "detrás" de tu
