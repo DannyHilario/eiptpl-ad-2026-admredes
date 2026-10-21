@@ -94,8 +94,10 @@ quién la pidió y para qué. `sudo` funciona igual.
    encontró la sesión abierta. Vas a ver una línea que termina en `Password:`
    (contraseña).
 
-2. **Mientras escribes la contraseña no aparece nada**, ni asteriscos. Es normal: el
-   sistema sí está recibiendo cada tecla. Escríbela completa y presiona Enter.
+2. **Mientras escribes la contraseña aparece un asterisco (`*`) por cada letra**, para
+   que sepas que el teclado sí está escribiendo, aunque no se vea la contraseña.
+   (Ojo: al **iniciar sesión** y en comandos como `su` no aparece nada, ni
+   asteriscos; eso también es normal.) Escríbela completa y presiona Enter.
 3. Si la contraseña es correcta, el comando se ejecuta como administrador.
 4. Durante los siguientes minutos `sudo` **no te vuelve a pedir la contraseña**, para
    que puedas escribir varios comandos seguidos.
@@ -331,8 +333,7 @@ apt install   instala un paquete nuevo
 ## Pruébalo en tu VM
 
 Ahora vas a usar `sudo` y `apt` en tu servidor: vas a ver qué pasa si se te olvida
-`sudo` y vas a instalar tu primer programa. Sigue guardando las capturas en tu carpeta `capturas-admredes`, como se explica en
-[Cómo tomar y guardar las capturas](01-primer-inicio.md#cómo-tomar-y-guardar-las-capturas).
+`sudo` y vas a instalar tu primer programa.
 
 ### Paso 1: Actualizar la lista, sin sudo y con sudo
 
@@ -346,15 +347,13 @@ Aparecen unas líneas y al final un error que empieza con `E:` y menciona **Perm
 denied**. Es lo que viste en la sección 3: actualizar la lista cambia el servidor, y tu
 cuenta sola no tiene permiso.
 
-> 📸 **Captura `NombreApellido-AptSinSudo.png`:** el error de `apt update` sin `sudo`.
-
 Ahora, con `sudo`:
 
 ```bash
 sudo apt update
 ```
 
-Te pide tu contraseña (no se ve al escribirla). Después aparecen varias líneas que
+Te pide tu contraseña (aparece un asterisco por cada letra). Después aparecen varias líneas que
 empiezan con `Get:` o `Hit:` (o `Obj:` y `Des:` en español): son las listas que se
 están descargando del mirror. Al final no debe aparecer ningún `E:`.
 
@@ -392,9 +391,6 @@ tree /etc/apt
   responder `/usr/bin/tree`.
 - `tree /etc/apt` dibuja el árbol de la carpeta de configuración de `apt`. Ahí está
   guardada, por ejemplo, la dirección del mirror que elegiste al instalar.
-
-> 📸 **Captura `NombreApellido-InstalarTree.png`:** el final de la instalación de
-> `tree` y la salida de `which tree` y `tree /etc/apt`.
 
 ## Referencias
 

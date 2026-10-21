@@ -8,8 +8,7 @@
 En esta práctica vas a usar en tu VM lo que leíste en
 [Archivos, carpetas y permisos](05-archivos-y-permisos.md): moverte entre carpetas,
 leer archivos del sistema, crear tus propios archivos y revisar sus permisos. Es la
-última parte de los primeros pasos: al final revisarás que tengas **todas tus
-capturas**, las de las lecturas y las de esta práctica.
+última parte de los primeros pasos.
 
 Antes de empezar:
 
@@ -218,9 +217,6 @@ ls
 cat servidor.txt
 ```
 
-> 📸 **Captura `NombreApellido-ServidorTxt.png`:** la salida de `cat servidor.txt`, con
-> tus datos.
-
 ## Paso 7: Copiar, renombrar y borrar
 
 **Copiar.** El comando `cp` (de *copy*) necesita dos cosas: primero el archivo que
@@ -345,9 +341,6 @@ ls
 
 Esta vez funciona sin ningún error.
 
-> 📸 **Captura `NombreApellido-PermisoNegado.png`:** el error de
-> `touch /etc/prueba.txt` y, debajo, el `touch prueba.txt` en tu carpeta funcionando.
-
 ## Paso 10: Cambiar permisos con chmod
 
 El comando `chmod` cambia los permisos de un archivo que te pertenece. Después de
@@ -363,9 +356,6 @@ ls -l servidor.txt
 ```
 
 Ahora los permisos dicen `-rw-------`: el grupo y los otros ya no tienen ningún permiso.
-
-> 📸 **Captura `NombreApellido-Chmod600.png`:** la salida de `ls -l servidor.txt` con
-> los permisos `-rw-------`.
 
 Regrésalo a la forma normal, `644` (`rw-r--r--`): tú lo modificas y todos lo pueden
 leer:
@@ -403,9 +393,6 @@ practica
 (`1 directory, 3 files` significa "1 carpeta, 3 archivos"). En la salida de `ls -l`,
 `servidor.txt` debe tener los permisos `-rw-r--r--`.
 
-> 📸 **Captura `NombreApellido-ResultadoFinal.png`:** la salida de `tree practica` y de
-> `ls -l practica`.
-
 **No borres la carpeta `practica`**: la vas a seguir usando en las próximas prácticas.
 
 ## Comandos que usaste
@@ -431,32 +418,6 @@ chmod 644 <archivo>  cambia los permisos de un archivo tuyo
 Tab                  completa nombres de archivos y carpetas
 Flecha ↑             recupera los comandos anteriores
 ```
-
-## Revisa tus capturas
-
-Al terminar los primeros pasos, en tu carpeta `capturas-admredes` debes tener estas
-**14 capturas**, cada una con tu nombre en lugar de `NombreApellido`:
-
-| Archivo | Qué debe verse | Dónde se hace |
-|---|---|---|
-| `NombreApellido-PrimerInicio.png` | `hostnamectl` | [Primer inicio de sesión](01-primer-inicio.md#el-nombre-y-la-versión-del-servidor) |
-| `NombreApellido-MiUsuario.png` | `id` con el grupo `sudo` | [Usuarios](02-usuarios.md#paso-1-quién-soy) |
-| `NombreApellido-MiCarpeta.png` | `pwd` y `ls /home` | [Usuarios](02-usuarios.md#paso-2-tu-carpeta-personal) |
-| `NombreApellido-AptSinSudo.png` | Error de `apt update` sin `sudo` | [Administrador y paquetes](03-administrador-y-paquetes.md#paso-1-actualizar-la-lista-sin-sudo-y-con-sudo) |
-| `NombreApellido-InstalarTree.png` | Instalación de `tree`, `which tree` y `tree /etc/apt` | [Administrador y paquetes](03-administrador-y-paquetes.md#paso-3-instalar-tree) |
-| `NombreApellido-NuevoUsuario.png` | `ls /home` e `id user-practica-01` | [Práctica de usuarios](04-practica-usuarios.md#paso-1-crear-un-usuario-nuevo) |
-| `NombreApellido-CambioDeUsuario.png` | Sesión como `user-practica-01`: `whoami`, `pwd` y el error en tu carpeta | [Práctica de usuarios](04-practica-usuarios.md#paso-3-entrar-como-el-otro-usuario) |
-| `NombreApellido-SudoNegado.png` | `sudo` negándose a `user-practica-01` | [Práctica de usuarios](04-practica-usuarios.md#paso-4-un-usuario-que-no-es-administrador) |
-| `NombreApellido-LeerPermisos.png` | Permisos de `/etc/hostname`, `/etc` y `tree` | [Archivos y permisos](05-archivos-y-permisos.md#paso-1-los-permisos-de-un-archivo-una-carpeta-y-un-programa) |
-| `NombreApellido-PermisosHome.png` | `ls -ld /home/*` | [Archivos y permisos](05-archivos-y-permisos.md#paso-2-por-qué-no-pudiste-entrar-a-la-otra-carpeta) |
-| `NombreApellido-ServidorTxt.png` | `cat servidor.txt` | [Paso 6](#paso-6-crear-un-archivo-de-texto-con-nano) |
-| `NombreApellido-PermisoNegado.png` | `touch` negado en `/etc` y permitido en tu carpeta | [Paso 9](#paso-9-comprobar-un-permiso-negado) |
-| `NombreApellido-Chmod600.png` | `servidor.txt` con `-rw-------` | [Paso 10](#paso-10-cambiar-permisos-con-chmod) |
-| `NombreApellido-ResultadoFinal.png` | `tree practica` y `ls -l practica` | [Paso 11](#paso-11-revisar-el-resultado) |
-
-Revisa que **en todas se vea el prompt con tu nombre de usuario** (en
-`CambioDeUsuario` y `SudoNegado`, con `user-practica-01`). **Guárdalas**: tu profesor
-te indicará cómo entregarlas.
 
 ## Referencias
 

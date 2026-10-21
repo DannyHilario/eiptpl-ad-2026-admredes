@@ -171,9 +171,6 @@ llegó la petición. La opción `-4` pide usar IPv4. Aparece una dirección que 
 `10.0.2.15`: es la **dirección pública** de la red donde estás. El prompt puede quedar
 pegado al final de la dirección, porque la respuesta no termina en un salto de línea.
 
-> 📸 **Captura `NombreApellido-NatVm.png`:** la salida de `hostname -I` y de
-> `curl -4 ifconfig.me` en tu VM.
-
 ### En tu computadora
 
 Abre **Git Bash** y escribe el mismo comando:

@@ -94,10 +94,6 @@ El navegador probablemente marque la página como **"No seguro"**. Es normal: tu
 servidor usa HTTP, sin cifrado. Cómo se protege una página con HTTPS lo viste en la
 lectura de [HTTPS](../../etapa-2-servicios-red/05-https.md).
 
-> 📸 **Captura `NombreApellido-NginxNavegador.png`:** el navegador con la página
-> "Welcome to nginx!" y la IP de tu servidor en la barra de direcciones. Tómala con
-> **Windows + Shift + S**.
-
 ## Paso 4: Abrirla desde tu celular
 
 Tu servidor no le da servicio solo a tu computadora, sino a **cualquier equipo de tu
@@ -168,9 +164,6 @@ nginx revisa una lista de nombres de archivo, en orden, y envía el primero que 
 termina con `index.nginx-debian.html`. Antes solo existía el último; ahora existe el
 primero.
 
-> 📸 **Captura `NombreApellido-MiPagina.png`:** el navegador mostrando tu página, con
-> tu nombre. Tómala con **Windows + Shift + S**.
-
 ## Paso 6: Ver las visitas en vivo
 
 Cada vez que alguien abre una página, nginx lo anota en un **registro** (*log*): un
@@ -211,10 +204,6 @@ nginx usa el formato de registro llamado *combined* (F5, s.f.-c). Cada parte sig
 
 Compara la línea de tu laptop con la de tu celular: en la del celular aparece `Android`
 o `iPhone`.
-
-> 📸 **Captura `NombreApellido-RegistroVisitas.png`:** Git Bash con `tail -f` mostrando
-> al menos una visita de tu computadora y una de tu celular. Tómala con
-> **Windows + Shift + S**.
 
 Este registro es la **administración de contabilidad**, la A de FCAPS de la
 [Etapa 1](../../etapa-1-funciones-administracion/04-administracion-contabilidad.md):
@@ -294,24 +283,6 @@ sudo tail -f /var/log/nginx/access.log  ver las visitas en vivo (Ctrl+C sale)
 curl http://<IP>                        pedir una página desde la terminal
 curl -A "<nombre>" http://<IP>          pedirla con otro nombre de navegador
 ```
-
-## Revisa tus capturas
-
-En tu carpeta `capturas-admredes` debes tener estas **8 capturas** de acceso remoto,
-cada una con tu nombre en lugar de `NombreApellido`:
-
-| Archivo | Qué debe verse | Dónde se hace |
-|---|---|---|
-| `NombreApellido-GitBash.png` | Git Bash con `ssh -V` | [Instalar Git Bash](01-git-bash.md#paso-4-comprobar-que-tienes-ssh) |
-| `NombreApellido-NatVm.png` | `hostname -I` y `curl -4 ifconfig.me` en la VM | [NAT](02-que-es-nat.md#en-tu-vm) |
-| `NombreApellido-AdaptadorPuente.png` | VirtualBox con *Adaptador puente* | [Conectarte por SSH](03-conectarte-por-ssh.md#paso-1-cambiar-el-adaptador-a-puente) |
-| `NombreApellido-IpPuente.png` | `ip a` con la nueva IP | [Conectarte por SSH](03-conectarte-por-ssh.md#paso-2-encontrar-la-ip-de-tu-servidor) |
-| `NombreApellido-ConexionSsh.png` | Git Bash con el prompt del servidor | [Conectarte por SSH](03-conectarte-por-ssh.md#paso-5-trabajar-en-el-servidor-desde-tu-computadora) |
-| `NombreApellido-NginxNavegador.png` | "Welcome to nginx!" en el navegador | [Paso 3](#paso-3-abrir-tu-página-desde-tu-computadora) |
-| `NombreApellido-MiPagina.png` | Tu página con tu nombre | [Paso 5](#paso-5-poner-tu-propia-página) |
-| `NombreApellido-RegistroVisitas.png` | `tail -f` con visitas de tu computadora y tu celular | [Paso 6](#paso-6-ver-las-visitas-en-vivo) |
-
-**Guárdalas**: tu profesor te indicará cómo entregarlas.
 
 ## Referencias
 
