@@ -6,9 +6,7 @@
 ## Qué vas a hacer
 
 Tu servidor ya está instalado y se reinició. En esta práctica vas a **entrar por
-primera vez**, a comprobar que la instalación quedó bien y a **actualizarlo**. También
-vas a preparar el documento donde vas a ir guardando tus capturas durante todos los
-primeros pasos.
+primera vez**, a comprobar que la instalación quedó bien y a **actualizarlo**.
 
 ## Paso 1: Iniciar sesión
 
@@ -49,49 +47,7 @@ En lugar de `usuario` debe decir tu nombre de usuario. A esa línea se le llama
 **prompt**: significa que el servidor está **listo para recibir un comando**. Qué
 significa cada parte lo vas a ver en la lectura de [Usuarios](02-usuarios.md).
 
-## Paso 2: Preparar tus capturas
-
-Durante todos los primeros pasos vas a tomar **capturas de pantalla** como evidencia de
-tu trabajo. Cada vez que el texto muestre un recuadro **📸 Captura**, tomas una captura
-y la guardas como un archivo de imagen con el nombre que ahí se indica. Tu profesor te
-dirá más adelante cómo entregarlas: por ahora, **solo ve guardándolas**.
-
-### Cómo tomar y guardar las capturas
-
-1. **Crea una carpeta** en tu computadora (no en la VM), por ejemplo en Documentos, que
-   se llame `capturas-admredes`. Ahí vas a guardar todas.
-2. **Toma la captura con VirtualBox.** En el menú de la ventana de tu VM, elige
-   **Ver → Tomar captura de pantalla...** (en inglés, *View → Take Screenshot...*).
-   VirtualBox guarda **solo la pantalla de la VM**, sin nada más de tu computadora, y
-   te abre una ventana para elegir dónde guardarla y con qué nombre.
-3. **Guárdala con el nombre que indica el recuadro**, en tu carpeta
-   `capturas-admredes`. Todos los nombres siguen la misma forma:
-
-   ```
-   NombreApellido-PrimerInicio.png
-   └─────┬──────┘ └─────┬────┘ └┬┘
-         │              │       el tipo de archivo: imagen PNG
-         │              qué muestra la captura (lo indica cada recuadro)
-         tu nombre y tu primer apellido
-   ```
-
-   Cambia `NombreApellido` por **tu** nombre y apellido, juntos, **sin espacios y sin
-   acentos**, empezando cada uno con mayúscula. Por ejemplo, si te llamas Juan Pérez,
-   la primera captura se llama `JuanPerez-PrimerInicio.png`.
-4. **En cada captura debe verse el prompt con tu nombre de usuario.** Así se comprueba
-   que la hiciste tú, en tu propio servidor.
-
-Si el menú de VirtualBox no te aparece, también puedes usar la herramienta de tu
-computadora (en Windows, **Windows + Shift + S**; en Mac, **Cmd + Shift + 4**),
-seleccionar solo la ventana de la VM y guardar la imagen con el mismo nombre.
-
-Si el mouse se queda "atrapado" dentro de la ventana de la VM, presiona la tecla
-**Ctrl derecha** del teclado para liberarlo.
-
-Antes de cada captura puedes escribir `clear` (limpiar) y presionar Enter: borra todo
-lo que hay en la pantalla, para que en la captura solo se vea lo que importa.
-
-## Paso 3: Comprobar que la instalación quedó bien
+## Paso 2: Comprobar que la instalación quedó bien
 
 Vas a escribir cuatro comandos. Cada uno revisa algo que configuraste durante la
 instalación. Escribe cada comando **exactamente igual**, con sus espacios y guiones, y
@@ -111,8 +67,6 @@ datos principales del servidor. Busca estas líneas:
 | `Static hostname` | El nombre del servidor | `admredes` |
 | `Operating System` | El sistema operativo instalado | `Ubuntu 26.04 LTS` |
 | `Architecture` | La arquitectura del procesador | `arm64` o `x86-64`, según el ISO que usaste |
-
-> 📸 **Captura `NombreApellido-PrimerInicio.png`:** la salida de `hostnamectl`.
 
 ### La dirección IP
 
@@ -161,7 +115,7 @@ Es posible que la pantalla no regrese sola al prompt y abajo diga `(END)` o `lin
 1-10`. Es porque `systemctl` muestra la información como un documento que se puede
 recorrer con las flechas. **Para salir, presiona la tecla `q`** (de *quit*, "salir").
 
-## Paso 4: Actualizar el servidor
+## Paso 3: Actualizar el servidor
 
 El ISO con el que instalaste se creó hace semanas o meses, y desde entonces Ubuntu ya
 publicó correcciones. Lo primero que se hace con un servidor nuevo es **actualizarlo**:
@@ -173,8 +127,8 @@ sudo apt update && sudo apt upgrade
 Qué significa cada palabra de este comando lo vas a ver con calma en la lectura de
 [El administrador, sudo y los paquetes](03-administrador-y-paquetes.md). Por ahora:
 
-1. Te pide **tu contraseña**. Recuerda que no se ve al escribirla. Escríbela y presiona
-   Enter.
+1. Te pide **tu contraseña**. Aquí, a diferencia del inicio de sesión, aparece un
+   asterisco (`*`) por cada letra que escribes. Escríbela y presiona Enter.
 2. Aparecen muchas líneas: el servidor está descargando la lista de actualizaciones.
 3. Si hay actualizaciones, te muestra la lista y pregunta si deseas continuar
    (`[S/n]` o `[Y/n]`). Presiona **Enter** para aceptar.
@@ -183,7 +137,7 @@ Qué significa cada palabra de este comando lo vas a ver con calma en la lectura
 Si al final aparece una ventana de color preguntando qué servicios reiniciar, deja las
 opciones como vienen y presiona **Enter**.
 
-## Paso 5: Apagar el servidor
+## Paso 4: Apagar el servidor
 
 Cuando termines de trabajar, **no cierres la ventana de VirtualBox con la X** sin más:
 sería como desconectar una computadora de la corriente. Apágala correctamente:
@@ -204,7 +158,6 @@ ip a                           tarjetas de red y dirección IP
 ping -c 3 <sitio>              comprobar Internet y DNS
 systemctl status <servicio>    estado de un servicio (sal con q)
 sudo apt update && sudo apt upgrade   actualizar el servidor
-clear                          limpiar la pantalla
 ```
 
 ## Referencias

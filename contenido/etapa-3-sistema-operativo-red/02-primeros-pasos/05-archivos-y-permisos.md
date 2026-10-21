@@ -321,8 +321,6 @@ r w x       leer, escribir, ejecutar (o entrar, si es carpeta)
 ## Pruébalo en tu VM
 
 Ahora vas a leer permisos reales en tu servidor y a **explicarlos con tus palabras**.
-Antes de cada captura, responde las preguntas que se indican: tu profesor puede
-pedirte que las expliques.
 
 ### Paso 1: Los permisos de un archivo, una carpeta y un programa
 
@@ -338,11 +336,11 @@ ls -l /usr/bin/tree
 - El tercero es el programa `tree` que instalaste en la
   [lectura de paquetes](03-administrador-y-paquetes.md#paso-3-instalar-tree).
 
-> 📸 **Captura `NombreApellido-LeerPermisos.png`:** la salida de los tres comandos.
-> Antes de guardarla, responde para **cada uno** de los tres:
-> - Si es archivo o carpeta, y cómo lo supiste.
-> - Quién es el dueño.
-> - Qué puede hacer el dueño, qué puede hacer el grupo y qué pueden hacer los otros.
+Responde para **cada uno** de los tres:
+
+- Si es archivo o carpeta, y cómo lo supiste.
+- Quién es el dueño.
+- Qué puede hacer el dueño, qué puede hacer el grupo y qué pueden hacer los otros.
 
 ### Paso 2: Por qué no pudiste entrar a la otra carpeta
 
@@ -360,10 +358,9 @@ personal, cada una con su dueño.
 
 Lee los últimos tres caracteres de permisos (los de **otros**) de cada carpeta.
 
-> 📸 **Captura `NombreApellido-PermisosHome.png`:** la salida de `ls -ld /home/*`.
-> Antes de guardarla, explica con tus palabras por qué `user-practica-01` no pudo
-> entrar a tu carpeta ni tú a la suya. Pista: tú eres "otros" para la carpeta de
-> `user-practica-01`, y él es "otros" para la tuya.
+Explica con tus palabras por qué `user-practica-01` no pudo entrar a tu carpeta ni tú
+a la suya. Pista: tú eres "otros" para la carpeta de `user-practica-01`, y él es
+"otros" para la tuya.
 
 ## Referencias
 

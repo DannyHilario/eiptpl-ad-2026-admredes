@@ -137,11 +137,6 @@ ls
 (`/c/Users/usuario`), y `ls` lista lo que hay en ella: Documentos, Descargas,
 Escritorio...
 
-> 📸 **Captura `NombreApellido-GitBash.png`:** la ventana de Git Bash con la salida de
-> `ssh -V`. Esta captura es de **tu computadora**, no de la VM: tómala con
-> **Windows + Shift + S** (en Mac, **Cmd + Shift + 4**), selecciona solo la ventana de
-> Git Bash y guárdala en tu carpeta `capturas-admredes`.
-
 ## Comandos que usaste
 
 ```

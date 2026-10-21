@@ -42,10 +42,6 @@ Las direcciones del diagrama son un ejemplo: las tuyas dependen de tu red.
    - Si estás conectado por **cable**, la que tiene *Ethernet* o *GbE* en el nombre.
 6. Presiona **Aceptar**.
 
-> 📸 **Captura `NombreApellido-AdaptadorPuente.png`:** la ventana de **Configuración →
-> Red** con *Adaptador puente* seleccionado. Es una ventana de VirtualBox, no de la VM:
-> tómala con **Windows + Shift + S** (en Mac, **Cmd + Shift + 4**).
-
 No hace falta reinstalar nada: Ubuntu ya configuró esa tarjeta para pedir su IP por
 DHCP durante la [instalación](../01-instalacion-ubuntu-server/04-red.md). Lo único que
 cambia es **a quién** se la pide: antes a VirtualBox, ahora al router de tu red.
@@ -73,9 +69,6 @@ inet 192.168.1.57/24 ... dynamic enp0s3
 
 **Anota esa IP** (solo los números antes de la `/`): la vas a usar en todos los pasos
 siguientes. En esta guía aparece como `192.168.1.57`; **cámbiala siempre por la tuya**.
-
-> 📸 **Captura `NombreApellido-IpPuente.png`:** la salida de `ip a` con la nueva IP.
-> Esta sí es de la VM: **Ver → Tomar captura de pantalla...** en VirtualBox.
 
 **Si sigue diciendo `10.0.2.15`**, la VM todavía tiene la dirección vieja. Reiníciala:
 
@@ -187,10 +180,6 @@ ls
   [práctica de archivos](../02-primeros-pasos/06-practica-archivos.md): son tus
   archivos, en tu servidor.
 
-> 📸 **Captura `NombreApellido-ConexionSsh.png`:** la ventana de **Git Bash** con el
-> prompt `usuario@admredes` y la salida de `hostname`, `whoami` y `ls`. Tómala con
-> **Windows + Shift + S**.
-
 Ahora mira la ventana de VirtualBox: no cambió nada. Las dos son formas de entrar al
 **mismo servidor**: la ventana de VirtualBox es como estar sentado frente a él, y SSH
 es entrar por la red. Desde ahora puedes **minimizar la ventana de VirtualBox** y
@@ -216,6 +205,8 @@ pregunta por la huella).
 |---|---|---|
 | `Connection timed out` | Tu computadora no encuentra la IP | Revisa que la VM esté encendida, en modo puente, y que la IP sea la de `ip a` |
 | `Connection refused` | Llegaste al servidor, pero nadie atiende en el puerto de SSH | En la VM, revisa `systemctl status ssh.socket`, como en el [primer inicio](../02-primeros-pasos/01-primer-inicio.md#el-servicio-ssh) |
+| `ssh.socket` dice `failed` y `sudo sshd -t` responde `no hostkeys available` | Al servidor le faltan sus llaves de identidad (*host keys*) y SSH se niega a arrancar | En la VM: `sudo ssh-keygen -A` y luego `sudo systemctl reset-failed ssh.socket ssh.service && sudo systemctl restart ssh.socket` |
+| Al arrancar, la VM se queda en `Job systemd-networkd-wait-online.service/start running` | Cambiaste de red (por ejemplo, de Wi-Fi a cable) y el adaptador puente sigue conectado a la tarjeta anterior, que ya no tiene red | En la ventana de la VM: **Dispositivos → Red → Preferencias de red**, y en *Nombre* elige la tarjeta que hoy tiene red. La VM obtiene una IP nueva: revísala con `hostname -I` |
 | `Permission denied, please try again.` | Usuario o contraseña incorrectos | Revisa que uses tu usuario **del servidor** y su contraseña |
 | `REMOTE HOST IDENTIFICATION HAS CHANGED!` | La huella guardada para esa IP no coincide | Pasa si reinstalaste la VM o si la IP ahora es de otro equipo. Pregúntale a tu profesor antes de seguir |
 
@@ -230,8 +221,7 @@ exit                    cerrar la conexión SSH
 ```
 
 **No regreses tu VM a modo NAT**: en la siguiente práctica vas a seguir entrando por
-SSH. La lista completa de capturas de acceso remoto está al final de
-[Tu primer servicio: un servidor web](04-servidor-web.md#revisa-tus-capturas).
+SSH.
 
 ## Referencias
 

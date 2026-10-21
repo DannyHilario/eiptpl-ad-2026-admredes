@@ -229,9 +229,6 @@ who              quién está conectado ahora
 Ahora vas a comprobar en tu propio servidor lo que acabas de leer: vas a ver tu cuenta,
 tus grupos y tu carpeta personal.
 
-Guarda las capturas en tu carpeta `capturas-admredes`, como se explica en el
-[primer inicio de sesión](01-primer-inicio.md#cómo-tomar-y-guardar-las-capturas).
-
 ### Paso 1: ¿Quién soy?
 
 Inicia sesión en tu VM y escribe estos tres comandos, uno por uno, presionando Enter
@@ -249,9 +246,6 @@ who
   administrador.
 - `who` muestra quién está conectado ahora mismo. Por ahora solo apareces tú.
 
-> 📸 **Captura `NombreApellido-MiUsuario.png`:** la salida de `id`, donde se vea el
-> grupo `sudo`.
-
 ### Paso 2: Tu carpeta personal
 
 ```bash
@@ -265,8 +259,6 @@ ls /home
   sola**, la tuya, porque eres el único usuario que es una persona. En la
   [práctica de usuarios](04-practica-usuarios.md) vas a crear otro y vas a ver aparecer
   una segunda carpeta aquí.
-
-> 📸 **Captura `NombreApellido-MiCarpeta.png`:** la salida de `pwd` y de `ls /home`.
 
 ## Referencias
 

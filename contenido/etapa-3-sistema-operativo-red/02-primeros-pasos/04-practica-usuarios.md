@@ -15,9 +15,7 @@ En esta práctica juntas lo que viste en las dos lecturas anteriores,
 4. Vas a comprobar que ese usuario **no puede usar `sudo`**, porque no es
    administrador.
 
-Antes de empezar, enciende tu VM e inicia sesión con tu usuario. Sigue guardando las
-capturas en tu carpeta `capturas-admredes`, como se explica en
-[Cómo tomar y guardar las capturas](01-primer-inicio.md#cómo-tomar-y-guardar-las-capturas).
+Antes de empezar, enciende tu VM e inicia sesión con tu usuario.
 
 ## Cómo seguir las instrucciones
 
@@ -45,8 +43,8 @@ El comando te va a hacer varias preguntas, una tras otra. Los textos pueden sali
 inglés o en español:
 
 1. **Primero pide TU contraseña**, la de tu propio usuario: es `sudo` confirmando que
-   eres tú. Recuerda que **no se ve nada mientras la escribes**. Escríbela y presiona
-   Enter. (Si usaste `sudo` hace pocos minutos, puede que no te la pida.)
+   eres tú. Mientras la escribes aparece un asterisco (`*`) por cada letra. Escríbela
+   y presiona Enter. (Si usaste `sudo` hace pocos minutos, puede que no te la pida.)
 2. Luego pide la contraseña **del usuario nuevo** (`New password`). Escribe
    **`123123`** y Enter. Tampoco se ve nada al escribirla.
 3. Te pide repetirla (`Retype new password`): escribe otra vez **`123123`** y Enter.
@@ -73,12 +71,9 @@ id user-practica-01
 - `ls /home` ahora muestra **dos carpetas**: la tuya y la de `user-practica-01`. El
   sistema le creó su carpeta personal automáticamente.
 - `id user-practica-01` muestra su número de usuario, que es **el siguiente al tuyo**
-  (1001), y sus grupos. Compáralo con tu propio `id`, el de tu captura `NombreApellido-MiUsuario.png`:
+  (1001), y sus grupos. Compáralo con tu propio `id`, el que viste en la lectura de [Usuarios](02-usuarios.md#paso-1-quién-soy):
   **`user-practica-01` no está en el grupo `sudo`**. Es un usuario normal, sin permisos
   de administrador.
-
-> 📸 **Captura `NombreApellido-NuevoUsuario.png`:** la salida de `ls /home` y de
-> `id user-practica-01`.
 
 ## Paso 2: Cada quien en su carpeta
 
@@ -125,10 +120,6 @@ ls /home/usuario
 
 Otra vez **Permission denied**: la privacidad funciona en los dos sentidos.
 
-> 📸 **Captura `NombreApellido-CambioDeUsuario.png`:** el prompt con
-> `user-practica-01`, la salida de `whoami` y `pwd`, y el error al intentar ver tu
-> carpeta.
-
 ## Paso 4: Un usuario que no es administrador
 
 Sin salir de `user-practica-01`, intenta actualizar la lista de paquetes, igual que
@@ -143,9 +134,6 @@ la contraseña correcta, `sudo` **se niega**: aparece un mensaje de que este usu
 tiene permiso para usar `sudo`, y la lista no se actualiza. Es lo que viste en
 [Quién puede usar sudo](03-administrador-y-paquetes.md#quién-puede-usar-sudo):
 `user-practica-01` **no está en el grupo `sudo`**.
-
-> 📸 **Captura `NombreApellido-SudoNegado.png`:** el prompt con `user-practica-01` y el
-> mensaje de `sudo` negándose.
 
 ## Paso 5: Regresar a tu cuenta
 
