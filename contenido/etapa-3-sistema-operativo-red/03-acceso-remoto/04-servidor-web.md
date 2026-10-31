@@ -1,6 +1,7 @@
 # Tu primer servicio: un servidor web con nginx
 
-> Acceso remoto 4 · ≈50 min · [← Conectarte a tu servidor por SSH](03-conectarte-por-ssh.md)
+> Acceso remoto 4 · ≈50 min · [← Conectarte a tu servidor por SSH](03-conectarte-por-ssh.md) ·
+> Siguiente: [La dirección IP](../../etapa-4-direccionamiento-ip/01-direccion-ip.md)
 
 ## Qué vas a hacer
 

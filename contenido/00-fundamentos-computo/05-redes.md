@@ -111,7 +111,7 @@ Dentro del fraccionamiento, los números de casa (`192.168.1.10`, `192.168.1.11`
 ningún problema, porque nadie de afuera necesita usarlos directamente. El router, en la
 caseta, mantiene una libreta donde anota "la casa 10 mandó esta carta" y la reetiqueta con
 **la dirección pública** del fraccionamiento completo antes de sacarla a la carretera. Esto
-se llama **NAT** (Network Address Translation) — lo vas a volver a ver en Etapa 4.
+se llama **NAT** (Network Address Translation) — lo vas a volver a ver en la Etapa 3.
 
 Por eso tu laptop, tu celular y la impresora de tu casa pueden compartir una sola conexión
 a Internet (una sola dirección IP pública) aunque cada uno tenga su propia IP privada
