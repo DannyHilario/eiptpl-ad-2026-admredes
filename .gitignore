@@ -5,3 +5,4 @@ manual/
 .claude/CLAUDE.md
 .DS_Store
 .claude/herramientas/
+.env
