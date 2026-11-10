@@ -9,13 +9,14 @@ leer lo que te responde y entender por qué sale así**. En cada paso hay una se
 **"¿Por qué?"** que explica el concepto que estás aplicando, con un enlace a la
 lectura de la Etapa 4 donde está a fondo. Léela antes de pasar al siguiente paso.
 
-Son **2 capturas** y **una tabla**.
+Son **2 capturas** (la captura 1 puede ir en dos partes si la salida no cabe en
+una sola pantalla) y **una tabla**.
 
 ---
 
 ## El problema de la escuela
 
-La escuela ficticia **"Pablo Livas"** tiene **una sola red** para todo:
+La escuela ficticia **"Escuela Técnica Las Torres"** tiene **una sola red** para todo:
 `192.168.10.0/24`. En ella están conectados, todos juntos:
 
 - las computadoras del **Laboratorio**, que usan los alumnos;
@@ -138,7 +139,7 @@ sudo apt update
 
 **Qué debes ver:** `sudo` te pide tu contraseña (un asterisco por letra), varias
 líneas `Get:` o `Hit:` (o `Obj:` y `Des:` en español) y al final el prompt, **sin
-ninguna línea que empiece con `E:`**.
+ninguna línea que empiece con `Error:`**.
 
 **¿Por qué?** Antes de instalar cualquier programa, el servidor necesita la **lista
 más reciente** de lo que hay en el repositorio de Ubuntu; si no, podría buscar una
@@ -278,7 +279,8 @@ plan sea correcto.
 > ejemplo 1. A ese salto de 64 se le llama **tamaño de bloque** (sección 1).
 
 > 📸 **Captura 1:** el prompt con tu usuario y la salida completa, del comando hasta
-> `Subnets: 4`. Si no cabe, maximiza la ventana o toma dos capturas.
+> `Subnets: 4`. Si no cabe, maximiza la ventana; si aun así no cabe, tómala en dos partes
+> (las dos cuentan como la captura 1).
 
 ---
 

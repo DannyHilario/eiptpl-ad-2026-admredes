@@ -59,8 +59,9 @@ que se distingue de un proceso normal en varias cosas (Silberschatz et al., 2018
 
 Esta distinción importa mucho para el resto del curso: DNS, DHCP, un servidor web o de
 correo son, técnicamente, **servicios** — programas sin ventana que corren en segundo
-plano en un servidor, esperando peticiones de la red constantemente. Es exactamente lo
-que vas a instalar y administrar en la Etapa 2 del manual oficial.
+plano en un servidor, esperando peticiones de la red constantemente. La Etapa 2 explica
+cómo funciona cada uno, y en la Etapa 3 instalas y administras dos de ellos en tu propio
+servidor Ubuntu: el servidor web nginx y SFTP.
 
 ### Gestión de memoria: RAM + memoria virtual
 

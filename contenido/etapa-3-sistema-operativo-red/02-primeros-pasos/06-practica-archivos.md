@@ -393,7 +393,8 @@ practica
 (`1 directory, 3 files` significa "1 carpeta, 3 archivos"). En la salida de `ls -l`,
 `servidor.txt` debe tener los permisos `-rw-r--r--`.
 
-**No borres la carpeta `practica`**: la vas a seguir usando en las próximas prácticas.
+**No borres la carpeta `practica`**: la vas a volver a ver cuando te conectes a tu
+servidor por SSH.
 
 ## Comandos que usaste
 

@@ -4,11 +4,11 @@
 
 ## La A de FCAPS
 
-Esta es la **A** (Accounting) del modelo visto en la Sesión 1. Es la función de FCAPS que
-más se presta a confusión por el nombre: **no es contabilidad financiera de la empresa**
-— es llevar registro de **quién usó qué recursos de la red, cuánto, y durante cuánto
-tiempo**. En inglés a veces se le llama también *usage accounting* para evitar esa
-confusión.
+Esta es la **A** (Accounting) del modelo visto en la Sesión 1 (International Organization
+for Standardization [ISO], 1989). Es la función de FCAPS que más se presta a confusión por
+el nombre: **no es contabilidad financiera de la empresa** — es llevar registro de **quién
+usó qué recursos de la red, cuánto, y durante cuánto tiempo** (Subramanian, 2010). En
+inglés a veces se le llama también *usage accounting* para evitar esa confusión.
 
 ## Qué controla
 
@@ -57,12 +57,15 @@ RADIUS Accounting registra, entre otros, estos datos por cada sesión de un usua
    (usuario)               la red (NAS)              (contabilidad)
      │                          │                          │
      │── se conecta ──────────>│                          │
-     │                          │── Accounting-Start ────>│  (registra inicio)
+     │                          │── Accounting-Request ──>│  (registra inicio)
+     │                          │   Acct-Status-Type =     │
+     │                          │   Start                  │
      │   ... sesión activa ...  │                          │
      │── se desconecta ────────>│                          │
-     │                          │── Accounting-Stop ─────>│  (registra fin,
-     │                          │   (duración, bytes,      │   duración, bytes,
-     │                          │    causa)                │   causa)
+     │                          │── Accounting-Request ──>│  (registra fin,
+     │                          │   Acct-Status-Type =     │   duración, bytes,
+     │                          │   Stop (duración,        │   causa)
+     │                          │   bytes, causa)          │
 ```
 
 Este es el mismo mecanismo, por ejemplo, que permite a un ISP saber cuántos GB consumió
@@ -106,17 +109,19 @@ contabilidad hace posible, sin que exista ningún cobro de por medio.
 
 El servidor RADIUS que realmente implementa esto en la mayoría de redes corporativas y
 académicas del mundo es **FreeRADIUS**, la implementación de código abierto más usada del
-protocolo (The FreeRADIUS Project, s.f.) — instalable en un servidor Linux como el que
-correría dentro de tu VM de Ubuntu en VirtualBox más adelante en el curso. FreeRADIUS
-puede configurarse para guardar cada registro de contabilidad (`Acct-Start`,
-`Acct-Stop`, con sus atributos de bytes y duración) directamente en una base de datos SQL
-en vez de solo en un archivo de texto — típicamente MySQL o PostgreSQL.
+protocolo (The FreeRADIUS Project, s.f.) — instalable en un servidor Linux como la VM de
+Ubuntu del curso. FreeRADIUS puede configurarse para guardar cada registro de
+contabilidad (cada `Accounting-Request`, con `Acct-Status-Type` = `Start` al iniciar la
+sesión y `Stop` al terminarla, junto con sus atributos de bytes y duración; Rigney, 2000)
+directamente en una base de datos SQL en vez de solo en un archivo de texto —
+típicamente MySQL o PostgreSQL.
 
 ```
 Punto de acceso Wi-Fi          FreeRADIUS               Base de datos SQL
       │                            │                          │
-      │── Accounting-Stop ────────>│── INSERT registro ─────>│  sesión, bytes,
-      │   (usuario, bytes, hora)   │                          │  hora, NAS
+      │── Accounting-Request ─────>│── INSERT registro ─────>│  sesión, bytes,
+      │   (Stop: usuario, bytes,   │                          │  hora, NAS
+      │    hora)                   │                          │
                                                                │
                                           Consulta SQL:
                                           "¿quién transfirió más

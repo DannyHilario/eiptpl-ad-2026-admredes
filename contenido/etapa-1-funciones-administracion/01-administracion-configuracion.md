@@ -7,8 +7,9 @@
 Antes de entrar al primer tema, vale la pena ver el mapa completo, porque los cinco temas
 de esta etapa no son una lista arbitraria: son un modelo estándar de la industria llamado
 **FCAPS** (Fault, Configuration, Accounting, Performance, Security), definido originalmente
-por la ISO como parte del marco de gestión OSI (ISO/IEC 7498-4:1989) y retomado después
-por la UIT en su modelo de Red de Gestión de Telecomunicaciones, **TMN** (ITU-T, 2000).
+por la ISO como parte del marco de gestión OSI (International Organization for
+Standardization [ISO], 1989) y retomado después por la UIT en su modelo de Red de Gestión
+de Telecomunicaciones, **TMN** (International Telecommunication Union [ITU], 2000).
 Cada sesión de esta etapa es una de esas cinco letras:
 
 ```
@@ -158,9 +159,8 @@ v3: cambio de la urgencia — SÍ registrado         │
                                             registro exacto de qué cambió
 ```
 
-Todavía no conoces Ansible ni Git a fondo — los vas a ver más adelante en el curso, ya con
-tu propia **VM de Ubuntu en VirtualBox** (instalada en Fundamentos de Cómputo). Por ahora
-quédate con la idea, no con la herramienta: **cada cambio de configuración debería quedar
+No necesitas dominar Ansible ni Git para entender la idea; quédate con ella, no con la
+herramienta: **cada cambio de configuración debería quedar
 registrado en algún lugar consultable, no solo en la memoria de quien lo hizo**. Con eso
 resuelto, restaurar el switch de reemplazo del ejemplo habría sido cuestión de volver a
 aplicar la última versión guardada — la de después del cambio de las 2 a.m., no la de tres

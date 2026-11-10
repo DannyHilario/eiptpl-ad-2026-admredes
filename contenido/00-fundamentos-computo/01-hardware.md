@@ -9,10 +9,10 @@
 - **Software** es todo lo que **no puedes tocar**: instrucciones, programas, el sistema
   operativo — código que le dice al hardware qué hacer.
 
-**Analogía que vamos a reutilizar todo este módulo:** tu computadora es un **escritorio de
-oficina**. El hardware son los muebles y objetos físicos del escritorio; el software (lo
-que ves en la Sesión 2) son las instrucciones de trabajo que alguien sigue usando esos
-muebles.
+**Analogía que vamos a reutilizar en estas cuatro sesiones:** tu computadora es un
+**escritorio de oficina**. El hardware son los muebles y objetos físicos del escritorio;
+el software (lo que ves en la Sesión 2) son las instrucciones de trabajo que alguien sigue
+usando esos muebles.
 
 ## Las piezas físicas, una por una
 
@@ -81,7 +81,7 @@ usando en este momento — se borra por completo al apagar. Estos atributos la d
 |---|---|---|
 | **Capacidad (GB)** | Cuánto puede guardar a la vez — 8, 16, 32, 64 GB | Más capacidad = más programas/pestañas abiertos sin quedarse sin espacio |
 | **Generación (DDR3/DDR4/DDR5)** | Cada generación DDR (Double Data Rate) es más rápida y eficiente que la anterior, definidas por JEDEC (JEDEC Solid State Technology Association, s.f.) | Un módulo DDR4 no encaja físicamente en una ranura DDR5 — son incompatibles entre sí |
-| **Velocidad (MHz)** | Qué tan rápido se transfieren datos entre la RAM y el CPU | Un DDR4-3200 transfiere datos más rápido que un DDR4-2400, aunque ambos sean DDR4 |
+| **Velocidad (MHz)** | Qué tan rápido se transfieren datos entre la RAM y el CPU | Un DDR4-3200 transfiere datos más rápido que un DDR4-2400, aunque ambos sean DDR4. Ojo: el número es de transferencias por segundo (MT/s), no MHz reales — al ser *Double Data Rate*, un DDR4-3200 tiene un reloj de 1600 MHz, y Windows suele mostrarlo como "3200 MHz" |
 | **Latencia (CL, CAS Latency)** | Cuántos ciclos de reloj tarda la RAM en responder a una solicitud | Menor CL = respuesta más rápida, aunque la velocidad en MHz sea la misma |
 | **Canales (single/dual/quad)** | Cuántos módulos idénticos puede leer la motherboard simultáneamente | Doble canal (2 módulos idénticos) casi duplica el ancho de banda frente a un solo módulo de la misma capacidad total |
 | **ECC (Error-Correcting Code)** | Memoria que detecta y corrige errores de un bit automáticamente | Casi nunca en PCs de escritorio; **estándar en servidores**, que corren 24/7 sin poder tolerar errores silenciosos de memoria |
@@ -205,10 +205,10 @@ práctica (Patterson & Hennessy, 2020).
 ## Por qué esto importa para especificar servidores
 
 Todo lo que acabas de ver — núcleos, hilos, GHz, capacidad y velocidad de RAM, tipo de
-almacenamiento — es exactamente el vocabulario que vas a usar más adelante en este curso
-(Etapa 3 del manual: instalación de un sistema operativo de red) para **elegir qué
-hardware necesita un servidor**. La diferencia es que las prioridades cambian por
-completo frente a una PC de escritorio:
+almacenamiento — es exactamente el vocabulario que reaparece en la Etapa 3 (instalación de
+un sistema operativo de red), al decidir cuánta RAM, cuántos CPU y cuánto disco darle a la
+VM del servidor — y en general para **elegir qué hardware necesita un servidor**. La
+diferencia es que las prioridades cambian por completo frente a una PC de escritorio:
 
 | Prioridad | PC de escritorio | Servidor |
 |---|---|---|
@@ -236,8 +236,8 @@ instalada, y el tipo de sistema (32 o 64 bits).
 
 **2. Núcleos e hilos del CPU:**
 `Ctrl + Shift + Esc` abre el **Administrador de tareas** → pestaña **Rendimiento** → clic
-en **CPU**. En la esquina inferior derecha del gráfico aparecen "Núcleos" e "Hilos
-lógicos" — compáralos con lo que investigaste sobre tu modelo de CPU.
+en **CPU**. En la esquina inferior derecha del gráfico aparecen "Núcleos" y
+"Procesadores lógicos" (los hilos) — anota los dos números junto al modelo de CPU.
 
 **3. Velocidad y uso de la RAM:**
 En el mismo Administrador de tareas → **Rendimiento** → **Memoria**. Ahí ves la

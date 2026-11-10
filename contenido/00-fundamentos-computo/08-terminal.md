@@ -4,10 +4,11 @@
 
 ## Por qué existe esta sesión
 
-En la Sesión 7 instalaste Ubuntu dentro de tu VM. Todas las prácticas del resto del curso
-(Docker, redes, servidores) se hacen desde una **terminal** de esa VM — línea de comandos,
-no clics en ventanas. Esta sesión es el prerrequisito real antes de Etapa 1: moverte entre
-carpetas, ver y editar archivos, y entender qué es un proceso.
+En la Sesión 7 instalaste Ubuntu dentro de tu VM. Las prácticas del curso con servidores
+(instalar y administrar tu servidor Ubuntu, nginx, SFTP, el firewall, ipcalc) se hacen
+desde una **terminal** — línea de comandos, no clics en ventanas. Esta sesión es el
+prerrequisito real antes de Etapa 1: moverte entre carpetas, ver y editar archivos, y
+entender qué es un proceso.
 
 **Meta de esta sesión:** que sin importar si tu laptop real es Windows o Mac, termines
 usando **la misma terminal Linux dentro de tu VM** que el resto de tus compañeros — así
@@ -19,15 +20,16 @@ todos los comandos del curso funcionan igual para todos.
 
 ### Si tienes Windows
 
-Windows no trae una terminal Linux por defecto, pero Microsoft incluye una manera oficial
-de tener una real y completa dentro de Windows: **WSL2** (Windows Subsystem for Linux,
-version 2). Es el mismo WSL2 que necesitarás más adelante para que Docker Desktop
-funcione, así que este paso no es un rodeo — es un prerequisito real del curso.
+Tu entorno del curso es la terminal de la VM de Ubuntu que instalaste en la Sesión 7: ahí
+no hay nada que preparar. Si además quieres una terminal Linux directamente en Windows,
+sin abrir VirtualBox, Microsoft ofrece una manera oficial: **WSL2** (Windows Subsystem
+for Linux, version 2). Es **opcional**: los pasos siguientes solo aplican si decides
+instalarlo para practicar.
 
 **Paso 1. Verifica tu versión de Windows**
 
-WSL2 requiere Windows 10 versión 2004 (build 19041) o superior, o Windows 11 (cualquier
-build ya lo soporta). Para revisar tu versión:
+WSL2 requiere Windows 10 versión 2004 (build 19041) o superior, o Windows 11 (Microsoft,
+s.f.). Para revisar tu versión:
 
 1. Presiona `Windows + R`, escribe `winver` y presiona Enter.
 2. Se abrirá una ventana mostrando la versión. Si dice Windows 11, estás listo. Si dice
@@ -43,8 +45,8 @@ build ya lo soporta). Para revisar tu versión:
    ```
 3. Este comando hace TODO automáticamente: activa las características de Windows
    necesarias, instala WSL2 como versión por defecto, y descarga **Ubuntu** (la
-   distribución de Linux que usaremos, es la más común y la que tiene más ayuda
-   disponible en internet).
+   misma distribución de Linux de tu VM, la más común y la que tiene más ayuda
+   disponible en internet; Microsoft, s.f.).
 4. **Reinicia tu computadora** cuando el instalador te lo pida.
 
 **Paso 3. Primer arranque de Ubuntu**
@@ -84,12 +86,11 @@ migrarlo con `wsl --set-version Ubuntu 2`.
 - Instala la app **Windows Terminal** (gratis, en Microsoft Store) que es más cómoda y
   te deja elegir "Ubuntu" en una pestaña.
 
-A partir de aquí, **toda práctica del curso la haces dentro de esta ventana de Ubuntu**,
-no en CMD ni en PowerShell.
+Esta ventana de Ubuntu te sirve para practicar los comandos de esta sesión, no CMD ni
+PowerShell.
 
-> Nota: si en la Sesión 7 ya instalaste Ubuntu dentro de una VM con VirtualBox, WSL2 es
-> una alternativa distinta para llegar al mismo lugar (una terminal Linux) sin usar
-> VirtualBox. Tu docente te indicará cuál de las dos usar como entorno principal del curso.
+> Nota: WSL2 no sustituye a la VM. El servidor que instalas y administras en la Etapa 3
+> vive en VirtualBox; WSL2 es solo una forma cómoda de practicar comandos en Windows.
 
 ---
 
@@ -191,11 +192,11 @@ drwxr-xr-x  2 alumno alumno 4096 Jul 26 10:00 lab-redes
 - La primera letra indica el tipo: `-` = archivo normal, `d` = carpeta (directorio).
 - Las siguientes 9 letras son permisos en grupos de 3: **dueño / grupo / todos los demás**,
   cada grupo con `r` (leer), `w` (escribir), `x` (ejecutar).
-- `chmod +x <archivo>` le da permiso de **ejecución** a un archivo — lo vas a necesitar
-  para correr scripts `.sh` como los del laboratorio de Docker:
+- `chmod +x <archivo>` le da permiso de **ejecución** a un archivo — lo necesitas para
+  correr un script `.sh` (un archivo de texto con una lista de comandos):
   ```bash
-  chmod +x generate-cert.sh
-  ./generate-cert.sh
+  chmod +x mi-script.sh
+  ./mi-script.sh
   ```
 
 ### 2.5 Procesos (¿qué está corriendo?)
@@ -206,10 +207,9 @@ drwxr-xr-x  2 alumno alumno 4096 Jul 26 10:00 lab-redes
 | `top` (o `htop` si está instalado) | Muestra procesos en tiempo real, uso de CPU/memoria |
 | `Ctrl + C` | Detiene el proceso que está corriendo en tu terminal en este momento |
 
-**Por qué importa para el curso:** cuando levantes el laboratorio con
-`docker compose up`, cada contenedor es en el fondo un **proceso aislado** corriendo en tu
-máquina. Entender qué es un proceso te ayuda a entender qué es un contenedor — el mismo
-contraste que ya viste en la tabla VM vs. Contenedor de la Sesión 7.
+**Por qué importa para el curso:** un servidor web como nginx (Etapa 3) es, en el fondo,
+un proceso más corriendo en el sistema — un **servicio**, como viste en la Sesión 2. Con
+`ps aux | grep nginx` lo puedes ver en la lista de procesos.
 
 ### 2.6 Buscar y combinar comandos (lo que hace la terminal realmente poderosa)
 
@@ -253,8 +253,8 @@ sudo apt install curl
 
 `apt` es el **gestor de paquetes** de Ubuntu/Debian — instala programas descargándolos
 desde repositorios oficiales, en vez de buscar un instalador manualmente como en Windows.
-Vas a usar exactamente este patrón (`sudo apt install ...`) para instalar Docker más
-adelante en el curso.
+Vas a usar exactamente este patrón (`sudo apt install ...`) en la Etapa 3 para instalar
+nginx en tu servidor, y en la Etapa 4 para instalar ipcalc.
 
 ⚠️ `sudo` te da permiso de hacer **cualquier cosa** en el sistema, incluyendo romperlo —
 úsalo solo cuando el comando lo pida explícitamente, no "por si acaso".
@@ -296,7 +296,8 @@ sudo comando        ejecutar con permisos de administrador
 
 Antes de continuar con el curso, confirma que puedes hacer esto sin ayuda:
 
-1. Abrir tu terminal (Ubuntu en WSL2, o Terminal en Mac, o dentro de tu VM).
+1. Abrir tu terminal (dentro de tu VM, o Terminal en Mac, o Ubuntu en WSL2 si lo
+   instalaste).
 2. Crear una carpeta llamada `verificacion-etapa0`.
 3. Entrar a ella y crear un archivo `listo.txt` con tu nombre completo adentro (usando
    `nano`).
@@ -309,9 +310,9 @@ Si completaste los 5 pasos sin trabarte, estás listo para Etapa 1.
 
 ## Cierre: recorriendo el hilo conductor completo
 
-Ya tienes las cuatro piezas de las cuatro sesiones. Todo el curso (DNS, DHCP, web, FTP,
-correo) es una variación del mismo escenario: **alguien pide algo, algo responde**. Este
-es el recorrido técnico completo, de tu laptop real hasta la página en pantalla:
+Ya tienes las piezas de las ocho sesiones de este módulo. Todo el curso (DNS, DHCP, web,
+FTP, correo) es una variación del mismo escenario: **alguien pide algo, algo responde**.
+Este es el recorrido técnico completo, de tu laptop real hasta la página en pantalla:
 
 ```
 Tu laptop real (Windows/Mac)
@@ -320,7 +321,7 @@ Tu laptop real (Windows/Mac)
 Máquina Virtual (Sesión 7)
         │
         v
-Linux + terminal, dentro de la VM (Sesiones 3 y 4)
+Linux + terminal, dentro de la VM (Sesiones 7 y 8)
         │
         v
 Red: switches y routers que conectan tu VM con un servidor (Sesión 5)
@@ -342,8 +343,9 @@ La página web aparece en tu navegador
    siguiendo el protocolo HTTP, después de que DNS resolvió el nombre (Sesión 6).
 
 Ese recorrido completo — de tu laptop real hasta el contenido de una página, pasando por
-VM, Linux, red y tráfico — es exactamente lo que vas a construir con tus propias manos
-durante el resto del curso.
+VM, Linux, red y tráfico — es el mismo que recorres en la Etapa 3, cuando montas tu propio
+servidor web (nginx) en una VM de Ubuntu y abres su página desde el navegador de tu
+laptop.
 
 ---
 

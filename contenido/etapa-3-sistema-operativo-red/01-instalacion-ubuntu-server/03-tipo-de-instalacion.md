@@ -12,7 +12,7 @@ Aquí decides **qué tan completo** queda el sistema base:
 | ( ) Ubuntu Server (minimized) | Versión recortada para servidores donde "no se espera que una persona inicie sesión": contenedores, nubes automatizadas | No: aquí sí vamos a entrar a escribir comandos |
 | [ ] Search for third-party drivers | Busca controladores privativos (por ejemplo, de tarjetas de video) | **Desmarcado**: la VM solo tiene hardware virtual |
 
-Déjala como viene y baja con Tab hasta **[ Done ]**.
+Déjala como viene y baja con Tab hasta **[ Hecho ]**.
 
 ## Por qué existe la versión mínima
 

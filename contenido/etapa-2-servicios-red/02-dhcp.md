@@ -140,7 +140,8 @@ dice el protocolo. A este segundo servidor no autorizado se le llama **DHCP intr
 
 ## Cómo se resuelve con herramientas reales
 
-Para diagnosticar y para montar un servidor DHCP propio en tu **VM de Ubuntu Server**:
+Para diagnosticar y para montar un servidor DHCP propio en un servidor Linux como
+**Ubuntu Server**:
 
 - **`tcpdump`**: captura los mensajes DHCP que viajan por la red. Filtrando por los
   puertos 67 y 68 (`sudo tcpdump -n -i <interfaz> port 67 or port 68`) se ve quién
@@ -149,9 +150,10 @@ Para diagnosticar y para montar un servidor DHCP propio en tu **VM de Ubuntu Ser
 - **ISC Kea**: el servidor DHCP actual del Internet Systems Consortium (ISC), con
   servicios separados para IPv4 (`kea-dhcp4`) e IPv6 (`kea-dhcp6`) y configuración en
   formato JSON (Internet Systems Consortium, s.f.-b). En Ubuntu se instala con
-  `sudo apt install kea` y se configura en `/etc/kea/kea-dhcp4.conf` (Canonical, s.f.).
-  Su antecesor, **ISC DHCP** (`dhcpd`), llegó a fin de mantenimiento a finales de 2022 y
-  el propio ISC recomienda migrar a Kea (Internet Systems Consortium, s.f.-a) — vas a
+  `sudo apt install kea` y se configura en `/etc/kea/kea-dhcp4.conf` (Canonical Ltd.,
+  s.f.). Su
+  antecesor, **ISC DHCP** (`dhcpd`), llegó a fin de mantenimiento a finales de 2022 y el
+  propio ISC recomienda migrar a Kea (Internet Systems Consortium, s.f.-a) — vas a
   encontrar muchos tutoriales viejos en Internet que todavía usan `dhcpd`.
 
 ```
@@ -168,7 +170,7 @@ Fragmento de /etc/kea/kea-dhcp4.conf (simplificado)
 Ese fragmento es, línea por línea, la tabla de "Qué entrega DHCP": rango de IPs, router y
 DNS. En la escuela del ejemplo, además, los switches administrables suelen tener una
 función para permitir respuestas DHCP solo desde el puerto donde está el servidor
-autorizado — se verá cuando el curso llegue a seguridad de la red local.
+autorizado.
 
 ---
 

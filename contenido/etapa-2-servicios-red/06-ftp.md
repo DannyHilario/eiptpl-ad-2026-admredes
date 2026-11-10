@@ -160,12 +160,17 @@ tienes la solución principal del ejemplo, sin instalar nada adicional:
   el firewall y dejar solo el 22, que de todas formas ya usaba para administrar el servidor.
 
 ```
-$ sftp ana@192.168.56.10
-Connected to 192.168.56.10.
+$ sftp ana@192.168.1.57
+Connected to 192.168.1.57.
 sftp> put index.html /var/www/html/
 Uploading index.html to /var/www/html/index.html
 sftp> bye
 ```
+
+Ese `put` funciona solo si `ana` tiene permiso de escritura en `/var/www/html`. Recién
+instalado nginx, esa carpeta es de `root`, así que el primer intento falla con
+`Permission denied`; el [PIA](../../evidencias/pia/descripcion-pia.md) lo resuelve
+haciendo a tu usuario dueño de la carpeta con `sudo chown`.
 
 - **vsftpd** ("very secure FTP daemon"): es el servidor FTP que la documentación oficial
   de Ubuntu Server usa como referencia (Canonical, s.f.; Evans, s.f.). Sirve para los casos

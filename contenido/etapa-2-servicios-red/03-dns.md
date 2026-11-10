@@ -135,7 +135,7 @@ resolutor, y para montar tu propio servidor DNS:
   TTL restante. Con `dig @<servidor> www.prepa-ejemplo.mx` se pregunta a un resolutor
   específico (y se compara la respuesta de varios); con `dig +trace` se recorre el árbol
   de forma iterativa desde la raíz, igual que el diagrama de esta sesión. En Ubuntu viene
-  en el paquete `dnsutils` (Canonical, s.f.).
+  en el paquete `dnsutils` (Canonical Ltd., s.f.).
 - **`resolvectl`**: Ubuntu usa `systemd-resolved` como resolutor local, que escucha en
   `127.0.0.53` (systemd, s.f.-b). `resolvectl status` muestra qué servidores DNS está
   usando tu VM (los que le dio DHCP) y `resolvectl query <nombre>` hace una consulta a
@@ -143,7 +143,7 @@ resolutor, y para montar tu propio servidor DNS:
 - **BIND 9**: el servidor DNS de código abierto del Internet Systems Consortium; puede
   funcionar como resolutor con caché o como servidor autoritativo de una zona propia
   (Internet Systems Consortium, s.f.). En Ubuntu se instala con el paquete `bind9`, y las
-  zonas propias se declaran en `/etc/bind/named.conf.local` (Canonical, s.f.).
+  zonas propias se declaran en `/etc/bind/named.conf.local` (Canonical Ltd., s.f.).
 
 ```
 $ dig www.prepa-ejemplo.mx A          (salida simplificada)
@@ -162,7 +162,7 @@ viejo hasta que pase el TTL anterior — algo que `dig` permite comprobar antes 
 ## Referencias
 
 Canonical Ltd. (s.f.). *Domain Name Service (DNS)*. Ubuntu Server
-documentation. https://ubuntu.com/server/docs/how-to/networking/install-dns/
+documentation. https://documentation.ubuntu.com/server/how-to/networking/install-dns/
 
 Dickinson, J., Dickinson, S., Bellis, R., Mankin, A., & Wessels, D. (2016). *DNS
 transport over TCP — Implementation requirements* (RFC 7766). IETF.

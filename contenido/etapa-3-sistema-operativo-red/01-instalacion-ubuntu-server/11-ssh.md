@@ -39,9 +39,8 @@ que capturara el tráfico podía leer la contraseña.
 ## Contraseña o llaves
 
 Las **llaves SSH** son más seguras que una contraseña: no se pueden adivinar por fuerza
-bruta. La casilla "Import SSH key" sirve para traer una llave pública ya existente. Para
-empezar usaremos contraseña — es lo más simple cuando varias personas se conectan por
-primera vez — y las llaves se verán más adelante, como mejora de seguridad.
+bruta. La casilla "Import SSH key" sirve para traer una llave pública ya existente. En el
+curso usaremos contraseña: es lo más simple cuando te conectas por primera vez.
 
 ## Referencias
 

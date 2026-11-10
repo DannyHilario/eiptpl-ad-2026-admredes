@@ -386,8 +386,9 @@ ipcalc 192.168.5.77 255.255.255.224
 ipcalc 192.168.5.77 255.255.255.200
 ```
 
-ipcalc no hace el cálculo: responde con un error que dice que la máscara es inválida
-(`INVALID MASK`). Es el ejercicio 6, comprobado.
+ipcalc no hace el cálculo: responde con un error que dice que la máscara es inválida.
+Verás `INVALID NETMASK` y, debajo, `INVALID MASK1:   255.255.255.200`. Es el
+ejercicio 6, comprobado.
 
 ## Referencias
 

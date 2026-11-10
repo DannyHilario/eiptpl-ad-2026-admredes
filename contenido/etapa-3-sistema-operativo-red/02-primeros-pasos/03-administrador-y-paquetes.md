@@ -121,15 +121,19 @@ mensajes en pantalla pueden verse un poco distintos a los de tutoriales viejos
 ### Qué pasa si se te olvida sudo
 
 Si escribes un comando de administrador **sin** `sudo`, el sistema simplemente no lo
-deja pasar. Por ejemplo, `apt update` sin `sudo` termina con un error como este:
+deja pasar. Por ejemplo, si intentas instalar un programa con `apt install` (lo vas a
+ver en la sección 7) sin `sudo`, termina con un error como este:
 
 ```
-E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)
+Error: No se pudo abrir el fichero de bloqueo «/var/lib/dpkg/lock-frontend» - open (13: Permission denied)
+Error: No se pudo reservar el uso de la interfaz dpkg (/var/lib/dpkg/lock-frontend), ¿es superusuario?
 ```
 
-No tienes que entender toda la línea. La parte importante es **Permission denied**,
-"permiso denegado": te faltó `sudo`. No se rompió nada; vuelve a escribir el comando
-con `sudo` al principio.
+No tienes que entender todas las líneas. Fíjate en que empiezan con **`Error:`**, y en
+dos pistas: **Permission denied** ("permiso denegado") y la pregunta **¿es
+superusuario?**, es decir, "¿eres administrador?". Te faltó `sudo`. No se rompió nada;
+vuelve a escribir el comando con `sudo` al principio. (En tutoriales viejos verás que
+estos errores empiezan con `E:` en lugar de `Error:`; es lo mismo.)
 
 ### Regla de oro
 
@@ -270,8 +274,8 @@ Cuando ejecutas `sudo apt install` con un paquete, pasa esto, en orden:
    equivale a **Sí**. Para cancelar, escribe `n` y Enter.
 
 4. Descarga los paquetes del mirror, comprueba su firma, los instala y los configura.
-5. Regresa al prompt. Si no apareció ningún mensaje que empiece con `E:` (de *error*),
-   el programa quedó instalado.
+5. Regresa al prompt. Si no apareció ninguna línea que empiece con `Error:`, el
+   programa quedó instalado.
 
 Si un paquete **ya está instalado**, `apt` solo te avisa que ya tienes la versión más
 reciente y no hace nada más. No pasa nada malo por intentarlo dos veces.
@@ -343,9 +347,9 @@ Primero, a propósito, **sin** `sudo`:
 apt update
 ```
 
-Aparecen unas líneas y al final un error que empieza con `E:` y menciona **Permission
-denied**. Es lo que viste en la sección 3: actualizar la lista cambia el servidor, y tu
-cuenta sola no tiene permiso.
+Aparecen unas líneas y al final un error: líneas que empiezan con `Error:`, mencionan
+un **fichero de bloqueo** y dicen **Permission denied**. Es lo que viste en la
+sección 3: actualizar la lista cambia el servidor, y tu cuenta sola no tiene permiso.
 
 Ahora, con `sudo`:
 
@@ -355,7 +359,8 @@ sudo apt update
 
 Te pide tu contraseña (aparece un asterisco por cada letra). Después aparecen varias líneas que
 empiezan con `Get:` o `Hit:` (o `Obj:` y `Des:` en español): son las listas que se
-están descargando del mirror. Al final no debe aparecer ningún `E:`.
+están descargando del mirror. Al final no debe aparecer ninguna línea que empiece con
+`Error:`.
 
 ### Paso 2: Consultar un paquete
 

@@ -76,7 +76,7 @@ Un servidor recién instalado ya tiene programas con versiones viejas: desde que
 publicó el ISO, Ubuntu ha corregido errores y huecos de seguridad. Por eso **lo primero
 que hace un administrador con cualquier servidor es actualizarlo**. Se hace en dos
 pasos: primero se descarga la **lista** de lo que hay nuevo, y después se **instalan**
-las versiones nuevas (Canonical, s.f.-b). Si quieres repasarlo con calma, está en
+las versiones nuevas (Canonical Ltd., s.f.-b). Si quieres repasarlo con calma, está en
 [El administrador, sudo y los
 paquetes](../../contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/03-administrador-y-paquetes.md).
 
@@ -106,7 +106,7 @@ versiones. **Todavía no instala nada**: solo se entera de qué hay nuevo.
 2. Varias líneas que empiezan con `Get:` o `Hit:` (o `Obj:` y `Des:` en español):
    cada una es una lista que se está descargando.
 3. Al final, regresa el prompt. **No debe aparecer ninguna línea que empiece con
-   `E:`** (de *error*).
+   `Error:`**.
 
 ### Paso 2: Instalar las actualizaciones
 
@@ -163,7 +163,7 @@ sudo   adduser   dghm-1410751
  como administrador: crear cuentas cambia todo el servidor
 ```
 
-**Qué está pasando:** `adduser` hace varias cosas de una vez (Canonical, s.f.-c):
+**Qué está pasando:** `adduser` hace varias cosas de una vez (Canonical Ltd., s.f.-c):
 
 - Agrega la cuenta a la lista de usuarios del sistema (el archivo `/etc/passwd`) y le
   asigna un **número de usuario** (UID).
@@ -205,7 +205,7 @@ sudo   usermod   -aG    sudo   dghm-1410751
 ```
 
 **Qué está pasando:** en Ubuntu, los usuarios que pueden usar `sudo` son los que
-pertenecen al **grupo `sudo`** (Canonical, s.f.-c). Tu usuario nuevo todavía no está
+pertenecen al **grupo `sudo`** (Canonical Ltd., s.f.-c). Tu usuario nuevo todavía no está
 en ese grupo, así que todavía no es administrador. Este comando lo **agrega** al grupo.
 
 La `a` es importante: sin ella, `-G` **reemplazaría** todos los grupos del usuario por
@@ -337,7 +337,7 @@ sudo   apt   install   nginx   -y
 **Qué está pasando:** `apt` busca `nginx` en la lista que descargaste en el paso 1,
 calcula qué otros paquetes necesita (sus **dependencias**), los descarga e instala
 todo. Además, en Ubuntu, al instalar nginx el servicio **se enciende solo** y queda
-configurado para arrancar cada vez que se prenda el servidor (Canonical, s.f.-a).
+configurado para arrancar cada vez que se prenda el servidor (Canonical Ltd., s.f.-a).
 
 **Qué debes ver:** líneas de descarga e instalación, y luego el prompt. Si ya lo habías
 instalado en la práctica de

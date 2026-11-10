@@ -59,8 +59,8 @@ por razones muy concretas:
 - **Precisión:** un comando hace exactamente lo que dice, sin ambigüedad de "¿le di clic
   al botón correcto?".
 
-Por eso, más adelante en el curso vas a trabajar principalmente desde una terminal Linux
-— no porque la GUI esté mal, sino porque es la herramienta correcta para este tipo de
+Por eso, a partir de la Etapa 3 trabajas principalmente desde la terminal de tu servidor
+Linux — no porque la GUI esté mal, sino porque es la herramienta correcta para este tipo de
 trabajo.
 
 ## Comandos equivalentes en Windows, macOS y Linux
@@ -117,7 +117,16 @@ alguien que ya sabe comandos de Linux se sienta cómodo en Windows, y viceversa.
 
 **Parte C — Limpieza:**
 Borra ambas carpetas de prueba, una desde el Explorador (clic derecho → Eliminar) y otra
-con `Remove-Item prueba-cli` desde PowerShell.
+desde PowerShell. PowerShell abre en tu carpeta de usuario (`C:\Users\<tu-usuario>`), no
+en el Escritorio, así que la ruta incluye `Desktop`:
+```
+Remove-Item -Recurse Desktop\prueba-cli
+```
+Si el comando dice que no encuentra la ruta, probablemente tu Escritorio está sincronizado
+con **OneDrive** y vive en otra carpeta (`OneDrive\Desktop` o `OneDrive\Escritorio`).
+Lo mismo aplica al `cd Desktop` de la Parte A: si falla, usa `cd OneDrive\Desktop`. Para
+confirmar la ruta real, clic derecho sobre la carpeta en el Explorador → **Propiedades**
+→ **Ubicación**.
 
 ---
 

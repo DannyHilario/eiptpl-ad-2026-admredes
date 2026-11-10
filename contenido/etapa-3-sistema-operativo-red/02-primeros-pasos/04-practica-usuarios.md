@@ -57,9 +57,13 @@ inglés o en español:
    [Y/n]`). Presiona **Enter**: la letra en mayúscula es la respuesta por defecto, Sí.
 
 ⚠️ **`123123` es una contraseña pésima**, y la usamos solo porque es una cuenta de
-práctica en tu VM, que no está conectada a ninguna red compartida. En un servidor real,
-**nunca** se crea una cuenta con una contraseña así: sería lo primero que probaría un
-atacante.
+práctica en tu VM. Por ahora tu VM está en modo **NAT**: ningún otro equipo puede
+conectarse a ella. Más adelante, cuando la pases a modo **puente** para conectarte por
+SSH, cualquier equipo de la red de tu casa podría intentar entrar; por eso, **antes** de
+ese cambio vas a borrar esta cuenta (es el primer paso de
+[Conectarte por SSH](../03-acceso-remoto/03-conectarte-por-ssh.md)). En un servidor
+real, **nunca** se crea una cuenta con una contraseña así: sería lo primero que
+probaría un atacante.
 
 Comprueba que el usuario existe:
 
@@ -83,7 +87,13 @@ Intenta ver qué hay en la carpeta personal del usuario nuevo:
 ls /home/user-practica-01
 ```
 
-Deberías ver un error que dice **Permission denied** ("permiso denegado"). Es la
+Deberías ver un error que dice **Permiso denegado**:
+
+```
+ls: no se puede abrir el directorio '/home/user-practica-01': Permiso denegado
+```
+
+(Si tu sistema está en inglés, dice *Permission denied*.) Es la
 **privacidad** que viste en la
 [sección 5 de Usuarios](02-usuarios.md#5-para-qué-separar-a-los-usuarios): aunque están
 en el mismo servidor, no puedes entrar a la carpeta personal de otro usuario. Por qué
@@ -118,7 +128,7 @@ usuario:
 ls /home/usuario
 ```
 
-Otra vez **Permission denied**: la privacidad funciona en los dos sentidos.
+Otra vez **Permiso denegado**: la privacidad funciona en los dos sentidos.
 
 ## Paso 4: Un usuario que no es administrador
 
@@ -147,7 +157,8 @@ whoami
 El prompt vuelve a mostrar tu nombre, y `whoami` lo confirma. **Siempre regresa con
 `exit`** cuando termines de usar otra cuenta.
 
-**No borres `user-practica-01`**: lo vas a usar de nuevo en la lectura de permisos.
+**No borres `user-practica-01` todavía**: lo vas a usar de nuevo en la lectura de
+permisos. Lo vas a borrar justo antes de conectarte por SSH.
 
 ## Comandos que usaste
 

@@ -177,7 +177,8 @@ Al preguntar con más detalle aparecen tres síntomas distintos. Un alumno ve un
 blanca que dice **404 Not Found**: copió el enlace de un mensaje viejo que apuntaba a
 `/inscripciones2025.html`, una ruta que ya no existe en el servidor. Otro alumno ve **503
 Service Unavailable** a las 8:00 a.m., justo cuando cientos de alumnos entraron al mismo
-tiempo y el servidor dejó de aceptar conexiones nuevas. Un tercero dice que en su casa sí
+tiempo: el servidor sí recibió la petición y contestó, pero con un código que dice "estoy
+saturado, no puedo atenderte ahorita". Un tercero dice que en su casa sí
 carga, pero desde la red de la escuela no — y ahí ni siquiera hay código de estado,
 porque la conexión nunca llega al servidor.
 
@@ -203,11 +204,11 @@ servidor y el cliente de diagnóstico:
   devuelve el servidor para una URL (curl project, s.f.).
 
 ```
-$ curl -I http://inscripciones.prepa.local/inscripciones2025.html
+$ curl -I http://inscripciones.prepa.internal/inscripciones2025.html
 HTTP/1.1 404 Not Found              <-- problema del lado del cliente (ruta vieja)
 Server: nginx
 
-$ curl -I http://inscripciones.prepa.local/
+$ curl -I http://inscripciones.prepa.internal/
 curl: (7) Failed to connect ... port 80   <-- ni siquiera hubo respuesta HTTP:
                                               el problema está en la red
 ```

@@ -39,8 +39,8 @@ Hay dos tipos de archivo que te conviene distinguir:
 | **Binario** | Información que solo entiende un programa | Un programa, una foto, un video | **No**: si lo abres como texto, aparecen símbolos sin sentido |
 
 Esto es importante porque **en un servidor Linux, casi toda la configuración está en
-archivos de texto**. Cuando más adelante configures un servidor web o un DNS, lo que
-vas a hacer es abrir un archivo de texto, cambiar unas líneas y guardarlo.
+archivos de texto**. Configurar un servicio, como un servidor web, casi siempre
+consiste en abrir un archivo de texto, cambiar unas líneas y guardarlo.
 
 ## 2. ¿Qué es una carpeta?
 
@@ -297,7 +297,8 @@ viste en la [Etapa 1](../../etapa-1-funciones-administracion/05-administracion-s
 
 - Si cualquier usuario pudiera modificar `/etc`, cualquiera podría cambiar la
   configuración del servidor.
-- Cada servicio que instales más adelante (un servidor web, un DNS) corre con **su
+- Cada servicio (por ejemplo, el servidor web que vas a instalar en
+  [Acceso remoto](../03-acceso-remoto/04-servidor-web.md)) corre con **su
   propio usuario**, y solo puede tocar los archivos que le corresponden. Si alguien
   ataca ese servicio, los permisos limitan el daño.
 - Cuando un servicio no arranca, una de las primeras cosas que se revisan es si tiene
@@ -345,7 +346,8 @@ Responde para **cada uno** de los tres:
 ### Paso 2: Por qué no pudiste entrar a la otra carpeta
 
 En la [práctica de usuarios](04-practica-usuarios.md#paso-2-cada-quien-en-su-carpeta) viste un
-**Permission denied** al intentar entrar a la carpeta de `user-practica-01`. Ahora
+**Permiso denegado** (en inglés, *Permission denied*) al intentar entrar a la carpeta
+de `user-practica-01`. Ahora
 puedes ver por qué:
 
 ```bash

@@ -5,13 +5,15 @@
 
 ## Qué vas a hacer
 
-1. Vas a cambiar la red de tu VM para que **tu computadora pueda verla**.
-2. Vas a averiguar la **dirección IP** de tu servidor.
-3. Vas a **conectarte por SSH** desde Git Bash y trabajar en tu servidor sin tocar la
+1. Vas a **borrar la cuenta de práctica** `user-practica-01`, antes de abrir tu VM a la
+   red.
+2. Vas a cambiar la red de tu VM para que **tu computadora pueda verla**.
+3. Vas a averiguar la **dirección IP** de tu servidor.
+4. Vas a **conectarte por SSH** desde Git Bash y trabajar en tu servidor sin tocar la
    ventana de VirtualBox.
 
-Necesitas Git Bash instalado ([Instalar Git Bash](01-git-bash.md)) y tu VM apagada
-para empezar.
+Necesitas Git Bash instalado ([Instalar Git Bash](01-git-bash.md)) y tu VM encendida,
+con tu sesión iniciada en la ventana de VirtualBox, para empezar.
 
 ## Por qué hay que cambiar la red
 
@@ -28,6 +30,54 @@ la misma red, se pueden conectar.
 ![En modo NAT la laptop no puede conectarse a la VM; en modo puente sí](../assets/nat-vs-puente.png)
 
 Las direcciones del diagrama son un ejemplo: las tuyas dependen de tu red.
+
+## Antes de empezar: borrar la cuenta de práctica
+
+En la [práctica de usuarios](../02-primeros-pasos/04-practica-usuarios.md) creaste la
+cuenta `user-practica-01` con la contraseña `123123`. Mientras tu VM estuvo en modo
+NAT no había problema: ningún otro equipo podía llegar a ella. Pero en cuanto la
+pases a modo puente, **cualquier equipo de la red de tu casa** va a poder intentar
+entrar por SSH, y `user-practica-01` con `123123` sería lo primero que probaría un
+atacante. Ya no la necesitas, así que la vas a borrar **antes** de cambiar la red.
+
+En la ventana de VirtualBox, con tu sesión iniciada, escribe:
+
+```bash
+sudo deluser --remove-home user-practica-01
+```
+
+```
+sudo  deluser  --remove-home  user-practica-01
+ │       │          │               │
+ │       │          │               qué cuenta borrar
+ │       │          borra también su carpeta personal (/home/user-practica-01)
+ │       el programa que borra usuarios
+ como administrador
+```
+
+- `deluser` (de *delete user*, "borrar usuario") es lo contrario de `adduser`: quita la
+  cuenta del sistema (Ubuntu, s.f.). Borrar usuarios cambia todo el servidor, así que,
+  igual que `adduser`, necesita `sudo`.
+- `--remove-home` ("quitar la carpeta personal") le pide que borre **también** la
+  carpeta `/home/user-practica-01` con todo lo que tenga dentro. Sin esa opción,
+  `deluser` borra la cuenta pero deja su carpeta (Ubuntu, s.f.).
+
+`sudo` te pide **tu** contraseña (aparece un asterisco por cada letra). Después
+regresas al prompt **sin ningún mensaje**: en Linux, que un comando no diga nada casi
+siempre significa que salió bien.
+
+Comprueba que ya no existe:
+
+```bash
+ls /home
+id user-practica-01
+```
+
+- En `ls /home` ya **no aparece** `user-practica-01`; queda la carpeta de tu usuario.
+- `id user-practica-01` responde `no existe tal usuario`.
+
+Si `deluser` responde que ese usuario no existe, es que ya lo habías borrado:
+puedes seguir.
 
 ## Paso 1: Cambiar el adaptador a puente
 
@@ -87,17 +137,33 @@ siempre con `ip a`.
 
 ## Paso 3: Comprobar que tu computadora ve al servidor
 
-Ahora cambia de ventana. Abre **Git Bash** en tu computadora y escribe (con **tu** IP):
+Ahora cambia de ventana. Abre **Git Bash** en tu computadora y escribe (con **tu** IP).
+**En Windows:**
+
+```bash
+ping -n 3 192.168.1.57
+```
+
+**En Mac** (en la Terminal):
 
 ```bash
 ping -c 3 192.168.1.57
 ```
 
 Es el mismo `ping` que usaste para comprobar Internet desde el servidor, pero al revés:
-ahora **tu computadora** le pregunta al servidor si está ahí. Deben aparecer tres
-respuestas y al final **`0% packet loss`**. Si en cambio dice `100% packet loss` o
-`Destination host unreachable`, tu computadora no llega a la VM: revisa el Paso 1 y la
-IP del Paso 2.
+ahora **tu computadora** le pregunta al servidor si está ahí. ¿Por qué cambia la
+opción? En Git Bash, `ping` no es el de Linux: es el `ping` **de Windows**, y en él la
+cantidad de intentos se indica con `-n` (Microsoft, 2023). En Linux y en Mac es `-c`.
+Si en Windows escribes `-c`, el comando no funciona.
+
+En Windows, deben aparecer tres líneas que empiezan con **`Respuesta desde
+192.168.1.57: bytes=32 tiempo=...`** y terminan en **`TTL=64`**, y al final, en las
+estadísticas, **`(0% perdidos)`**. En Mac aparecen tres líneas con `64 bytes from
+192.168.1.57` y al final **`0.0% packet loss`**.
+
+Si en cambio aparece **`Tiempo de espera agotado para esta solicitud.`** o **`Host de
+destino inaccesible.`** (en Mac, líneas `Request timeout` y al final `100.0% packet loss`), tu
+computadora no llega a la VM: revisa el Paso 1 y la IP del Paso 2.
 
 ## Paso 4: Conectarte por SSH
 
@@ -203,6 +269,8 @@ pregunta por la huella).
 
 | Mensaje | Qué significa | Qué hacer |
 |---|---|---|
+| `ping`: `Tiempo de espera agotado para esta solicitud.` o `Host de destino inaccesible.` | Tu computadora no llega a la VM | Revisa que la VM esté encendida, en modo puente (Paso 1), y que la IP sea la de `ip a` (Paso 2) |
+| `ping -c 3 <IP>` en Git Bash no hace ping: muestra la ayuda de `ping` o se queja de la opción | Usaste la opción de Linux en el `ping` de Windows | En Git Bash de Windows usa `ping -n 3 <IP>` |
 | `Connection timed out` | Tu computadora no encuentra la IP | Revisa que la VM esté encendida, en modo puente, y que la IP sea la de `ip a` |
 | `Connection refused` | Llegaste al servidor, pero nadie atiende en el puerto de SSH | En la VM, revisa `systemctl status ssh.socket`, como en el [primer inicio](../02-primeros-pasos/01-primer-inicio.md#el-servicio-ssh) |
 | `ssh.socket` dice `failed` y `sudo sshd -t` responde `no hostkeys available` | Al servidor le faltan sus llaves de identidad (*host keys*) y SSH se niega a arrancar | En la VM: `sudo ssh-keygen -A` y luego `sudo systemctl reset-failed ssh.socket ssh.service && sudo systemctl restart ssh.socket` |
@@ -213,11 +281,13 @@ pregunta por la huella).
 ## Comandos que usaste
 
 ```
-ip a                    (en la VM) ver la IP del servidor
-ping -c 3 <IP>          (en tu computadora) comprobar que ves al servidor
-ssh <usuario>@<IP>      (en tu computadora) conectarte al servidor
-hostname                nombre del equipo en el que estás
-exit                    cerrar la conexión SSH
+sudo deluser --remove-home <usuario>   (en la VM) borrar un usuario y su carpeta
+ip a                                   (en la VM) ver la IP del servidor
+ping -n 3 <IP>                         (en Git Bash, Windows) comprobar que ves al servidor
+ping -c 3 <IP>                         (en la Terminal, Mac) comprobar que ves al servidor
+ssh <usuario>@<IP>                     (en tu computadora) conectarte al servidor
+hostname                               nombre del equipo en el que estás
+exit                                   cerrar la conexión SSH
 ```
 
 **No regreses tu VM a modo NAT**: en la siguiente práctica vas a seguir entrando por
@@ -225,8 +295,14 @@ SSH.
 
 ## Referencias
 
+Microsoft. (2023). *ping* [Windows commands]. Microsoft Learn.
+https://learn.microsoft.com/es-es/windows-server/administration/windows-commands/ping
+
 OpenBSD. (s.f.). *ssh(1): OpenSSH remote login client* [Manual page].
 https://man.openbsd.org/ssh
 
 Oracle. (s.f.). *Virtual networking* [Oracle VirtualBox user guide].
 https://www.virtualbox.org/manual/topics/networkingdetails.html
+
+Ubuntu. (s.f.). *deluser(8): Remove a user or group from the system* [Ubuntu manpage].
+https://manpages.ubuntu.com/manpages/resolute/en/man8/deluser.8.html

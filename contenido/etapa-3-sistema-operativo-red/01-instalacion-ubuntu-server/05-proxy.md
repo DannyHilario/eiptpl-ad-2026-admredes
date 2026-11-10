@@ -6,7 +6,7 @@ El instalador pide la dirección de un **proxy**: un equipo intermediario por el
 algunas empresas o escuelas obligan a pasar el tráfico web hacia Internet, para
 filtrarlo o registrarlo.
 
-**Qué hacer:** dejar el campo **vacío** y elegir **[ Done ]**.
+**Qué hacer:** dejar el campo **vacío** y elegir **[ Hecho ]**.
 
 Ni una red doméstica ni el router del laboratorio usan proxy. Solo se llena si el
 administrador de la red te dio una dirección con formato `http://servidor:puerto`. Si

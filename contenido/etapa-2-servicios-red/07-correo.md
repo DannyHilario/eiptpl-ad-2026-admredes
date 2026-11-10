@@ -118,8 +118,9 @@ mecanismos que se publican en el **DNS** del dominio:
 - **DKIM** (RFC 6376): el servidor de origen **firma** digitalmente cada mensaje; el
   receptor verifica la firma con una llave pública publicada en DNS
   (Crocker et al., 2011).
-- **DMARC** (RFC 7489): le dice al receptor **qué hacer** si SPF o DKIM fallan (aceptar,
-  mandar a spam o rechazar) y a dónde enviar reportes (Kucherawy & Zwicky, 2015).
+- **DMARC** (RFC 9989, que en 2026 reemplazó al RFC 7489): le dice al receptor **qué
+  hacer** si SPF o DKIM fallan (aceptar, mandar a spam o rechazar) y a dónde enviar
+  reportes (Herr & Levine, 2026).
 
 No necesitas configurarlos todavía; basta con saber que existen y que por eso un correo de
 un servidor mal configurado termina en spam aunque "sí se haya enviado".
@@ -150,8 +151,7 @@ se envía y se recibe. Son decisiones de protocolo y de configuración mal tomad
 
 En Linux, un servidor de correo completo se arma con dos piezas de código abierto que la
 documentación oficial de Ubuntu Server usa como referencia (Canonical, s.f.-a, s.f.-b), y
-que puedes instalar en tu **VM de Ubuntu Server en VirtualBox** cuando el curso llegue a
-servicios:
+que se pueden instalar en una **VM de Ubuntu Server** como la del curso:
 
 - **Postfix** (MTA): habla SMTP. Recibe el correo de otros servidores en el puerto 25 y
   el de los usuarios en el 587 exigiendo autenticación y TLS — eso cierra el hueco del
@@ -196,15 +196,16 @@ Dovecot. (s.f.). *Dovecot documentation*. https://doc.dovecot.org/
 Gellens, R., & Klensin, J. (2011). *Message submission for mail* (RFC 6409). IETF.
 https://www.rfc-editor.org/rfc/rfc6409
 
+Herr, T. (Ed.), & Levine, J. (Ed.). (2026). *Domain-based Message Authentication,
+Reporting, and Conformance (DMARC)* (RFC 9989). IETF.
+https://www.rfc-editor.org/rfc/rfc9989
+
 Kitterman, S. (2014). *Sender Policy Framework (SPF) for authorizing use of domains in
 email, version 1* (RFC 7208). IETF. https://www.rfc-editor.org/rfc/rfc7208
 
 Klensin, J. (2008). *Simple mail transfer protocol* (RFC 5321). IETF.
 https://www.rfc-editor.org/rfc/rfc5321
 
-Kucherawy, M. (Ed.), & Zwicky, E. (Ed.). (2015). *Domain-based Message Authentication,
-Reporting, and Conformance (DMARC)* (RFC 7489). RFC Editor (Independent Submission).
-https://www.rfc-editor.org/rfc/rfc7489
 
 Melnikov, A. (Ed.), & Leiba, B. (Ed.). (2021). *Internet Message Access Protocol (IMAP) —
 Version 4rev2* (RFC 9051). IETF. https://www.rfc-editor.org/rfc/rfc9051

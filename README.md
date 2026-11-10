@@ -3,9 +3,11 @@
 Material de apoyo del curso **Administración de Redes** — Escuela Industrial y
 Preparatoria Técnica "Pablo Livas" (EIPTPL), UANL, 2026.
 
-Aquí vas a encontrar las notas, explicaciones y ejercicios prácticos que acompañan las
-clases, organizados por módulo y sesión. La idea es que puedas repasar cualquier tema
-después de clase, o adelantarte si quieres.
+Aquí vas a encontrar las notas, explicaciones y ejercicios prácticos que acompañaron las
+clases, organizados por módulo y sesión.
+
+El curso concluyó (semestre agosto-noviembre 2026); el material queda publicado como
+consulta.
 
 ## Cómo está organizado
 
@@ -70,13 +72,31 @@ resto del semestre:
   3. [Conectarte a tu servidor por SSH](contenido/etapa-3-sistema-operativo-red/03-acceso-remoto/03-conectarte-por-ssh.md)
   4. [Tu primer servicio: un servidor web con nginx](contenido/etapa-3-sistema-operativo-red/03-acceso-remoto/04-servidor-web.md)
 
-La Etapa 4 del manual oficial (direccionamiento IP y subneteo) se agregará conforme
-avance el semestre.
+### 📓 [Etapa 4 — Direccionamiento IP y subneteo](contenido/etapa-4-direccionamiento-ip/)
+
+Cómo se arma una dirección IP y cómo se divide una red, de lo básico a lo avanzado:
+
+1. [La dirección IP](contenido/etapa-4-direccionamiento-ip/01-direccion-ip.md)
+2. [Tipos de direcciones IP](contenido/etapa-4-direccionamiento-ip/02-tipos-de-direcciones.md)
+3. [El sistema binario](contenido/etapa-4-direccionamiento-ip/03-sistema-binario.md)
+4. [La máscara de red](contenido/etapa-4-direccionamiento-ip/04-mascara-de-red.md)
+5. [Subredes](contenido/etapa-4-direccionamiento-ip/05-subredes.md)
+6. [Subneteo paso a paso](contenido/etapa-4-direccionamiento-ip/06-subneteo.md)
+
+## Evidencias
+
+Los enunciados de las evidencias del curso, con su forma de entrega y su rúbrica, están
+en la carpeta [`evidencias/`](evidencias/):
+
+- [Evidencia 1: Informe de las cinco funciones de administración de redes (FCAPS)](evidencias/etapa-1/descripcion-evidencia-1.md)
+- [Evidencia 3: Tu servidor con un administrador propio, nginx y SFTP](evidencias/etapa-3/descripcion-evidencia-3.md)
+- [Evidencia 4: Subnetea una red con tu servidor](evidencias/etapa-4/descripcion-evidencia-4.md)
+- [PIA: El servidor de una pequeña empresa](evidencias/pia/descripcion-pia.md)
 
 ## Cómo usar este material
 
 - Lee cada sesión en orden — cada una da por sabida la anterior.
-- Los ejercicios prácticos están pensados para hacerse en el momento, en tu propia
-  computadora o en el equipo del laboratorio.
+- Los ejercicios prácticos están pensados para hacerse en tu propia computadora y tu
+  VM.
 - Si algo no te queda claro, pregúntalo en clase — este material es un apoyo, no
   sustituye la explicación de tu profesor.

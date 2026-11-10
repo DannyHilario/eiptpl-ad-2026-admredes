@@ -28,12 +28,12 @@ el disco, la RAM y la red, pero **no el procesador**: el sistema invitado corre 
 sobre el CPU real, así que tiene que estar compilado para esa arquitectura.
 
 ```
-Tu computadora                         ISO que necesitas
-──────────────────────────────         ──────────────────────────────────
-Windows/Linux con Intel o AMD    -->   ubuntu-26.04-live-server-amd64.iso
-Mac con Intel (antes de 2020)    -->   ubuntu-26.04-live-server-amd64.iso
-Mac con Apple Silicon (M1-M4)    -->   ubuntu-26.04-live-server-arm64.iso
-Windows con Snapdragon (ARM)     -->   ubuntu-26.04-live-server-arm64.iso
+Tu computadora                               ISO que necesitas
+────────────────────────────────────         ──────────────────────────────────
+Windows/Linux con Intel o AMD          -->   ubuntu-26.04-live-server-amd64.iso
+Mac con Intel (antes de 2020)          -->   ubuntu-26.04-live-server-amd64.iso
+Mac con Apple Silicon (M1 o posterior) -->   ubuntu-26.04-live-server-arm64.iso
+Windows con Snapdragon (ARM)           -->   ubuntu-26.04-live-server-arm64.iso
 ```
 
 En Windows lo revisas en **Configuración → Sistema → Acerca de → Tipo de sistema**:
@@ -54,6 +54,10 @@ En VirtualBox: **Nueva**. Esta es la primera ventana del asistente:
 
 ![Asistente de nueva máquina virtual en VirtualBox](../../../assets/instalacion-ubuntu-server/00a-virtualbox-nueva-vm.png)
 
+La captura se tomó **antes de elegir el ISO**: por eso VirtualBox todavía propone
+*Windows* como sistema. En cuanto eliges el `.iso` de Ubuntu, cambia solo a
+**Linux / Ubuntu** (ver la tabla).
+
 | Campo | Valor |
 |---|---|
 | VM Name | `ubuntu-server` (o el que prefieras) |
@@ -70,7 +74,7 @@ Hardware y disco:
 | Disco | 25 GB, VDI, reservado dinámicamente | 5 GB |
 
 Los mínimos son los que indica la documentación oficial de Ubuntu Server (Canonical,
-s.f.-b). Con 25 GB sobra espacio para los servicios de la Etapa 2.
+s.f.-b). Con 25 GB sobra espacio para los servicios que instales en el servidor.
 
 **Red:** deja el adaptador en **NAT** durante la instalación (da Internet a la VM a
 través de tu equipo). Más adelante, para que otros equipos de la red lleguen a la VM

@@ -18,8 +18,8 @@ almacenamiento), pero **dedicada** a responder peticiones de otras computadoras,
 siempre encendida 24/7. Lo que la convierte en servidor es que corre uno o varios
 **servicios** (procesos sin ventana) que se quedan "escuchando" peticiones.
 
-Lo que se agrega ahora: cada servicio escucha en un **puerto** (repaso de la Sesión 6). Un
-mismo servidor físico puede ofrecer varios servicios a la vez, cada uno en su puerto:
+Lo que se agrega ahora: cada servicio escucha en un **puerto** (Sesión 6 de Fundamentos).
+Un mismo servidor físico puede ofrecer varios servicios a la vez, cada uno en su puerto:
 
 ```
                     Servidor (una sola IP: 192.168.1.5)
@@ -65,8 +65,8 @@ resuelve el nombre de su servidor o si DHCP no le dio IP a la PC del usuario.
 | **En la nube** | Una VM rentada en el centro de datos de un proveedor | Cuando no conviene tener hardware propio |
 
 La forma virtual es la que vas a usar tú: tu VM de Ubuntu en VirtualBox (Sesión 7 de
-Fundamentos) es, para todo efecto, un servidor. En el semestre vas a instalarle servicios
-reales de esta etapa.
+Fundamentos) es, para todo efecto, un servidor. En la Etapa 3 le instalas dos servicios
+reales: un servidor web (nginx) y SFTP.
 
 ## La sala de servidores y el centro de datos
 
@@ -97,7 +97,7 @@ para DNS, otro para correo, otro para web.
 ## Mapa de la Etapa 2: servicios y puertos
 
 Todo lo que sigue en esta etapa es un servicio distinto, cada uno con su puerto
-registrado oficialmente ante la IANA (IANA, s.f.):
+registrado oficialmente ante la IANA (Internet Assigned Numbers Authority [IANA], s.f.):
 
 | Sesión | Servicio | Puerto(s) | Transporte |
 |---|---|---|---|

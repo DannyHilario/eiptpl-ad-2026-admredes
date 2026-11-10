@@ -69,10 +69,17 @@ Dos mecanismos reales sostienen casi toda la administración de rendimiento mode
   switches) por sus contadores internos — uso de CPU, tráfico por interfaz, errores —
   originalmente definido en RFC 1157 (Case et al., 1990) y evolucionado hasta SNMPv3, con
   autenticación y cifrado (Harrington et al., 2002).
-- **NetFlow** (y su equivalente abierto, **sFlow**): en vez de solo contadores agregados,
-  registra información de cada flujo de tráfico (quién habló con quién, cuánto y por
-  cuánto tiempo) — el nivel de detalle que permite hacer análisis de capacidad real, no
-  solo ver que "hay mucho tráfico" (Claise, 2004).
+- **NetFlow** (creado por Cisco) y su versión estándar abierta, **IPFIX**: en vez de solo
+  contadores agregados, registran información de cada flujo de tráfico (quién habló con
+  quién, cuánto y por cuánto tiempo) — el nivel de detalle que permite saber **qué flujo**
+  está ocupando un enlace, no solo ver que "hay mucho tráfico" (Claise, 2004; Claise et
+  al., 2013). **sFlow** es una alternativa que, en vez de registrar todos los flujos, toma
+  una muestra de 1 de cada N paquetes (Phaal et al., 2001).
+
+Ojo con lo que **no** hace ninguno de los dos: SNMP entrega contadores (bytes, errores,
+uso de CPU) y NetFlow/IPFIX dice quién está usando el enlace, pero ninguno mide la
+latencia ni el jitter. Esos se miden con **sondeos activos**: mandar paquetes de prueba y
+cronometrar cuánto tardan en volver, que es justo lo que hacen `ping` y `mtr`.
 
 ```
      Router / Switch                    Sistema de monitoreo central
@@ -89,8 +96,8 @@ Antes de llegar a SNMP/NetFlow (herramientas de nivel de infraestructura), el di
 de rendimiento más elemental se hace con las mismas herramientas que ya usaste en
 Fundamentos de Cómputo: `ping` (mide latencia y pérdida de paquetes hacia un destino
 puntual) y `tracert`/`traceroute` (muestra en qué salto del camino empieza a degradarse el
-tiempo de respuesta). Son la versión manual, de un solo punto en el tiempo, de lo que SNMP
-hace de forma continua y automatizada sobre toda la red.
+tiempo de respuesta). Son la versión manual, de un solo punto en el tiempo, de lo que un
+sistema de monitoreo hace de forma continua y automatizada sobre toda la red.
 
 ## El ciclo de administración de rendimiento
 
@@ -111,56 +118,69 @@ lenta" y que sus videollamadas con clientes se cortan seguido. Sin una línea ba
 equipo de red no tendría con qué comparar esa queja — podría ser una percepción
 exagerada, o un problema real; no hay forma de saberlo solo con la queja.
 
-El administrador de red sí tiene una línea base recolectada por SNMP de las últimas
-semanas: latencia promedio de 20 ms hacia el servidor de videollamadas, con throughput
+El administrador de red sí tiene una línea base de las últimas semanas: un sondeo
+automático (un `ping` cada minuto hacia el servidor de videollamadas) registra una
+latencia promedio de 20 ms, y los contadores SNMP del enlace muestran throughput
 estable. Al revisar los datos de esa misma mañana, la latencia promedio en realidad sigue
 siendo de 20 ms — normal. Esto descartaría un problema de rendimiento… si la única
 métrica que existiera fuera el promedio de latencia.
 
-El siguiente paso es revisar los datos de **NetFlow** de esa interfaz, que muestran el
-detalle por flujo: hay una variabilidad muy alta en la latencia de paquete a paquete
-durante los mismos minutos en que los empleados reportaron cortes — es decir, alto
-**jitter**, aunque el promedio agregado siga viéndose bien. Cruzando ese dato con el
-registro de tráfico, aparece la causa: esa misma mañana, otra área del edificio empezó una
-transferencia masiva de respaldo de archivos que satura momentáneamente el mismo enlace
-compartido, generando picos de latencia que el promedio diluye pero que sí cortan una
-llamada de voz en tiempo real.
+El siguiente paso es mirar los mismos sondeos uno por uno, no solo su promedio: hay una
+variabilidad muy alta en la latencia de un sondeo a otro durante los mismos minutos en
+que los empleados reportaron cortes — es decir, alto **jitter**, aunque el promedio
+agregado siga viéndose bien. Para saber qué lo provoca, el administrador revisa los datos
+de **NetFlow** de ese enlace, que muestran el detalle por flujo, y aparece la causa: esa
+misma mañana, otra área del edificio empezó una transferencia masiva de respaldo de
+archivos que satura momentáneamente el mismo enlace compartido, generando picos de
+latencia que el promedio diluye pero que sí cortan una llamada de voz en tiempo real.
 
 Sin la combinación de línea base + indicadores más allá del promedio (jitter, no solo
-latencia) + NetFlow para ver el detalle por flujo, este problema se habría quedado sin
-diagnóstico real, con la única respuesta de "revisamos y la red está bien" — técnicamente
-cierto en promedio, pero inútil para quien de verdad experimentó el problema.
+latencia) + NetFlow para identificar el flujo que causa el problema, este problema se
+habría quedado sin diagnóstico real, con la única respuesta de "revisamos y la red está
+bien" — técnicamente cierto en promedio, pero inútil para quien de verdad experimentó el
+problema.
 
 ## Cómo se resuelve con herramientas reales
 
-Más adelante en el curso, con tu propia **VM de Ubuntu en VirtualBox**, vas a tener a la
-mano dos herramientas de línea de comandos que hacen exactamente el diagnóstico del
-ejemplo, sin necesitar todavía un sistema de monitoreo completo instalado:
+En cualquier Linux — como la **VM de Ubuntu en VirtualBox** del curso — se pueden
+instalar dos herramientas de línea de comandos que hacen exactamente el diagnóstico del
+ejemplo, sin necesitar un sistema de monitoreo completo:
 
 - **`mtr`** (My Traceroute): combina `ping` y `tracert`/`traceroute` en una sola
   herramienta que corre de forma continua, mostrando por cada salto del camino no solo la
   latencia, sino el **porcentaje de pérdida de paquetes** y la variación entre mediciones
-  — el jitter del ejemplo, visible salto por salto, no solo como promedio global.
+  — el jitter del ejemplo, visible salto por salto, no solo como promedio global (The mtr
+  Project, s.f.).
 - **`iperf3`**: en vez de estimar el throughput a partir del tráfico normal, genera tráfico
   de prueba entre dos puntos (por ejemplo, tu VM y un servidor) para medir directamente
   cuánto ancho de banda real hay disponible en ese momento — la forma más directa de
-  confirmar o descartar saturación de un enlace.
+  confirmar o descartar saturación de un enlace (ESnet, s.f.).
 
 ```
-mtr servidor-videollamadas.local
+mtr videollamadas.example.com
 Salto   Pérdida   Latencia prom.   Jitter
 1       0%        1 ms             0.2 ms
 2       0%        8 ms             0.5 ms
-3       2%        45 ms            35 ms   <-- aquí está el problema
-4       0%        20 ms            2 ms
+3       2%        45 ms            35 ms   <-- aquí empieza el problema
+4       2%        47 ms            34 ms   <-- y se arrastra hasta el destino
 ```
+
+*(Salida simplificada y en español; `mtr` real muestra columnas en inglés con pérdida,
+latencia promedio y desviación estándar, y el jitter se ve al presionar la tecla `j`.)*
+
+Lo que delata un problema real es que la pérdida y la latencia del salto 3 **se arrastran
+a todos los saltos siguientes**, hasta el destino. Si solo un salto intermedio mostrara
+pérdida y los siguientes estuvieran en 0%, no sería un problema del enlace: muchos routers
+le dan baja prioridad a contestar los paquetes de prueba (ICMP) dirigidos a ellos mismos,
+aunque reenvían el tráfico normal sin problema.
 
 Un equipo de operación real no corre `mtr`/`iperf3` manualmente cada vez — los mismos
 datos (latencia, jitter, pérdida, throughput por interfaz) se recolectan de forma
-continua y automática con un sistema de monitoreo apoyado en SNMP/NetFlow, como
+continua y automática con un sistema de monitoreo apoyado en sondeos, SNMP y NetFlow,
+como
 **Zabbix** o **LibreNMS** (ambos de código abierto, instalables en un servidor Linux). Por
 ahora, `mtr` e `iperf3` son la versión manual y puntual de ese mismo diagnóstico — la que
-sí vas a poder correr tú mismo desde tu VM.
+cualquiera puede correr desde una terminal Linux.
 
 ---
 
@@ -179,8 +199,16 @@ https://www.rfc-editor.org/rfc/rfc3411
 Claise, B. (Ed.). (2004). *Cisco systems NetFlow services export version 9* (RFC 3954).
 IETF. https://www.rfc-editor.org/rfc/rfc3954
 
-ESnet. (s.f.). *iperf3: A TCP, UDP, and SCTP network bandwidth measurement tool*.
-https://iperf.fr/
+Claise, B. (Ed.), Trammell, B. (Ed.), & Aitken, P. (2013). *Specification of the IP Flow
+Information Export (IPFIX) protocol for the exchange of flow information* (RFC 7011).
+IETF. https://www.rfc-editor.org/rfc/rfc7011
 
-The mtr Project. (s.f.). *mtr(8) — Linux manual page*.
-https://man7.org/linux/man-pages/man8/mtr.8.html
+Phaal, P., Panchen, S., & McKee, N. (2001). *InMon Corporation's sFlow: A method for
+monitoring traffic in switched and routed networks* (RFC 3176). IETF.
+https://www.rfc-editor.org/rfc/rfc3176
+
+ESnet. (s.f.). *iperf3: A TCP, UDP, and SCTP network bandwidth measurement tool*.
+https://software.es.net/iperf/
+
+The mtr Project. (s.f.). *mtr(8)* [Ubuntu manpages].
+https://manpages.ubuntu.com/manpages/noble/man8/mtr.8.html

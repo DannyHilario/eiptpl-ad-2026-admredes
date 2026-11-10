@@ -67,15 +67,18 @@ ss -tln
 `ss` (de *socket statistics*, "estadísticas de conexiones") muestra los puertos en los
 que el servidor está esperando conexiones (Kerrisk, s.f.). Las opciones significan:
 `-t` solo TCP, `-l` solo los que están escuchando (*listening*) y `-n` mostrar números
-en lugar de nombres. En la columna `Local Address:Port` busca estas dos líneas:
+en lugar de nombres. En la columna `Local Address:Port` busca estas líneas:
 
 | Lo que aparece | Qué servicio es |
 |---|---|
-| `0.0.0.0:80` | **nginx**, esperando visitas web (HTTP, puerto 80) |
-| `0.0.0.0:22` | **SSH**, por donde estás conectado ahora mismo |
+| `0.0.0.0:80` y `[::]:80` | **nginx**, esperando visitas web (HTTP, puerto 80) |
+| `0.0.0.0:22` y `[::]:22` | **SSH**, por donde estás conectado ahora mismo |
 
 `0.0.0.0` significa "en todas las tarjetas de red del servidor": acepta conexiones
-venga de donde venga.
+venga de donde venga. `[::]` es lo mismo, pero para IPv6: por eso cada servicio aparece
+dos veces. También verás `127.0.0.53:53` y `127.0.0.54:53`: es el DNS interno que Ubuntu
+usa para sí mismo (puerto 53); como empieza con `127`, solo atiende al propio servidor
+y no tienes que hacer nada con él.
 
 ## Paso 3: Abrir tu página desde tu computadora
 
@@ -125,9 +128,27 @@ ls -l /var/www/html
 ```
 
 Aparece un solo archivo, `index.nginx-debian.html`: es la página "Welcome to nginx!".
-Fíjate en sus permisos: el dueño es **`root`**, así que para crear archivos en esa
-carpeta necesitas `sudo` (lo viste en
-[Archivos, carpetas y permisos](../02-primeros-pasos/05-archivos-y-permisos.md)).
+
+Tú vas a **crear un archivo nuevo** dentro de esa carpeta. Crear archivos en una
+carpeta depende de los permisos **de la carpeta**, no de los archivos que ya tiene:
+hace falta el permiso `w` sobre ella (lo viste en
+[Archivos, carpetas y permisos](../02-primeros-pasos/05-archivos-y-permisos.md#qué-puede-hacer-tres-permisos)).
+Para ver los permisos de la carpeta misma, usa la opción `-d` que ya conoces:
+
+```bash
+ls -ld /var/www/html
+```
+
+Debe aparecer una línea que empieza con `drwxr-xr-x` y en la que el dueño es
+**`root`**:
+
+- `d`: es una carpeta.
+- `rwx`: el dueño (`root`) puede leer, **escribir** y entrar.
+- `r-x` y `r-x`: el grupo y los otros (entre ellos, tú) solo pueden ver la lista y
+  entrar, **sin `w`**.
+
+Tú eres "otros" para esa carpeta, y "otros" no tiene `w`: por eso, para crear tu página
+ahí necesitas `sudo`.
 
 Crea tu propia página con `nano`:
 
@@ -279,6 +300,7 @@ Regresas al prompt de tu servidor.
 sudo apt install nginx                  instalar el servidor web
 systemctl status nginx                  estado del servicio (sal con q)
 ss -tln                                 puertos en los que el servidor escucha
+ls -ld /var/www/html                    permisos de la carpeta de las páginas
 sudo nano /var/www/html/index.html      crear o editar tu página
 sudo tail -f /var/log/nginx/access.log  ver las visitas en vivo (Ctrl+C sale)
 curl http://<IP>                        pedir una página desde la terminal

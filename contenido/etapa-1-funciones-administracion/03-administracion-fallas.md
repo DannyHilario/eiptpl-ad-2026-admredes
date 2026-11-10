@@ -12,10 +12,11 @@ las cinco: cuando falla, todos se enteran. Mientras rendimiento (Sesión 2) se p
 ## Qué es
 
 **Administración de fallas** es el conjunto de técnicas, herramientas y procesos para
-**identificar, diagnosticar y solucionar** problemas en una red de comunicaciones. Es
-crítica para prevenir interrupciones de servicio, reducir tiempos de inactividad, y
-mantener la calidad de la transmisión de datos, voz y video (ISO/IEC 7498-4:1989 la
-define formalmente como una de las cinco áreas funcionales de gestión OSI).
+**identificar, diagnosticar y solucionar** problemas en una red de comunicaciones
+(Subramanian, 2010). Es crítica para prevenir interrupciones de servicio, reducir tiempos
+de inactividad, y mantener la calidad de la transmisión de datos, voz y video. La ISO la
+define formalmente como una de las cinco áreas funcionales de gestión OSI (International
+Organization for Standardization [ISO], 1989).
 
 ## Dos métricas que resumen toda esta función: MTBF y MTTR
 
@@ -84,10 +85,12 @@ La administración de fallas no es puramente reactiva. Incluye también:
 
 Una planta tiene un switch núcleo que conecta la línea de producción con el sistema de
 control. Un viernes por la tarde, ese switch deja de responder por completo durante unos
-minutos, y la línea se detiene. El equipo de red recibe una **trampa SNMP** del switch
-(no un sondeo normal — el propio dispositivo notificó la caída antes de que nadie
-preguntara) casi al mismo tiempo que llegan los mensajes de **syslog** de los dispositivos
-vecinos reportando pérdida de conectividad hacia él.
+minutos, y la línea se detiene. Un switch caído no puede avisar nada sobre sí mismo, así
+que las alertas llegan de alrededor: los switches vecinos mandan **trampas SNMP**
+`linkDown` (cada uno notifica, sin que nadie le pregunte, que perdió el enlace hacia el
+núcleo; Case et al., 1990) y mensajes de **syslog** reportando la pérdida de
+conectividad, y casi al mismo tiempo el sistema de monitoreo marca el núcleo como caído
+porque dejó de contestar sus sondeos.
 
 El diagnóstico empieza aislando el problema: usando la misma lógica de `tracert` vista en
 Fundamentos de Cómputo, el equipo confirma que el problema está exactamente en ese switch
@@ -104,10 +107,12 @@ no era un defecto aleatorio del equipo, sino una condición predecible — y sol
 identificar porque las fallas anteriores habían quedado **documentadas**, no solo
 resueltas y olvidadas.
 
-Este caso muestra el ciclo completo: si el switch tiene, digamos, tres fallas en dos
-meses (MTBF bajo) pero cada una se resuelve en 5 minutos con un reinicio (MTTR bajo), la
-red sigue siendo confiable en la práctica aunque no sea perfecta — y el MTTR bajo solo fue
-posible porque el equipo ya sabía, por experiencia documentada, exactamente qué buscar.
+Este caso muestra el ciclo completo: el switch tiene, digamos, tres fallas en dos meses
+(MTBF bajo: falla seguido), pero cada una se resuelve en 5 minutos con un reinicio (MTTR
+bajo). El MTTR bajo acota el daño de cada falla, pero la red todavía **no** es confiable:
+para eso falta subir el MTBF, y eso solo se logra atacando la causa raíz (mover el
+respaldo de horario o mejorar la ventilación del switch). Y ese MTTR bajo solo fue posible
+porque el equipo ya sabía, por experiencia documentada, exactamente qué buscar.
 
 ## Cómo se resuelve con herramientas reales
 
@@ -123,7 +128,7 @@ recibe una trampa SNMP y mensajes de syslog casi al mismo tiempo" tiene nombre c
   entrada de log — el receptor del lado del sistema de monitoreo (Net-SNMP Project, s.f.).
 
 ```
-Switch núcleo                    Servidor central de logs/alertas
+Switches vecinos                 Servidor central de logs/alertas
 ┌──────────────┐                 ┌────────────────────────────┐
 │ syslog local  │ ── rsyslog ──> │ Mensajes de todos los       │
 │ trampa SNMP   │ ── snmptrapd ─>│ dispositivos, en un solo    │
@@ -146,6 +151,9 @@ tenga que estar viendo una pantalla en el momento exacto de la falla.
 International Organization for Standardization. (1989). *Information technology — Open
 Systems Interconnection — Basic Reference Model — Part 4: Management framework* (ISO/IEC
 7498-4:1989).
+
+Case, J., Fedor, M., Schoffstall, M., & Davin, J. (1990). *A simple network management
+protocol (SNMP)* (RFC 1157). IETF. https://www.rfc-editor.org/rfc/rfc1157
 
 Gerhards, R. (2009). *The syslog protocol* (RFC 5424). IETF.
 https://www.rfc-editor.org/rfc/rfc5424

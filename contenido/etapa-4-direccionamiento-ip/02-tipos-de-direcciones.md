@@ -92,7 +92,8 @@ de NAT de la Etapa 3.
 
 ### Por qué esto importa tanto: ya no quedan direcciones
 
-Las direcciones públicas IPv4 las reparten cinco **registros regionales**; el que
+Las direcciones públicas IPv4 las reparten cinco **registros regionales** (IANA,
+s.f.); el que
 atiende a México, Latinoamérica y el Caribe es **LACNIC**. El 19 de agosto de 2020 se
 terminó el último bloque de direcciones IPv4 que LACNIC tenía disponible: desde
 entonces, quien pide direcciones nuevas entra a una **lista de espera** y solo recibe
@@ -182,7 +183,7 @@ direcciones no cabía en una C, así que recibía una B completa y desperdiciaba
 En 1993 se reemplazó ese sistema por **CIDR** (*Classless Inter-Domain Routing*,
 "enrutamiento entre dominios **sin clases**"): la frontera entre red y host ya no
 depende del primer octeto, sino que **se indica siempre con la máscara**, y puede caer
-en cualquier bit (Fuller & Li, 2006). Esa es la notación `/24` que ya viste en tu VM, y
+en cualquier bit (Fuller et al., 1993; Fuller & Li, 2006). Esa es la notación `/24` que ya viste en tu VM, y
 es la base de todo el subneteo.
 
 Así que, cuando hoy alguien dice "una red clase C", en realidad casi siempre quiere
@@ -230,8 +231,8 @@ omitir, y una racha de grupos en cero se puede abreviar **una sola vez** con `::
 2001:db8::50                                  (abreviada)
 ```
 
-`2001:db8::/32` es el rango de IPv6 reservado para documentación, el equivalente a
-`203.0.113.0/24`.
+`2001:db8::/32` es el rango de IPv6 reservado para documentación (Huston et al.,
+2004), el equivalente a `203.0.113.0/24`.
 
 Tu VM ya tiene una dirección IPv6, aunque nunca la configuraste: una que empieza con
 **`fe80:`**. Es una dirección de **enlace local**, que todo equipo con IPv6 se pone
@@ -368,12 +369,21 @@ Deering, S., & Hinden, R. (2017). *Internet Protocol, version 6 (IPv6) specifica
 Droms, R. (1997). *Dynamic host configuration protocol* (RFC 2131). IETF.
 https://www.rfc-editor.org/rfc/rfc2131
 
+Fuller, V., Li, T., Yu, J., & Varadhan, K. (1993). *Classless Inter-Domain Routing
+(CIDR): An address assignment and aggregation strategy* (RFC 1519). IETF.
+https://www.rfc-editor.org/rfc/rfc1519
+
 Fuller, V., & Li, T. (2006). *Classless Inter-domain Routing (CIDR): The Internet
 address assignment and aggregation plan* (RFC 4632). IETF.
 https://www.rfc-editor.org/rfc/rfc4632
 
 Hinden, R., & Deering, S. (2006). *IP version 6 addressing architecture* (RFC 4291).
 IETF. https://www.rfc-editor.org/rfc/rfc4291
+
+Huston, G., Lord, A., & Smith, P. (2004). *IPv6 address prefix reserved for
+documentation* (RFC 3849). IETF. https://www.rfc-editor.org/rfc/rfc3849
+
+IANA. (s.f.). *Number resources*. https://www.iana.org/numbers
 
 LACNIC. (s.f.). *Phases of IPv4 exhaustion*.
 https://www.lacnic.net/en/web/lacnic/agotamiento-ipv4

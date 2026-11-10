@@ -1,10 +1,11 @@
 # Administración de seguridad
 
-> 50 min · [← Administración de contabilidad](04-administracion-contabilidad.md)
+> 50 min · [← Administración de contabilidad](04-administracion-contabilidad.md) · Siguiente: [Servidores e infraestructura de TI](../etapa-2-servicios-red/01-servidores.md)
 
 ## La S de FCAPS, y el cierre de la Etapa 1
 
-Esta es la última letra, **S** (Security), del modelo FCAPS que abrió la Sesión 1. Con
+Esta es la última letra, **S** (Security), del modelo FCAPS (International Organization
+for Standardization [ISO], 1989) que abrió la Sesión 1. Con
 esta sesión completas las cinco funciones de administración de redes: configuración (C),
 rendimiento (P), fallas (F), contabilidad (A) y ahora seguridad (S).
 
@@ -51,9 +52,13 @@ tiempo real contra un conjunto de reglas conocidas de ataque (Roesch, 1999).
 
 El objetivo es, una vez detectado un compromiso de seguridad, investigar sus causas y
 eliminarlas. Esto no debería improvisarse durante la crisis: el estándar de referencia
-para estructurar este proceso es la guía de manejo de incidentes del NIST, que define un
-ciclo de cuatro fases — **preparación**, **detección y análisis**, **contención,
-erradicación y recuperación**, y **actividad posterior al incidente** (NIST, 2012).
+para estructurar este proceso es la guía de manejo de incidentes del NIST, SP 800-61. Su
+revisión 2 definió un ciclo de cuatro fases — **preparación**, **detección y análisis**,
+**contención, erradicación y recuperación**, y **actividad posterior al incidente**
+(National Institute of Standards and Technology [NIST], 2012). En abril de 2025 la
+revisión 3 reemplazó a la 2 y reorganizó la respuesta a incidentes alrededor de las
+funciones del NIST Cybersecurity Framework 2.0 (NIST, 2025); el ciclo de cuatro fases
+sigue siendo la forma más usada de enseñarlo, y es el que usamos en esta sesión.
 
 ```
  Preparación ──> Detección y análisis ──> Contención / erradicación ──> Post-incidente
@@ -77,9 +82,9 @@ establecidos y auditables:
 
 | Marco | Qué aporta |
 |---|---|
-| **ISO/IEC 27001** | Estándar internacional para sistemas de gestión de seguridad de la información (SGSI): cómo estructurar, auditar y certificar la seguridad de una organización (ISO/IEC 27001:2022). |
-| **NIST Cybersecurity Framework (CSF)** | Marco de referencia con cinco funciones — Identificar, Proteger, Detectar, Responder, Recuperar — para organizar la postura de seguridad de cualquier organización (NIST, 2024). |
-| **IEC 62443** | Enfocado específicamente en seguridad de sistemas de control industrial y tecnología operativa (OT/ICS) — relevante cuando la red conecta no solo oficinas, sino equipo industrial. |
+| **ISO/IEC 27001** | Estándar internacional para sistemas de gestión de seguridad de la información (SGSI): cómo estructurar, auditar y certificar la seguridad de una organización (ISO, 2022). |
+| **NIST Cybersecurity Framework (CSF)** | Marco de referencia con seis funciones — Gobernar, Identificar, Proteger, Detectar, Responder, Recuperar — para organizar la postura de seguridad de cualquier organización (NIST, 2024). |
+| **IEC 62443** | Enfocado específicamente en seguridad de sistemas de control industrial y tecnología operativa (OT/ICS) — relevante cuando la red conecta no solo oficinas, sino equipo industrial (International Society of Automation [ISA], s.f.). |
 
 Nota para entornos industriales (OT/ICS): a diferencia de una red de oficina, donde suele
 priorizarse la confidencialidad, en redes que controlan procesos industriales la prioridad
@@ -122,17 +127,18 @@ red.
 ## Cómo se resuelve con herramientas reales
 
 Las cuatro piezas del ejemplo tienen contraparte real en Linux — el mismo sistema de tu VM
-de Ubuntu en VirtualBox, donde más adelante en el curso vas a instalar y configurar
-algunas de ellas:
+de Ubuntu en VirtualBox:
 
 - **Prevención**: `ufw` (Uncomplicated Firewall) es la interfaz simplificada de Ubuntu
   sobre el firewall del kernel de Linux (Canonical Ltd., s.f.) — con reglas legibles como
   `ufw allow 443` en vez de sintaxis más compleja, aplica el mismo concepto de control de
   acceso perimetral del ejemplo.
-- **Detección**: **Suricata** (o su predecesor histórico, Snort, ya citado arriba) es un
-  IDS/IPS de código abierto que analiza tráfico en tiempo real contra reglas de ataques
-  conocidos — instalado internamente, habría detectado el tráfico saliente inusual del
-  ejemplo mucho antes de que se volviera un pico visible (OISF, s.f.).
+- **Detección**: **Suricata** es un IDS/IPS de código abierto que analiza tráfico en
+  tiempo real contra reglas de ataques conocidos — instalado internamente, habría
+  detectado el tráfico saliente inusual del ejemplo mucho antes de que se volviera un pico
+  visible (OISF, s.f.). Es un proyecto distinto de Snort (citado arriba), pero usa el
+  mismo formato de reglas. En modo **IDS** solo observa y alerta; en modo **IPS** se
+  coloca en el camino del tráfico y puede bloquear lo que coincide con una regla.
 - **Respuesta automatizada a un patrón sospechoso**: **fail2ban** vigila registros (los
   mismos logs de `rsyslog` vistos en la Sesión 3) y, al detectar un patrón definido — por
   ejemplo, muchos intentos fallidos de acceso — banea automáticamente la IP de origen,
@@ -148,7 +154,8 @@ Tráfico interno         Suricata (detección)         fail2ban (respuesta autom
 ```
 
 Ninguna de estas tres reemplaza a las otras: `ufw` no detecta nada que ya haya entrado,
-Suricata no bloquea nada por sí solo si no está integrado con algo como fail2ban, y ambas
+Suricata en modo IDS solo alerta (bloquear exige ponerlo en modo IPS o integrarlo con algo
+como fail2ban), y ambas
 dependen de que exista, detrás, una política de seguridad que defina qué reglas aplicar y
 cómo debe proceder el equipo cuando salten. Es la misma idea de "las cuatro piezas juntas"
 del ejemplo, ahora con nombre de herramienta concreta.
@@ -169,14 +176,22 @@ National Institute of Standards and Technology. (2012). *Computer security incid
 handling guide* (NIST Special Publication 800-61, revisión 2). U.S. Department of
 Commerce. https://doi.org/10.6028/NIST.SP.800-61r2
 
+National Institute of Standards and Technology. (2025). *Incident response
+recommendations and considerations for cybersecurity risk management: A CSF 2.0 community
+profile* (NIST Special Publication 800-61, revisión 3). U.S. Department of Commerce.
+https://csrc.nist.gov/pubs/sp/800/61/r3/final
+
 National Institute of Standards and Technology. (2024). *The NIST Cybersecurity Framework
 (CSF) 2.0*. U.S. Department of Commerce. https://doi.org/10.6028/NIST.CSWP.29
 
-Canonical Ltd. (s.f.). *UFW — Uncomplicated Firewall*. Ubuntu Server documentation.
-https://help.ubuntu.com/community/UFW
+Canonical Ltd. (s.f.). *Firewall*. Ubuntu Server documentation.
+https://documentation.ubuntu.com/server/how-to/security/firewalls/
 
 Open Information Security Foundation (OISF). (s.f.). *Suricata user guide*.
 https://docs.suricata.io/
+
+International Society of Automation. (s.f.). *ISA/IEC 62443 series of standards*.
+https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards
 
 fail2ban. (s.f.). *Fail2ban documentation*. https://github.com/fail2ban/fail2ban/wiki
 

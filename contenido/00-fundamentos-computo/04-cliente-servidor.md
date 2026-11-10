@@ -1,6 +1,6 @@
 # Cliente-Servidor y qué es un Servidor
 
-> 50 min · [← Interfaces de usuario](03-interfaces-usuario.md)
+> 50 min · [← Interfaces de usuario](03-interfaces-usuario.md) · Siguiente: [Redes](05-redes.md)
 
 ## Qué es un servidor
 
@@ -25,7 +25,8 @@ almacenamiento redundante).
 
 ## Arquitectura cliente-servidor
 
-Es el patrón que sostiene casi todo lo que haces en Internet y en una red local:
+Es el patrón que sostiene casi todo lo que haces en Internet y en una red local (Kurose &
+Ross, 2017):
 
 ```
    Cliente                              Servidor

@@ -143,7 +143,7 @@ Algunos alumnos le dan clic a "Continuar de todos modos"; otros escriben al grup
 
 Nadie cambió nada en el servidor la semana anterior, y el servidor sigue respondiendo en
 el puerto 443. Lo que sí pasó: el certificado se había instalado a mano hace tres meses,
-y el sábado llegó a su fecha de expiración. El navegador hace exactamente lo que debe —
+y el domingo llegó a su fecha de expiración. El navegador hace exactamente lo que debe —
 en el paso 3 del handshake detecta un certificado vencido y ya no puede garantizar la
 autenticación.
 
@@ -177,8 +177,8 @@ $ sudo certbot renew --dry-run                       # simula la renovación
 
 Una precisión importante para tu VM: Let's Encrypt solo emite certificados para dominios
 públicos que pueda validar desde Internet, así que no funciona con un nombre como
-`servidor.local` dentro de VirtualBox (Let's Encrypt, s.f.-a). En un laboratorio local se
-usa un certificado autofirmado generado con `openssl` — el navegador mostrará la
+`servidor.internal` dentro de VirtualBox (Let's Encrypt, s.f.-a). En un laboratorio local
+se usa un certificado autofirmado generado con `openssl` — el navegador mostrará la
 advertencia de la cadena de confianza, y ahora sabes exactamente por qué.
 
 ---

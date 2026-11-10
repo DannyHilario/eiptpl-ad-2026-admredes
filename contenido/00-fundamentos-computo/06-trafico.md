@@ -20,7 +20,7 @@ esto tu propia conexión tiene tráfico.
 
 Cuando mandas algo por la red (un mensaje, una foto, una página web), esa información se
 **corta en pedacitos** llamados **paquetes**, cada uno viaja por separado, y se vuelve a
-armar al llegar.
+armar al llegar (Kurose & Ross, 2017).
 
 **Analogía (mismo mundo de la Sesión 5):** en vez de mandar un libro completo en una caja,
 lo mandas hoja por hoja, cada una en su propio sobre y numerada. El cartero (la red) puede
@@ -65,7 +65,8 @@ debe atender el paquete, y *qué conversación específica* le corresponde a cad
 | 25 | SMTP (correo saliente) |
 | 53 | DNS |
 
-*(Puertos asignados oficialmente por IANA, s.f. — ver Referencias al final.)*
+*(Puertos asignados oficialmente por la Internet Assigned Numbers Authority [IANA], s.f.
+— ver Referencias al final.)*
 
 El servidor siempre escucha en un puerto fijo y conocido (443 para HTTPS). Tu navegador,
 en cambio, abre un puerto **aleatorio y temporal** de tu lado (por ejemplo, 51342) solo
@@ -81,27 +82,30 @@ correcto, pero necesitas el número de puerta (puerto) para llegar al servicio c
 ```
   Tú (navegador)        Servidor DNS           Servidor Web
         │                     │                      │
-        │ ¿IP de www.ejemplo.com? ──>                │
+        │ ¿IP de www.example.com? ──>                │
         │                     │                      │
-        │ <── 93.184.216.34 ──                       │
+        │ <── 203.0.113.10 ───                       │
         │                     │                      │
-        │ ── petición HTTP/HTTPS a 93.184.216.34 ──────>
+        │ ── petición HTTP/HTTPS a 203.0.113.10 ───────>
         │                     │                      │
         │ <── contenido de la página, en paquetes ─────
         │
         (el navegador reordena los paquetes y pinta la página)
 ```
 
-1. Escribes `www.ejemplo.com` — eres el **cliente**.
+1. Escribes `www.example.com` — eres el **cliente**.
 2. Tu computadora no entiende nombres, solo IPs, así que pregunta a un servidor **DNS**
-   (a fondo en Etapa 2).
-3. El DNS responde con una IP.
+   (a fondo en Etapa 2). Piensa en DNS como la **libreta de direcciones** de la red: tú
+   buscas por nombre, y la libreta te da la dirección (la IP) a donde hay que ir.
+3. El DNS responde con una IP. `203.0.113.10` es una IP de ejemplo, del rango reservado
+   para documentación (Arkko et al., 2010); la IP real de ese sitio es otra.
 4. Tu navegador manda una petición **HTTP/HTTPS** a esa IP.
 5. El **servidor web** responde con el contenido, cortado en **paquetes**.
 6. Tu computadora reordena los paquetes y el navegador muestra la página.
 
-Todo esto pasa en milisegundos, y es exactamente lo que vamos a ver **en cámara lenta**
-más adelante con `tcpdump` — por eso importa entender el concepto antes que la herramienta.
+Todo esto pasa en milisegundos. En la Etapa 3 vas a ver el final de este viaje desde el
+lado del servidor: cada petición que llega a tu propio servidor web (nginx) queda anotada,
+una línea por petición, en su registro de accesos.
 
 ## Conectando con la Sesión 5: ¿dónde entran el switch y el router aquí?
 
@@ -146,8 +150,8 @@ Cada línea de la salida es **un router distinto** que tu paquete atravesó — 
 > **Respuesta:**
 >
 > Privada (algo como `192.168.1.1`) — es la puerta de enlace de tu propia red local, la
-> misma que viste con `ipconfig`/`ifconfig` en la Sesión 5. A partir del segundo salto ya
-> empiezas a ver IPs públicas de la red de tu proveedor de Internet.
+> misma que viste con `ipconfig` (o `netstat -nr` en Mac) en la Sesión 5. A partir del
+> segundo salto ya empiezas a ver IPs públicas de la red de tu proveedor de Internet.
 
 ---
 
@@ -163,7 +167,7 @@ Cada línea de la salida es **un router distinto** que tu paquete atravesó — 
 > contenido: la red no garantiza el orden de entrega, así que el orden se reconstruye del
 > lado de quien recibe.
 
-> **Pregunta 2:** un paquete que viaja de tu laptop al servidor web de `www.ejemplo.com`
+> **Pregunta 2:** un paquete que viaja de tu laptop al servidor web de `www.example.com`
 > normalmente pasa por varios routers en el camino. ¿Ese paquete cambia de dirección MAC,
 > de dirección IP, o de ambas, en cada salto?
 > **Respuesta:**
@@ -174,7 +178,7 @@ Cada línea de la salida es **un router distinto** que tu paquete atravesó — 
 > distintas cruce.
 
 > **Pregunta 3:** tu laptop abre dos pestañas al mismo tiempo hacia el mismo servidor
-> (`www.ejemplo.com:443`). El servidor recibe ambas conexiones en el mismo puerto 443.
+> (`www.example.com:443`). El servidor recibe ambas conexiones en el mismo puerto 443.
 > ¿Cómo sabe distinguir cuál paquete pertenece a cuál pestaña?
 > **Respuesta:**
 >
@@ -188,6 +192,9 @@ Cada línea de la salida es **un router distinto** que tu paquete atravesó — 
 ---
 
 ## Referencias
+
+Arkko, J., Cotton, M., & Vegoda, L. (2010). *IPv4 address blocks reserved for
+documentation* (RFC 5737). IETF. https://www.rfc-editor.org/rfc/rfc5737
 
 Kurose, J. F., & Ross, K. W. (2017). *Computer networking: A top-down approach* (7a ed.).
 Pearson.

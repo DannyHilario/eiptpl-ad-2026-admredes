@@ -78,7 +78,8 @@ limpiar la pantalla.
 ### 5. Enciendan su servidor
 
 Enciendan su VM (debe seguir en modo **puente**, como la dejaron en la Etapa 3) e
-inicien sesión con su usuario `iniciales-matricula`.
+inicien sesión con su usuario de siempre y cámbiense a su usuario de la práctica
+(sección 3).
 
 ---
 
@@ -95,7 +96,7 @@ instalar nada todavía.
 
 **Qué deben ver:** `sudo` les pide su contraseña (un asterisco por letra), varias
 líneas `Get:` o `Hit:` (o `Obj:` y `Des:` en español) y al final el prompt. **No debe aparecer ninguna línea que
-empiece con `E:`.**
+empiece con `Error:`.**
 
 ### Paso 2: Instalar los programas de la práctica
 
@@ -116,8 +117,8 @@ sudo   apt   install   -y   nginx   ufw   ipcalc
 ya estaba instalado (nginx, de la Evidencia 3), apt solo avisa que ya está en su
 versión más reciente y sigue con los demás.
 
-**Qué deben ver:** líneas de descarga e instalación, y al final el prompt, sin líneas
-`E:`.
+**Qué deben ver:** líneas de descarga e instalación, y al final el prompt, sin líneas que
+empiecen con `Error:`.
 
 ---
 
@@ -276,7 +277,7 @@ hostname -I
 `192.168.1.50`. **Anótenla**: la van a usar para subir el sitio y para visitarlo.
 
 Es posible que después aparezca otra dirección mucho más larga, con `:` en lugar de
-puntos (por ejemplo `2806:2f0:...`): es una dirección **IPv6**. Ignórenla y usen la
+puntos (por ejemplo `2001:db8:...`): es una dirección **IPv6**. Ignórenla y usen la
 **primera**, la de 4 números separados por puntos.
 
 ### Dos formas de usar SFTP: terminal o programa visual
@@ -549,7 +550,7 @@ Descarguen el programa **solo de su página oficial**:
 
 | Programa | Página oficial |
 |---|---|
-| FileZilla Client | https://filezilla-project.org (Filezilla Project, s.f.) |
+| FileZilla Client | https://filezilla-project.org (FileZilla Project, s.f.) |
 | WinSCP | https://winscp.net (Prikryl, s.f.) |
 | Cyberduck | https://cyberduck.io (iterate GmbH, s.f.) |
 
@@ -749,14 +750,14 @@ servidor: **solo queda abierto lo que el administrador decide**.
 ### Paso 26: Ver quién visitó el sitio
 
 ```bash
-sudo tail -n 5 /var/log/nginx/access.log
+sudo tail -n 20 /var/log/nginx/access.log
 ```
 
 ```
-sudo   tail   -n 5   /var/log/nginx/access.log
-       └─┬┘   └─┬┘   └───────────┬───────────┘
-         │      │                el registro de visitas de nginx
-         │      solo las últimas 5 líneas
+sudo   tail   -n 20   /var/log/nginx/access.log
+       └─┬┘   └─┬─┘   └───────────┬───────────┘
+         │      │                 el registro de visitas de nginx
+         │      solo las últimas 20 líneas
          muestra el final de un archivo ("cola")
 ```
 
@@ -764,12 +765,17 @@ nginx anota **cada visita** en el archivo `access.log`: es el registro de acceso
 vieron en la Etapa 3. Lleva `sudo` porque solo el administrador puede leer los
 registros del servidor.
 
-**Qué deben ver:** hasta 5 líneas, una por visita. Cada línea empieza con la
+**Qué deben ver:** hasta 20 líneas, una por visita. Cada línea empieza con la
 **dirección IP de quien visitó**: en la visita del paso 18 es `127.0.0.1` (el propio
 servidor, con `curl`), y en las del navegador es la dirección **privada de su
 computadora**, algo como `192.168.1.20`. Más adelante en la línea aparece la fecha y la
 hora, `GET /` (pidió la página principal), el número `200` (se entregó bien) y el
 programa que hizo la visita: `curl/...` o el nombre del navegador.
+
+También pueden aparecer líneas con `GET /favicon.ico` y el número `404` (el navegador
+pide solo el icono de la pestaña, y su sitio no tiene) o con `304` (el navegador
+recargó y la página no había cambiado). Son normales. La que importa es la de `curl`,
+desde `127.0.0.1`.
 
 Esto es la **administración de fallas y de contabilidad** de la Etapa 1: el registro
 dice quién usó el servicio, cuándo y si funcionó.
@@ -846,7 +852,7 @@ empresa, como el plano de un edificio antes de construirlo. No le cambien la dir
 a su VM ni a su computadora: ipcalc es solo una calculadora y no modifica nada. Su VM
 sigue con la dirección que le da el router de su casa (la del paso 8).
 
-Igual que en la Evidencia 4, **no hay que calcular nada**: lo hace ipcalc. Un solo
+Igual que en la Evidencia 4, **no hay que calcular nada**: lo hace ipcalc (Jodies, s.f.). Un solo
 integrante hace estos dos pasos en su VM, **compartiendo pantalla** en una
 videollamada para que todo el equipo vea el resultado.
 
@@ -854,7 +860,7 @@ videollamada para que todo el equipo vea el resultado.
 
 Como son **4** departamentos, el prefijo de las subredes es **`/26`** (la misma tabla
 de la Evidencia 4: 2 subredes → `/25`, 4 → `/26`, 8 → `/27`). Escriban el comando con
-el red de **su** equipo (de la tabla) en lugar de `192.168.103.0`:
+la red de **su** equipo (de la tabla) en lugar de `192.168.103.0`:
 
 ```bash
 ipcalc -b 192.168.103.0/24 /26
@@ -970,7 +976,7 @@ manpages, resolute]. https://manpages.ubuntu.com/manpages/resolute/man8/ufw.8.ht
 F5. (s.f.). *Module ngx_http_index_module* [nginx documentation].
 https://nginx.org/en/docs/http/ngx_http_index_module.html
 
-Filezilla Project. (s.f.). *FileZilla: The free FTP solution*.
+FileZilla Project. (s.f.). *FileZilla: The free FTP solution*.
 https://filezilla-project.org
 
 Free Software Foundation. (s.f.-a). *GNU Coreutils: chown invocation*.

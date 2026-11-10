@@ -73,9 +73,7 @@ se sienta frente a él: se conecta **por la red**, desde su propia computadora, 
 ```
 
 Los tres están dentro del mismo servidor, al mismo tiempo, y cada uno trabaja en su
-propia **sesión**, con su propio usuario. Es exactamente lo que vamos a hacer en el
-laboratorio: tus compañeros se van a poder conectar al servidor del profesor, cada uno
-con su cuenta.
+propia **sesión**, con su propio usuario.
 
 ## 4. ¿Qué es una cuenta de usuario?
 
@@ -139,7 +137,9 @@ cuenta, no el de todo el servidor.
 Todas las cuentas, de personas y de programas, están anotadas en un archivo de texto:
 `/etc/passwd` (Canonical, s.f.). Cada cuenta ocupa una línea, y sus datos están
 separados por dos puntos (`:`). Así se vería la línea de una cuenta llamada `ana`. No
-hace falta entender todos los datos; fíjate solo en estos cuatro (Kerrisk, s.f.):
+hace falta entender todos los datos; fíjate solo en estos cuatro (Kerrisk, s.f.). En el
+dibujo hay espacios alrededor de cada `:` solo para que se lea mejor; en el archivo real
+van pegados: `ana:x:1000:1000:Ana:/home/ana:/bin/bash`.
 
 ```
 ana : x : 1000 : 1000 : Ana : /home/ana : /bin/bash
@@ -152,11 +152,16 @@ ana : x : 1000 : 1000 : Ana : /home/ana : /bin/bash
 
 - Las cuentas de **personas** tienen UID de 1000 en adelante y, al final, `/bin/bash`:
   al iniciar sesión se abre una terminal.
-- Las cuentas de **programas** tienen UID menor a 1000 y, al final, `nologin`: **nadie
+- Las cuentas de **programas** normalmente tienen UID menor a 1000 (hay excepciones,
+  como `nobody`, con el 65534) y, al final, `nologin`: **nadie
   puede iniciar sesión con ellas**. Existen solo para que los programas trabajen.
 
-**La contraseña no está en este archivo** (por eso aparece solo una `x`). Se guarda
-cifrada en otro archivo que solo el administrador puede leer.
+**La contraseña no está en este archivo** (por eso aparece solo una `x`). Tampoco se
+guarda tal cual en ningún lado: se guarda como un **hash**, un resumen que se calcula a
+partir de la contraseña y del que no se puede regresar a la contraseña original. Al
+iniciar sesión, el sistema calcula el hash de lo que escribiste y lo compara con el
+guardado (Ubuntu, s.f.). Ese hash vive en otro archivo que solo el administrador puede
+leer.
 
 ## 7. Grupos: usuarios que comparten permisos
 
@@ -267,3 +272,6 @@ https://documentation.ubuntu.com/server/how-to/security/user-management/
 
 Kerrisk, M. (s.f.). *passwd(5): Linux manual page*. The Linux man-pages project.
 https://man7.org/linux/man-pages/man5/passwd.5.html
+
+Ubuntu. (s.f.). *crypt(5): Storage format for hashed passphrases and available hashing
+methods* [Ubuntu manpage]. https://manpages.ubuntu.com/manpages/resolute/en/man5/crypt.5.html

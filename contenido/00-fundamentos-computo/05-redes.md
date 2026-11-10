@@ -47,7 +47,7 @@ información**. Dos computadoras conectadas por un cable ya son una red — el r
 |---|---|---|
 | **Host** | Cualquier equipo que participa en la red | Computadora, celular, impresora, servidor |
 | **Medio** | Por dónde viaja la información | Cable Ethernet, Wi-Fi, fibra óptica |
-| **Switch** | Conecta varios hosts **dentro de una misma red local** | El regulador de tránsito de tu oficina |
+| **Switch** | Conecta varios hosts **dentro de una misma red local** | Las calles internas de tu fraccionamiento |
 | **Router** | Conecta **una red con otra red distinta** | La caseta de salida de tu colonia hacia la carretera |
 
 ---
@@ -77,8 +77,8 @@ Dentro del fraccionamiento, para que el cartero interno entregue una carta de la
 la casa 7, solo necesita saber **el número de casa dentro del fraccionamiento**. No le
 importa la ciudad ni el código postal — esa dirección corta *solo tiene sentido adentro*.
 Esa es la **dirección MAC**: un identificador físico, único de fábrica, que el switch usa
-para saber a qué cable/puerto está conectado cada dispositivo. Nunca sale del
-fraccionamiento.
+para saber a qué cable/puerto está conectado cada dispositivo (Tanenbaum & Wetherall,
+2012). Nunca sale del fraccionamiento.
 
 Para que algo salga del fraccionamiento hacia otra colonia, ya no basta el número de casa
 — hace falta una dirección completa que tenga sentido **para cualquiera afuera**: calle,
@@ -88,7 +88,7 @@ paquete.
 
 | | Switch | Router |
 |---|---|---|
-| Dirección que lee | **MAC** (física, de fábrica, solo válida dentro de la LAN) | **IP** (lógica, válida globalmente) |
+| Dirección que lee | **MAC** (física, de fábrica, solo válida dentro de la LAN) | **IP** (lógica; las públicas son válidas en todo Internet, las privadas solo dentro de su red) |
 | Pregunta que responde | "¿A qué cable/puerto está conectado este dispositivo?" | "¿Hacia qué red debo mandar esto para que llegue a su destino?" |
 
 ### Diferencia 2 — Qué tan lejos llega un "grito"
@@ -111,7 +111,8 @@ Dentro del fraccionamiento, los números de casa (`192.168.1.10`, `192.168.1.11`
 ningún problema, porque nadie de afuera necesita usarlos directamente. El router, en la
 caseta, mantiene una libreta donde anota "la casa 10 mandó esta carta" y la reetiqueta con
 **la dirección pública** del fraccionamiento completo antes de sacarla a la carretera. Esto
-se llama **NAT** (Network Address Translation) — lo vas a volver a ver en la Etapa 3.
+se llama **NAT** (Network Address Translation) (Srisuresh & Egevang, 2001) — lo vas a
+volver a ver en la Etapa 3.
 
 Por eso tu laptop, tu celular y la impresora de tu casa pueden compartir una sola conexión
 a Internet (una sola dirección IP pública) aunque cada uno tenga su propia IP privada
@@ -155,7 +156,7 @@ Tu "router" de casa (una sola caja física)
 ## Clasificación de redes por alcance geográfico
 
 Ya viste esta clasificación el semestre pasado; aquí la completa con **PAN**, la que suele
-faltar:
+faltar (Stallings, 2004):
 
 | Sigla | Nombre | Alcance | Ejemplo |
 |---|---|---|---|
@@ -176,8 +177,8 @@ significa atravesar decenas de routers de distintos proveedores.
 
 ```
   Cliente                          Servidor
-    │  ── "quiero ver la página web.lab.local" ──>  │
-    │  <──────── "aquí está el contenido" ────────  │
+    │  ── "quiero ver la página www.example.com" ──>  │
+    │  <───────── "aquí está el contenido" ─────────  │
 ```
 
 DNS, DHCP, web, FTP, correo — todos son ese mismo patrón con distinto contenido. En la
@@ -196,8 +197,8 @@ encendido.
 | Si un equipo se apaga | Solo afecta si es el servidor | Cualquiera puede afectar, pero el resto sigue funcionando |
 | Ejemplo | Un sitio web, tu correo | Compartir una carpeta directo entre dos laptops sin servidor de por medio |
 
-Casi todo lo que vamos a construir en el curso (DNS, DHCP, web) es cliente-servidor —
-pero vale la pena saber que no es la única arquitectura que existe.
+Casi todos los servicios de este curso (DNS, DHCP, web, FTP, correo) son cliente-servidor
+— pero vale la pena saber que no es la única arquitectura que existe.
 
 ---
 
@@ -212,7 +213,10 @@ ipconfig /all
 **En Mac (Terminal):**
 ```
 ifconfig
+netstat -nr | grep default
 ```
+En Mac, `ifconfig` muestra tu IP y tu MAC, pero **no** la puerta de enlace; esa sale en
+la línea `default` del segundo comando (también sirve `route -n get default`).
 
 Busca en la salida:
 1. Tu propia **dirección IP** (algo como `192.168.1.XX`).
@@ -221,23 +225,29 @@ Busca en la salida:
 3. Tu **dirección MAC** (`Physical Address` / `ether`) — el número de casa que tu switch
    usa para identificarte dentro de la LAN.
 
-Ahora corre esto para ver a otros dispositivos de tu misma red local (tu switch los
-conoce por MAC):
+Ahora corre esto para ver otros dispositivos de tu misma red local con los que tu
+computadora ha hablado hace poco:
 ```
 arp -a
 ```
-Vas a ver una lista de IPs con su MAC correspondiente — son los demás dispositivos que tu
-switch ha visto en tu red, sin necesidad de salir nunca por el router.
+Vas a ver una lista de IPs con su MAC correspondiente. Esa lista es la **caché ARP de tu
+propia computadora**, no del switch: ARP (Address Resolution Protocol) es el protocolo con
+el que tu computadora pregunta a toda la LAN "¿quién tiene la IP 192.168.1.1? Dime tu MAC"
+y guarda la respuesta un rato para no preguntar cada vez (Plummer, 1982). El switch lleva
+su propia tabla, distinta: qué MAC está conectada en qué puerto, **sin IPs**, y esa no la
+puedes ver desde tu laptop.
 
 > ### ✅ Autocheck del ejercicio
 > **Pregunta:** ¿por qué `arp -a` solo muestra dispositivos de tu propia red local, y
 > nunca aparece ahí, por ejemplo, la MAC del servidor de Google?
 > **Respuesta:**
 >
-> Porque la tabla ARP solo relaciona IP con MAC **dentro de la misma LAN** — es
-> justamente el trabajo del switch, y las direcciones MAC nunca salen de la red local
-> (repaso de la sección "A fondo: switch vs. router"). El servidor de Google está en otra
-> red, identificado por IP; tu router jamás necesita conocer su MAC.
+> Porque tu computadora solo necesita la MAC de los equipos a los que entrega algo
+> **directamente**, y esos solo pueden estar en tu misma LAN — incluido tu router, por eso
+> su IP sí aparece en la lista. Las direcciones MAC nunca salen de la red local (repaso de
+> la sección "A fondo: switch vs. router"). Para llegar al servidor de Google, tu laptop le
+> entrega el paquete a la MAC de tu router, y de ahí en adelante se viaja por IP: ni tu
+> laptop ni tu router necesitan conocer la MAC de ese servidor.
 
 ## Autocheck — Sesión 5
 

@@ -51,14 +51,6 @@ propia — pero sigue estando físicamente dentro de la casa original.
 El programa que crea y corre VMs se llama **hipervisor**. Usaremos **VirtualBox**
 (gratuito, Windows/Mac/Linux). Alternativa equivalente: VMware Workstation Player.
 
-### VM vs Contenedor (adelanto)
-
-| | Máquina Virtual | Contenedor (Docker) |
-|---|---|---|
-| ¿Qué simula? | Una computadora completa con su propio SO | Solo un programa aislado, comparte el SO anfitrión |
-| Peso | Pesada (GB), arranca en minutos | Ligero (MB), arranca en segundos |
-| Cuándo se usa en el curso | Instalar un SO real de principio a fin (Etapa 3) | Servicios de red rápido (Etapas 1, 2, 4) |
-
 > ### ✅ Autocheck rápido
 > **Pregunta:** borraste tu VM por error (o la rompiste a propósito practicando). ¿Qué le
 > pasa a tu computadora real?
@@ -77,9 +69,13 @@ saberlo con tiempo:
 
 - Tu propia laptop, con permisos de administrador para instalar software (no una
   computadora de la escuela restringida).
-- Al menos **10 GB libres de disco** (la VM y el ISO de Ubuntu ocupan espacio real).
+- Unos **35 GB libres de disco**: el disco virtual de la VM puede crecer hasta 25 GB, y el
+  ISO de Ubuntu ocupa varios GB más.
+- Al menos **8 GB de RAM** en tu laptop, para poder darle 4 GB a la VM. Canonical pide
+  6 GB de RAM y 25 GB de disco para Ubuntu Desktop (Canonical Ltd., s.f.); en una VM de
+  práctica funciona con 4 GB, solo que más lento.
 - Conexión a Internet razonable para descargar VirtualBox (~150 MB) y Ubuntu Desktop
-  (~5 GB) — mejor hacerlo con anticipación, no el mismo día de la sesión.
+  (varios GB) — mejor hacerlo con anticipación, no el mismo día de la sesión.
 - La **virtualización debe estar habilitada en el BIOS** de tu laptop (Intel VT-x / AMD-V).
   En la mayoría de las laptops modernas ya viene activada por defecto; si VirtualBox se
   queja de esto al crear la VM, es lo primero que hay que revisar.
@@ -100,18 +96,29 @@ saberlo con tiempo:
 
 **Paso 3 — Crear la VM (el "hardware" vacío)**
 
+Los nombres de los campos son los del asistente de VirtualBox 7 (Oracle Corporation,
+s.f.):
+
 1. VirtualBox → **Nueva**.
-2. Nombre: `mi-primera-vm` (VirtualBox detecta Linux/Ubuntu por el nombre).
-3. RAM: 2048 MB mínimo. Nunca asignes más de la mitad de tu RAM real.
-4. Disco: "Crear un disco duro virtual ahora", tipo VDI, dinámico, 20 GB — un archivo en tu
-   disco real que solo ocupa espacio conforme lo uses.
-5. **Crear**. Ya existe la VM, vacía — una laptop nueva sin sistema operativo.
+2. **VM Name**: `ubuntu-desktop`. Si el nombre incluye "ubuntu", VirtualBox ya propone el
+   tipo correcto.
+3. **ISO Image**: elige el `.iso` que descargaste. Al elegirlo, VirtualBox detecta
+   **Linux / Ubuntu**; si no lo detecta, elige el tipo y la versión a mano.
+4. Deja **desmarcada** la casilla **Proceed with Unattended Installation** (instalación
+   desatendida): si queda marcada, VirtualBox instala Ubuntu solo, sin enseñarte las
+   pantallas del instalador, que es justo lo que quieres ver.
+5. Memoria: **4096 MB** y 2 CPUs. Nunca asignes más de la mitad de tu RAM real.
+6. Disco: crear un disco duro virtual nuevo, tipo VDI, reservado dinámicamente, **25 GB**
+   — un archivo en tu disco real que solo ocupa espacio conforme lo uses.
+7. **Terminar**. Ya existe la VM, vacía — una laptop nueva sin sistema operativo, con el
+   ISO puesto en su lector de CD virtual.
 
-**Paso 4 — Conectar el ISO e iniciar**
+**Paso 4 — Iniciar desde el ISO**
 
-1. VM → **Configuración → Almacenamiento** → controlador IDE/SATA → disco vacío → elige el
-   `.iso` de Ubuntu.
-2. **Iniciar** — arranca desde el ISO, igual que una computadora física desde un CD.
+1. Selecciona la VM → **Iniciar** — arranca desde el ISO, igual que una computadora física
+   desde un CD.
+2. Si olvidaste elegir el ISO en el asistente: VM → **Configuración → Almacenamiento** →
+   unidad óptica vacía → elige el `.iso` de Ubuntu, y vuelve a iniciar.
 
 **Paso 5 — Instalar el sistema operativo**
 
@@ -139,20 +146,19 @@ VM → **Configuración → Red** en VirtualBox, ahí eliges el modo:
 
 | Modo | ¿Qué hace tu VM? | Analogía (Sesión 5) |
 |---|---|---|
-| **NAT** (por defecto) | Comparte la IP de tu laptop real; el resto de tu red **no puede verla** ni conectarse a ella directamente | La VM vive en un cuarto extra de tu casa, con acceso a la calle pero sin dirección propia — el cartero solo conoce la dirección de tu casa |
+| **NAT** (por defecto) | Tiene una IP interna (típicamente `10.0.2.15`) y sale a la red con la IP de tu laptop real; el resto de tu red **no puede verla** ni conectarse a ella directamente | La VM vive en un cuarto extra de tu casa, con acceso a la calle pero sin dirección propia — el cartero solo conoce la dirección de tu casa |
 | **Bridged (puente)** | La VM obtiene su **propia IP** dentro de tu misma red local, como si fuera otra laptop física conectada al mismo switch | La VM es una casa más en tu mismo fraccionamiento, con su propio número de casa |
 | **Host-only** | La VM solo puede hablar con tu laptop real, **sin salida a Internet** | Un intercomunicador que solo conecta dos cuartos de la misma casa, sin puerta a la calle |
 
-Para este curso, el modo por defecto (**NAT**) es suficiente para navegar y descargar
-paquetes desde tu VM. Más adelante, cuando simules servidores que otros dispositivos de
-tu red deban poder alcanzar, vas a necesitar **Bridged** — ahí es donde tu VM
-literalmente se vuelve "otra casa" visible en tu red local, con su propia IP asignada por
-tu router o DHCP.
+El modo por defecto (**NAT**) es suficiente para navegar y descargar paquetes desde tu
+VM. En la Etapa 3, para conectarte por SSH a tu servidor desde tu laptop y abrir su
+página web, cambias el adaptador a **Bridged** — ahí es donde tu VM literalmente se vuelve
+"otra casa" visible en tu red local, con su propia IP asignada por el DHCP de tu router.
 
 > ### ✅ Autocheck rápido
-> **Pregunta:** tienes tu VM en modo **NAT** y corres `ipconfig`/`ifconfig` dentro de
-> ella. La IP que ves, ¿es la misma que verías si corrieras el comando en tu laptop real
-> directamente?
+> **Pregunta:** tienes tu VM en modo **NAT** y corres `ip a` dentro de ella (es el
+> comando de Linux para ver tus IPs, el equivalente de `ipconfig`). La IP que ves, ¿es la
+> misma que verías si corrieras el comando en tu laptop real directamente?
 > **Respuesta:**
 >
 > No. En modo NAT, VirtualBox le da a la VM una IP privada propia dentro de una red
@@ -170,6 +176,9 @@ riesgoso), VirtualBox te deja tomar una **snapshot** (foto del estado exacto de 
 ese momento): VM → clic derecho → **Tomar instantánea**. Si algo sale mal, **Restaurar**
 regresa la VM exactamente a como estaba, sin tener que reinstalar Ubuntu desde cero.
 
+**Toma las instantáneas solo con la VM apagada.** Tomar una mientras la VM está arrancando
+o trabajando puede trabar VirtualBox y dejar la VM dañada — justo lo que querías evitar.
+
 ---
 
 ## Parte C — Fundamentos de Linux (≈10 min)
@@ -184,17 +193,16 @@ dentro), y por eso es el sistema operativo más usado del mundo en **servidores*
 
 - La mayoría de los servidores del mundo (web, correo, bases de datos) corren Linux, no
   Windows ni macOS.
-- Las herramientas de red más usadas (`ping`, `traceroute`, `tcpdump`, routers, firewalls)
-  nacieron y viven en el mundo Linux.
-- Docker corre contenedores basados en Linux por dentro, aunque tu computadora sea Windows
-  o Mac.
+- Herramientas de red clásicas como `ping` y `traceroute` nacieron en sistemas Unix (BSD),
+  la familia de la que Linux heredó su forma de trabajar, y hoy vienen en cualquier
+  distribución de Linux.
 
 ### ¿Qué es una distribución (distro)?
 
 Linux por sí solo es solo el "motor" (kernel). Una **distribución** es ese motor empacado
 con programas, instalador y forma de administrarlo, listo para usar. Ejemplos: **Ubuntu**
-(la que acabas de instalar), Debian, CentOS, Fedora — todas comparten los mismos comandos
-básicos.
+(la que acabas de instalar), Debian, Fedora, Rocky Linux, AlmaLinux — todas comparten los
+mismos comandos básicos.
 
 ### La terminal: cómo se controla Linux
 
@@ -208,7 +216,7 @@ administrar un servidor remoto sin pantalla ni mouse conectados.
 
 > ### ✅ Autocheck rápido
 > **Pregunta:** ¿por qué no basta con memorizar comandos de Ubuntu si mañana te toca
-> administrar un servidor con Debian o CentOS?
+> administrar un servidor con Debian o Rocky Linux?
 > **Respuesta:**
 >
 > Porque todas las distribuciones comparten el mismo kernel Linux y los mismos comandos
