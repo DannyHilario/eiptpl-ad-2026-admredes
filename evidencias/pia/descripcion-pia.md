@@ -22,15 +22,25 @@ explicarlo** en su reporte técnico.
 
 ## Cómo se organiza el equipo
 
-- **Cada integrante** hace las partes 1 a 4 **en su propia VM**, con su propio
-  usuario. Así todos meten las manos y todos tienen sus capturas.
-- **El equipo junto** hace la parte 5 (el plan de direccionamiento) y el **reporte
-  técnico**, que es lo único que se entrega.
+**Todo el PIA lo hace un solo integrante, en su VM.** No tienen que ponerse de
+acuerdo para trabajar a la misma hora ni conectarse a la VM de nadie: el integrante
+que tenga su VM funcionando hace las partes 1 a 5 y arma el reporte.
 
-Cada uno trabaja desde su casa, en su VM. **No intenten conectarse a la VM de un
-compañero**: cada VM vive dentro de la red de su casa y no se puede ver desde afuera
-(lo viste en la lectura de NAT). Para trabajar juntos, usen una videollamada y
-compartan pantalla.
+Ese integrante **no** trabaja con su usuario personal, sino con un usuario del equipo
+llamado **`equipo-N`**, donde **N** es su **número de equipo** (el que les asignó su
+profesor). *Ejemplo:* el equipo 3 usa **`equipo-3`**. Ese usuario aparece en el
+prompt de todas las capturas y en el pie de página del sitio: es lo que identifica el
+trabajo de su equipo.
+
+**¿Ya habían avanzado?** No repitan nada. Si uno o varios de ustedes ya hicieron
+pasos con su usuario personal (por ejemplo `dghm-1410751`), **eso sigue valiendo**:
+el integrante que va más adelantado termina en su VM con ese mismo usuario, se salta
+la sección 4 de *Antes de empezar* y, donde diga `equipo-3`, escribe su usuario. Solo
+se entrega **un** juego de capturas, el suyo. El usuario `equipo-N` es para los equipos
+que todavía no empiezan.
+
+⚠️ **En los comandos aparece `equipo-3` y `Tacos El Servidor`. Cada vez que los
+vean, escriban el usuario de SU equipo y el nombre de SU empresa.**
 
 ---
 
@@ -38,52 +48,116 @@ compartan pantalla.
 
 ### 1. Inventen su empresa
 
-Pónganse de acuerdo en un **nombre** para su empresa ficticia (por ejemplo, *Tacos El
-Servidor* o *Refaccionaria Bits*). El mismo nombre lo usan todos los integrantes.
+Elijan un **nombre** para su empresa ficticia (por ejemplo, *Tacos El Servidor* o
+*Refaccionaria Bits*).
 
-### 2. Su número de equipo
-
-Su **número de equipo** es el que les asignó su profesor. Ese número es su **N**, y
-lo van a usar en la parte 5.
-
-### 3. Su usuario
-
-Cada integrante trabaja con **su propio usuario**, el mismo que usó en la Evidencia 4:
-
-- el de la **Evidencia 3** (`iniciales-matricula`, por ejemplo `dghm-1410751`), o
-- el que creó **con sus iniciales** (por ejemplo `dghm`). Si no tiene ninguno, que lo
-  cree siguiendo la sección *"Crear tu usuario con tus iniciales"* de la
-  [Evidencia 4](../etapa-4/descripcion-evidencia-4.md), y regrese aquí.
-
-Para entrar con él, después de iniciar sesión con su usuario de siempre:
-
-```bash
-su - dghm-1410751
-```
-
-(con **su** usuario). Les pide la contraseña de ese usuario y el prompt cambia a su
-nombre. **Ese usuario debe verse en el prompt de todas las capturas**: es lo que
-distingue el trabajo de cada integrante.
-
-⚠️ **En los comandos aparece `dghm-1410751` y `Tacos El Servidor`. Cada vez que los
-vean, escriban SU usuario y el nombre de SU empresa.**
-
-### 4. Cómo tomar las capturas
+### 2. Cómo tomar las capturas
 
 Igual que en la Evidencia 3: **Ver → Tomar captura de pantalla...** en la ventana de
 la VM, o **Windows + Shift + S** y seleccionan solo la ventana. Si trabajan por SSH,
 capturen la ventana de Git Bash. Antes de cada captura pueden escribir `clear` para
 limpiar la pantalla.
 
-### 5. Enciendan su servidor
+### 3. Enciendan su servidor
 
-Enciendan su VM (debe seguir en modo **puente**, como la dejaron en la Etapa 3) e
-inicien sesión con su usuario de siempre y cámbiense a su usuario de la práctica
-(sección 3).
+Enciendan la VM (debe seguir en modo **puente**, como la dejaron en la Etapa 3) e
+inicien sesión con su **usuario de siempre**, el que crearon al instalar Ubuntu, que ya
+es administrador.
+
+### 4. Creen el usuario del equipo
+
+*(Si ya habían avanzado con un usuario personal, sáltense esta sección.)*
+
+Estos pasos se hacen **una sola vez**, con su usuario de siempre. Son los mismos de la
+sección *"Crear tu usuario con tus iniciales"* de la
+[Evidencia 4](../etapa-4/descripcion-evidencia-4.md), pero con el nombre `equipo-N`.
+En Ubuntu un nombre de usuario debe empezar con una letra y puede llevar guiones y
+números, así que `equipo-3` es válido (Debian, s.f.).
+
+#### Crear el usuario
+
+```bash
+sudo adduser equipo-3
+```
+
+```
+sudo   adduser   equipo-3
+└┬─┘   └──┬──┘   └──┬───┘
+ │        │         el nombre de la cuenta nueva: equipo- y su número de equipo
+ │        "add user": agregar un usuario
+ como administrador
+```
+
+**Qué deben hacer:** el comando hace varias preguntas, unas en inglés y otras en
+español:
+
+1. Si `sudo` les pide su contraseña de siempre, escríbanla.
+2. **`New password:`** la contraseña del usuario del equipo. **No aparece nada**
+   mientras escriben. Elijan una que recuerden: la van a usar para subir el sitio.
+   **No la escriban en el reporte.**
+3. **`Retype new password:`** escríbanla otra vez.
+4. **`Nombre completo []:`** escriban `Equipo 3` (con su número).
+5. **`Número de habitación []:`**, **`Teléfono del trabajo []:`**, **`Teléfono de
+   casa []:`** y **`Otro []:`**: presionen **Enter** en cada uno.
+6. **`Is the information correct? [Y/n]`:** presionen **Enter**.
+
+Si dice que el usuario **ya existe**, es que ya lo habían creado antes: sigan con el
+paso siguiente.
+
+#### Convertirlo en administrador
+
+```bash
+sudo usermod -aG sudo equipo-3
+```
+
+```
+sudo   usermod   -aG    sudo   equipo-3
+       └──┬──┘   └┬─┘   └┬─┘   └──┬───┘
+          │       │      │        a qué usuario
+          │       │      al grupo "sudo": los administradores
+          │       -a: agregar, -G: a un grupo
+          "user modify": modificar un usuario
+```
+
+Lo necesita porque en la práctica van a usar `sudo` con este usuario: en Ubuntu, solo
+los usuarios del grupo `sudo` pueden usarlo (Canonical Ltd., s.f.-c).
+
+**Qué deben ver:** nada. Si regresa el prompt sin mensajes, salió bien.
+
+#### Comprobar sus grupos
+
+```bash
+groups equipo-3
+```
+
+**Qué deben ver:** una línea como `equipo-3 : equipo-3 sudo users`. Lo importante es
+que en la lista aparezca **`sudo`**.
+
+#### Entrar con el usuario del equipo
+
+```bash
+su - equipo-3
+```
+
+```
+su   -   equipo-3
+└┬┘  │   └──┬───┘
+ │   │      el usuario del equipo
+ │   empieza una sesión nueva, en la carpeta de ese usuario
+ "substitute user": cambiar de usuario
+```
+
+Escriban la contraseña **del usuario del equipo** (no aparece nada mientras la
+escriben).
+
+**Qué deben ver:** el prompt cambia y ahora empieza con `equipo-3@...:~$`. **Todo el
+resto de la práctica se hace con este usuario**, y debe verse en el prompt de las
+capturas. Si cierran la VM y regresan otro día, vuelvan a entrar con su usuario de
+siempre y repitan solo este `su -`.
 
 ---
 
-## Parte 1: Preparar el servidor (cada integrante)
+## Parte 1: Preparar el servidor
 
 ### Paso 1: Descargar la lista de actualizaciones
 
@@ -122,7 +196,7 @@ empiecen con `Error:`.
 
 ---
 
-## Parte 2: El sitio web de la empresa (cada integrante)
+## Parte 2: El sitio web de la empresa
 
 En la Evidencia 3 su página era una sola línea. Ahora van a montar un **sitio web
 completo**, como el de una empresa de verdad, y lo van a hacer como se hace en la
@@ -153,14 +227,14 @@ En esta parte van a ir y venir entre **dos ventanas**. Al inicio de cada paso di
 cuál se escribe:
 
 - **[Computadora]**: Git Bash en su computadora (en Mac, Terminal).
-- **[Servidor]**: su VM, en la ventana de VirtualBox o por SSH, con su usuario de la
-  práctica.
+- **[Servidor]**: su VM, en la ventana de VirtualBox o por SSH, con el usuario del
+  equipo (`equipo-3`).
 
 ### Paso 3: Pedirle el sitio a la IA
 
 Este paso **no es un comando**. Abran una IA generativa en el navegador (ChatGPT,
 Gemini, Copilot, Claude o la que tengan) y **copien este texto tal cual**, cambiando
-solo el **nombre de la empresa** y **su usuario**:
+solo el **nombre de la empresa** y el **usuario del equipo**:
 
 ```
 Genera una página web para una empresa ficticia llamada "Tacos El Servidor".
@@ -171,7 +245,7 @@ Reglas:
   descargue de internet: la palabra "http" no debe aparecer en el código.
 - En español, con tres secciones: Inicio, Nuestros servicios y Contacto.
 - Los datos de contacto deben ser inventados y decir que son de ejemplo.
-- En el pie de página escribe exactamente: Sitio administrado por dghm-1410751
+- En el pie de página escribe exactamente: Sitio administrado por equipo-3
 Responde solo con el código, sin explicaciones.
 ```
 
@@ -187,7 +261,7 @@ Responde solo con el código, sin explicaciones.
 | Sin JavaScript | Un sitio **estático** solo muestra contenido; no ejecuta programas |
 | Nada de internet | El sitio no depende de servidores ajenos: todo lo que se ve sale de **su** servidor |
 | Datos inventados | **Nunca** pongan datos personales reales (teléfono, dirección, fotos) en un sitio de práctica |
-| Su usuario en el pie | Es la prueba de que el sitio es **suyo** |
+| El usuario del equipo en el pie | Es la prueba de que el sitio es **de su equipo** |
 
 ⚠️ **La IA puede equivocarse o no hacer caso.** Un administrador **revisa** lo que va a
 publicar, no lo sube a ciegas. En el paso 7 lo van a comprobar.
@@ -303,17 +377,17 @@ a resolver de la misma forma: el permiso lo da el **servidor**, no el programa.
 ### Paso 9: [Computadora] Conectarse por SFTP
 
 Regresen a **Git Bash** (deben seguir en la carpeta `~/sitio-empresa`) y escriban, con
-**su usuario** y **la dirección del paso 8**:
+el **usuario del equipo** y **la dirección del paso 8**:
 
 ```bash
-sftp dghm-1410751@192.168.1.50
+sftp equipo-3@192.168.1.50
 ```
 
 ```
-sftp   dghm-1410751 @ 192.168.1.50
-└┬─┘   └─────┬────┘   └─────┬────┘
- │           │              la dirección de su servidor
- │           con qué usuario entrar
+sftp   equipo-3 @ 192.168.1.50
+└┬─┘   └──┬───┘   └─────┬────┘
+ │        │             la dirección de su servidor
+ │        con qué usuario entrar: el del equipo
  el cliente de SFTP: transferir archivos de forma cifrada
 ```
 
@@ -322,7 +396,7 @@ sftp   dghm-1410751 @ 192.168.1.50
 1. Si pregunta `Are you sure you want to continue connecting (yes/no/[fingerprint])?`,
    escriban **`yes`** y Enter. Es la huella del servidor, igual que en la lectura de
    SSH; solo lo pregunta la primera vez.
-2. Escriban la **contraseña de su usuario**. No aparece nada mientras escriben.
+2. Escriban la **contraseña del usuario del equipo**. No aparece nada mientras escriben.
 
 **Qué deben ver:** el prompt cambia a **`sftp>`**. Ahora todo lo que escriban son
 órdenes para el servidor de archivos, no comandos de Git Bash.
@@ -347,8 +421,8 @@ put   index.html   /var/www/html/index.html
 denegado"). **Así tiene que salir**: es a propósito, y el siguiente paso explica por
 qué.
 
-**¿Por qué falla?** SFTP entra al servidor **con su usuario**, y la carpeta
-`/var/www/html` **le pertenece a `root`**. Su usuario puede **leerla**, pero no
+**¿Por qué falla?** SFTP entra al servidor **con el usuario del equipo**, y la carpeta
+`/var/www/html` **le pertenece a `root`**. Ese usuario puede **leerla**, pero no
 **escribir** en ella. Con `sudo` esto no pasa, porque `sudo` trabaja como `root`; pero
 SFTP no tiene `sudo`. Es el mismo sistema de permisos de la lectura
 [Archivos, carpetas y permisos](../../contenido/etapa-3-sistema-operativo-red/02-primeros-pasos/05-archivos-y-permisos.md).
@@ -393,17 +467,17 @@ drwxr-xr-x 2 root root 4096 nov  6 18:00 /var/www/html
 Ahí está la causa del error: el dueño es `root`, y para todos los demás, incluido su
 usuario, la carpeta es de **solo lectura**.
 
-### Paso 13: [Servidor] Hacer a su usuario dueño de la carpeta
+### Paso 13: [Servidor] Hacer al usuario del equipo dueño de la carpeta
 
 ```bash
-sudo chown -R dghm-1410751 /var/www/html
+sudo chown -R equipo-3 /var/www/html
 ```
 
 ```
-sudo   chown   -R   dghm-1410751   /var/www/html
-       └─┬─┘   └┬┘  └─────┬────┘   └─────┬─────┘
-         │      │         │              qué carpeta
-         │      │         el nuevo dueño: su usuario
+sudo   chown   -R   equipo-3   /var/www/html
+       └─┬─┘   └┬┘  └──┬───┘   └─────┬─────┘
+         │      │      │             qué carpeta
+         │      │      el nuevo dueño: el usuario del equipo
          │      la carpeta y todo lo que tiene adentro (recursivo)
          "change owner": cambiar el dueño
 ```
@@ -427,8 +501,8 @@ grupo para el equipo web. Para esta práctica, un solo dueño es suficiente y m�
 ls -ld /var/www/html
 ```
 
-**Qué deben ver:** la misma línea del paso 12, pero ahora con **su usuario** como
-dueño: `drwxr-xr-x 2 dghm-1410751 root ...`. Los permisos (`rwxr-xr-x`) son los
+**Qué deben ver:** la misma línea del paso 12, pero ahora con **el usuario del equipo** como
+dueño: `drwxr-xr-x 2 equipo-3 root ...`. Los permisos (`rwxr-xr-x`) son los
 mismos; lo que cambió es **quién** tiene el `rwx`.
 
 ### Paso 15: [Computadora] Conectarse otra vez por SFTP
@@ -436,7 +510,7 @@ mismos; lo que cambió es **quién** tiene el `rwx`.
 En **Git Bash**, en la carpeta `~/sitio-empresa`:
 
 ```bash
-sftp dghm-1410751@192.168.1.50
+sftp equipo-3@192.168.1.50
 ```
 
 Igual que en el paso 9: escriban su contraseña y esperen el prompt `sftp>`.
@@ -472,7 +546,7 @@ ls -l /var/www/html
 ```
 
 **Qué deben ver:** la lista de archivos de la carpeta. Debe aparecer **`index.html`**,
-con su usuario como dueño y los permisos **`-rw-r--r--`**: ustedes pueden leerlo y
+con el usuario del equipo como dueño y los permisos **`-rw-r--r--`**: ustedes pueden leerlo y
 escribirlo, y **los demás (nginx) pueden leerlo**. También aparece
 `index.nginx-debian.html`, la página de bienvenida que trae nginx; no estorba, porque
 nginx busca primero `index.html` (F5, s.f.).
@@ -480,13 +554,13 @@ nginx busca primero `index.html` (F5, s.f.).
 ### Paso 18: [Servidor] Visitar el sitio desde el propio servidor
 
 ```bash
-curl -s 127.0.0.1 | grep "dghm-1410751"
+curl -s 127.0.0.1 | grep "equipo-3"
 ```
 
 ```
-curl -s 127.0.0.1   |   grep "dghm-1410751"
-└───────┬───────┘   │   └────────┬────────┘
-        │           │            de toda la página, muestra solo la línea con su usuario
+curl -s 127.0.0.1   |   grep "equipo-3"
+└───────┬───────┘   │   └──────┬──────┘
+        │           │          de toda la página, solo la línea con el usuario
         │           la tubería: pasa la página al siguiente comando
         pide la página a nginx (-s: sin mensajes de avance)
 ```
@@ -496,12 +570,12 @@ curl -s 127.0.0.1   |   grep "dghm-1410751"
 código, `grep` deja solo la línea que importa.
 
 **Qué deben ver:** la línea del pie de página, con `Sitio administrado por
-dghm-1410751` (puede venir sola o entre etiquetas de HTML, según cómo la escribió la
+equipo-3` (puede venir sola o entre etiquetas de HTML, según cómo la escribió la
 IA). Eso confirma que nginx está entregando **el
 sitio que subieron**.
 
-> 📸 **Captura 2:** el prompt con su usuario, la salida de `ls -l /var/www/html` y la
-> de `curl` con la línea de su usuario.
+> 📸 **Captura 2:** el prompt con el usuario del equipo, la salida de
+> `ls -l /var/www/html` y la de `curl` con la línea del pie de página.
 
 ### Paso 19: Visitar el sitio desde su computadora
 
@@ -515,7 +589,7 @@ http://192.168.1.50
 Escriban `http://` al inicio: sin él, algunos navegadores intentan `https://` y no
 abre.
 
-**Qué deben ver:** **el sitio de su empresa**, con colores, secciones y su usuario en
+**Qué deben ver:** **el sitio de su empresa**, con colores, secciones y el usuario del equipo en
 el pie de página. Si ven la página anterior, recarguen con **Ctrl + F5**.
 
 > 📸 **Captura 3:** el navegador mostrando el sitio, con la dirección visible en la
@@ -528,8 +602,8 @@ el pie de página. Si ven la página anterior, recarguen con **Ctrl + F5**.
 | `grep -c` no da `0` (paso 7) | La IA puso algo que se descarga de internet | Pídanle que lo quite y repitan los pasos 6 y 7 |
 | `ls` en Git Bash muestra `index.html.txt` | El Bloc de notas agregó `.txt` | `mv index.html.txt index.html` |
 | `sftp` dice `Connection timed out` o `Connection refused` | No llega al servidor | Revisen la dirección del paso 8, que la VM esté en modo **puente** y que el servicio SSH esté activo (Evidencia 3, paso 14) |
-| `sftp` pide la contraseña una y otra vez y termina en `Permission denied` | Usuario o contraseña equivocados | Revisen que escribieron su usuario de la práctica, sin espacios |
-| `put` sigue diciendo `Permission denied` en el paso 16 | La carpeta sigue siendo de `root` | Repitan el paso 13 revisando su usuario, y compruébenlo con el paso 14 |
+| `sftp` pide la contraseña una y otra vez y termina en `Permission denied` | Usuario o contraseña equivocados | Revisen que escribieron el usuario del equipo (`equipo-N`), sin espacios |
+| `put` sigue diciendo `Permission denied` en el paso 16 | La carpeta sigue siendo de `root` | Repitan el paso 13 revisando el usuario del equipo, y compruébenlo con el paso 14 |
 | El navegador muestra **Welcome to nginx!** | El archivo no llegó a `/var/www/html` | Revisen que en el `put` escribieron el destino completo: `/var/www/html/index.html` |
 | El navegador muestra **403 Forbidden** | nginx no tiene permiso de **leer** el archivo | En el servidor: `sudo chmod 644 /var/www/html/index.html` y recarguen |
 | El sitio se ve sin colores ni diseño | La IA puso el CSS en otro archivo | Pídanle que ponga el CSS dentro de `<style>`, en el mismo archivo |
@@ -566,8 +640,8 @@ En FileZilla, en la barra de **Conexión rápida** de arriba, llenen:
 | Campo | Qué escribir |
 |---|---|
 | Servidor | `sftp://192.168.1.50`, con la dirección del **paso 8** |
-| Nombre de usuario | Su usuario de la práctica, por ejemplo `dghm-1410751` |
-| Contraseña | La contraseña de ese usuario |
+| Nombre de usuario | El usuario del equipo, por ejemplo `equipo-3` |
+| Contraseña | La contraseña del usuario del equipo |
 | Puerto | `22` |
 
 El `sftp://` al inicio es importante: le dice a FileZilla que use **SFTP**. Sin él,
@@ -596,7 +670,7 @@ que la conexión se estableció.
 **Qué deben ver:** **un error**. En el registro de mensajes aparece una línea en rojo
 con las palabras **permission denied** ("permiso denegado"), y abajo, en la lista de
 **transferencias fallidas**, queda `index.html`. Es el mismo error del paso 10, por la
-misma razón: el programa entra con **su usuario**, y la carpeta es de `root`. Lean la
+misma razón: el programa entra con **el usuario del equipo**, y la carpeta es de `root`. Lean la
 explicación del paso 10.
 
 #### B5. Dar el permiso en el servidor
@@ -613,7 +687,7 @@ página de bienvenida de nginx o el intento anterior.
 **Qué deben ver:** ahora la transferencia termina bien, sin línea roja, e `index.html`
 aparece en el panel derecho, dentro de `/var/www/html`.
 
-> 📸 **Captura 1 (opción B):** la ventana del programa con su usuario y la dirección
+> 📸 **Captura 1 (opción B):** la ventana del programa con el usuario del equipo y la dirección
 > del servidor visibles arriba, e `index.html` dentro de `/var/www/html` en el panel
 > derecho.
 
@@ -621,7 +695,7 @@ Listo: continúen en el **paso 17**.
 
 ---
 
-## Parte 3: El firewall (cada integrante)
+## Parte 3: El firewall
 
 Un **firewall** ("cortafuegos") es un programa que decide **qué conexiones dejar
 entrar** al servidor y cuáles bloquear. Es la primera medida de la **administración de
@@ -706,7 +780,7 @@ información.
   con sus dos reglas: `22/tcp` y `80/tcp` con `ALLOW IN` y `Anywhere` ("desde
   cualquier lugar"). Cada una aparece dos veces: una normal y otra con `(v6)`.
 
-> 📸 **Captura 4:** el prompt con su usuario y la salida de `sudo ufw status verbose`.
+> 📸 **Captura 4:** el prompt con el usuario del equipo y la salida de `sudo ufw status verbose`.
 
 ### Paso 24: Comprobar que el firewall bloquea
 
@@ -745,7 +819,7 @@ servidor: **solo queda abierto lo que el administrador decide**.
 
 ---
 
-## Parte 4: Registro y respaldo (cada integrante)
+## Parte 4: Registro y respaldo
 
 ### Paso 26: Ver quién visitó el sitio
 
@@ -780,7 +854,7 @@ desde `127.0.0.1`.
 Esto es la **administración de fallas y de contabilidad** de la Etapa 1: el registro
 dice quién usó el servicio, cuándo y si funcionó.
 
-> 📸 **Captura 6:** el prompt con su usuario y la salida del registro, donde se vea al
+> 📸 **Captura 6:** el prompt con el usuario del equipo y la salida del registro, donde se vea al
 > menos una visita desde `127.0.0.1` y una desde su computadora.
 
 ### Paso 27: Sacar un respaldo del sitio
@@ -821,15 +895,15 @@ respaldo sin sacarlo.
 **Qué deben ver:** la carpeta `html/` y sus archivos, entre ellos `html/index.html`,
 la página de la empresa. También puede aparecer la página de bienvenida que trae nginx.
 
-> 📸 **Captura 7:** el prompt con su usuario y la salida de `tar -tzf`, donde se vea
+> 📸 **Captura 7:** el prompt con el usuario del equipo y la salida de `tar -tzf`, donde se vea
 > `html/index.html`.
 
-**Cada integrante terminó su parte.** Su servidor ahora tiene el sitio de la empresa,
+**El servidor está listo.** Ahora tiene el sitio de la empresa,
 un firewall que solo deja entrar SSH y web, un registro de visitas y un respaldo.
 
 ---
 
-## Parte 5: El plan de direccionamiento (en equipo)
+## Parte 5: El plan de direccionamiento
 
 La empresa va a crecer y necesita su propia red interna, con **4 departamentos**:
 **Ventas**, **Administración**, **Almacén** y **Wi-Fi de clientes**. Su red es:
@@ -843,7 +917,6 @@ La empresa va a crecer y necesita su propia red interna, con **4 departamentos**
 | 5 | `192.168.105.0/24` |
 | 6 | `192.168.106.0/24` |
 | 7 | `192.168.107.0/24` |
-| 8 | `192.168.108.0/24` |
 
 Busquen su número de equipo en la tabla: esa es su red.
 
@@ -852,9 +925,8 @@ empresa, como el plano de un edificio antes de construirlo. No le cambien la dir
 a su VM ni a su computadora: ipcalc es solo una calculadora y no modifica nada. Su VM
 sigue con la dirección que le da el router de su casa (la del paso 8).
 
-Igual que en la Evidencia 4, **no hay que calcular nada**: lo hace ipcalc (Jodies, s.f.). Un solo
-integrante hace estos dos pasos en su VM, **compartiendo pantalla** en una
-videollamada para que todo el equipo vea el resultado.
+Igual que en la Evidencia 4, **no hay que calcular nada**: lo hace ipcalc (Jodies,
+s.f.). Estos dos pasos se hacen en la misma VM, con el usuario del equipo.
 
 ### Paso 29: Dividir la red de la empresa en 4 subredes
 
@@ -878,8 +950,8 @@ ipcalc   -b   192.168.103.0/24   /26
 numerados `1.` a `4.` (uno por subred, cada uno con `Network`, `HostMin`, `HostMax` y
 `Broadcast`) y al final **`Subnets: 4`**.
 
-> 📸 **Captura 8 (una por equipo):** el prompt del integrante y la salida completa,
-> hasta `Subnets: 4`.
+> 📸 **Captura 8:** el prompt con el usuario del equipo y la salida completa, hasta
+> `Subnets: 4`.
 
 ### Paso 30: Llenar la tabla de la empresa
 
@@ -900,7 +972,7 @@ el `HostMin`:
 
 ---
 
-## Reporte técnico (en equipo)
+## Reporte técnico
 
 Un **reporte técnico** explica qué se hizo, cómo y qué resultó, de forma que otra
 persona pueda repetirlo. Armen **un solo documento** con estas secciones, en este
@@ -916,13 +988,13 @@ orden:
    palabras** (no copien las explicaciones de este documento). Incluyan el texto que le
    pidieron a la IA en el paso 3 y expliquen **por qué falló el primer `put`** y cómo lo
    resolvieron.
-5. **Evidencias:** las capturas 1 a 7 **de cada integrante**, con su título (*Captura
-   4 de dghm-1410751: reglas del firewall*), y la captura 8 del equipo.
+5. **Evidencias:** las capturas 1 a 8, cada una con su título (*Captura 4: reglas
+   del firewall*).
 6. **Plan de direccionamiento:** la tabla del paso 30.
 7. **Problemas y soluciones:** qué falló durante la práctica y cómo lo resolvieron. Si
    nada falló, cuenten qué paso les costó más trabajo entender.
-8. **Conclusión de cada integrante:** un párrafo por persona sobre su experiencia con
-   la instalación y el manejo del servidor.
+8. **Conclusión:** un párrafo sobre su experiencia con la instalación y el manejo del
+   servidor.
 
 Guárdenlo como PDF: **Archivo → Guardar como → PDF**.
 
@@ -937,7 +1009,8 @@ reporte es lo único que se entrega y se califica.
 
 ## Forma de entrega
 
-- **Modalidad:** En equipo. Un solo integrante sube el PDF en nombre del equipo.
+- **Modalidad:** En equipo. Un solo integrante hace la práctica y sube el PDF en
+  nombre del equipo.
 - **Plataforma:** NEXUS. Carguen su archivo en la evidencia *"Proyecto de Servidor"*, en la sección *Producto Integrador de Aprendizaje*.
 - Nombren su archivo de la siguiente forma:
 
@@ -956,9 +1029,9 @@ PIA_EquipoN.pdf
 
 | CRITERIO / NIVEL DE DOMINIO | Evidencia Completa | Evidencia Suficiente | Evidencia Débil | Sin evidencia |
 |---|---|---|---|---|
-| **Conocimientos** — Analiza las características del proceso de administración de redes. Conoce el alcance de cada una de las áreas administrativas | **3** — El reporte tiene las 8 secciones. En *Servicios configurados* y *Procedimiento* explica **con sus palabras** para qué sirve cada herramienta (SFTP, permisos con `chown`, nginx, ufw, access.log, tar, ipcalc) y la relaciona con su área administrativa (seguridad, fallas, contabilidad, configuración) y con su etapa. Está la conclusión de cada integrante. | **2** — Explica solo algunas herramientas, o no las relaciona con su área, o falta la conclusión de un integrante. | **1** — Copia las explicaciones de este documento, o no relaciona ninguna herramienta con las áreas administrativas, o faltan varias secciones. | **0** — Sin evidencia. |
-| **Habilidades** — Identifica problemas y sugiere soluciones con software para cada área de estudio. Opera el servidor con rapidez y claridad | **5** — Cada integrante tiene sus capturas 1 a 7 con su usuario en el prompt: subió su sitio por SFTP, el sitio generado abre desde el servidor y desde la computadora, el firewall muestra sus reglas y bloquea el puerto 80, el registro muestra visitas y el respaldo contiene `html/index.html`. Está la captura 8 y la tabla del plan de direccionamiento coincide con ella. La sección *Problemas y soluciones* describe qué falló y cómo se resolvió. | **4** — Falta una parte: las capturas de un integrante, una prueba que no funcionó, la tabla no coincide con la captura 8, o no se describen los problemas. | **3** — Faltan dos o más partes, o no se ve que el servidor funcione. | **0** — Sin evidencia. |
-| **Actitudes / Valores** — Respeta las decisiones del docente y opiniones de sus compañeros | **2** — Trabajaron de manera colaborativa (están las capturas y la conclusión de todos los integrantes) y entregaron en tiempo y forma: en la fecha y hora indicadas, en un solo PDF con el nombre `PIA_EquipoN.pdf`. | **1** — Trabajaron de manera colaborativa y entregaron un día posterior a la fecha establecida. | **0** — Trabajó solo una parte del equipo, o entregaron dos días después de la fecha establecida. | **0** — Sin evidencia. |
+| **Conocimientos** — Analiza las características del proceso de administración de redes. Conoce el alcance de cada una de las áreas administrativas | **3** — El reporte tiene las 8 secciones. En *Servicios configurados* y *Procedimiento* explica **con sus palabras** para qué sirve cada herramienta (SFTP, permisos con `chown`, nginx, ufw, access.log, tar, ipcalc) y la relaciona con su área administrativa (seguridad, fallas, contabilidad, configuración) y con su etapa. Está la conclusión. | **2** — Explica solo algunas herramientas, o no las relaciona con su área, o falta la conclusión. | **1** — Copia las explicaciones de este documento, o no relaciona ninguna herramienta con las áreas administrativas, o faltan varias secciones. | **0** — Sin evidencia. |
+| **Habilidades** — Identifica problemas y sugiere soluciones con software para cada área de estudio. Opera el servidor con rapidez y claridad | **5** — Están las capturas 1 a 7 con el mismo usuario en el prompt (`equipo-N`, o el usuario personal con el que ya habían avanzado): subieron el sitio por SFTP, el sitio generado abre desde el servidor y desde la computadora, el firewall muestra sus reglas y bloquea el puerto 80, el registro muestra visitas y el respaldo contiene `html/index.html`. Está la captura 8 y la tabla del plan de direccionamiento coincide con ella. La sección *Problemas y soluciones* describe qué falló y cómo se resolvió. | **4** — Falta una parte: una captura, una prueba que no funcionó, la tabla no coincide con la captura 8, o no se describen los problemas. | **3** — Faltan dos o más partes, o no se ve que el servidor funcione. | **0** — Sin evidencia. |
+| **Actitudes / Valores** — Respeta las decisiones del docente y opiniones de sus compañeros | **2** — Siguieron las indicaciones del docente (la portada tiene a todos los integrantes) y entregaron en tiempo y forma: en la fecha y hora indicadas, en un solo PDF con el nombre `PIA_EquipoN.pdf`. | **1** — Siguieron las indicaciones y entregaron un día posterior a la fecha establecida. | **0** — Entregaron dos días después de la fecha establecida. | **0** — Sin evidencia. |
 
 *Se respetan los criterios, niveles y puntos de la rúbrica de NEXUS; solo se adaptó el
 contenido de cada nivel a esta práctica.*
@@ -972,6 +1045,12 @@ https://documentation.ubuntu.com/server/how-to/security/firewalls/
 
 Canonical Ltd. (s.f.-b). *ufw(8): program for managing a netfilter firewall* [Ubuntu
 manpages, resolute]. https://manpages.ubuntu.com/manpages/resolute/man8/ufw.8.html
+
+Canonical Ltd. (s.f.-c). *User management* [Ubuntu Server documentation].
+https://documentation.ubuntu.com/server/how-to/security/user-management/
+
+Debian. (s.f.). *adduser.conf(5): configuration file for adduser*. Debian Manpages.
+https://manpages.debian.org/testing/adduser/adduser.conf.5.en.html
 
 F5. (s.f.). *Module ngx_http_index_module* [nginx documentation].
 https://nginx.org/en/docs/http/ngx_http_index_module.html
